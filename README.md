@@ -12,4 +12,4 @@
 - Setup
 - Simulation
 
-![와이어프레임](C:\Users\multicampus\Desktop\공통프로젝트\s03p12d204\image\와이어프레임.jpg)
+![와이어프레임](.\image\와이어프레임.jpg)
