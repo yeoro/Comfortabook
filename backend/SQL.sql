@@ -37,3 +37,8 @@ CREATE TABLE gucci.book (
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci;
+
+insert into book( isbn, title, author, publisher, publish_date, category ) 
+		  values( '1', 'test1', 'test1', 'test1', '2020-01-01', 'test1' );
+insert into book( isbn, title, author, publisher, publish_date, category ) 
+		  values( '2', 'test2', 'test2', 'test2', '2020-02-02', 'test2' );
