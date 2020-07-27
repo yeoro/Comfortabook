@@ -12,4 +12,4 @@
 - Setup
 - Simulation
 
-![wireframe](C:\Users\multicampus\Desktop\공통프로젝트\s03p12d204\image\wireframe.jpg)
+![wireframe](./image/wireframe.jpg))
