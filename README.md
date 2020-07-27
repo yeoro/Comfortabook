@@ -12,4 +12,4 @@
 - Setup
 - Simulation
 
-![와이어프레임](.\image\와이어프레임.jpg)
+![wireframe](.\image\wireframe.jpg)
