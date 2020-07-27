@@ -1,4 +1,4 @@
--- create user table
+﻿-- create user table
 CREATE TABLE gucci.`user` (
 	`no` INT auto_increment NOT NULL,
 	id varchar(20) NOT NULL,
@@ -18,3 +18,22 @@ insert into user(id, password, name , email , phone_number , is_manager )
 	
 insert into user(id, password, name , email , phone_number , is_manager ) 
 	values ('test','test','테스트','test@naver.com','010-1234-5678', false);
+
+-- create book table
+CREATE TABLE gucci.book (
+   isbn varchar(30) NOT NULL,
+   title varchar(100) NOT NULL,
+   author varchar(20) NOT NULL,
+   publisher varchar(20) NOT NULL,
+   publish_date DATETIME NOT NULL,
+   category varchar(10) NOT NULL,
+   price INT NULL,
+   description varchar(100) NULL,
+   image varchar(30) null,
+   user_no INT,
+   CONSTRAINT user_fk FOREIGN KEY (user_no) REFERENCES user(no),
+   CONSTRAINT book_pk PRIMARY KEY (isbn)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci;
