@@ -17,12 +17,21 @@ const useStyles = makeStyles({
     height: "100%",
   },
   formGrid: {
-    height: "70%",
-    marginTop: "20%",
+    height: "100%",
     padding: "0 20%",
   },
   Button: {
     background: "#ba68c8",
+    color: "white",
+    fontWeight: 200,
+  },
+  emailcheck: {
+    background: "#ba68c8",
+    color: "white",
+    fontWeight: 200,
+  },
+  inputfield: {
+    border: "#ba68c8 !important",
   },
 });
 
@@ -43,11 +52,26 @@ function Loginpage() {
             justify="space-evenly"
             direction="column"
           >
-            <TextField label="id"></TextField>
+            <Grid container justify="flex-start" spacing={1}>
+              <Grid item>
+                <TextField
+                  className={classes.inputfield}
+                  label="email"
+                ></TextField>
+              </Grid>
+              <Grid item>
+                <Button size="small" className={classes.emailcheck}>
+                  중복확인
+                </Button>
+              </Grid>
+            </Grid>
             <TextField label="password" type="password"></TextField>
+            <TextField label="password confirm" type="password"></TextField>
+            <TextField label="이름"></TextField>
+            <TextField label="전화번호"></TextField>
             <div>
               <Button className={classes.Button} variant="contained">
-                LOGIN
+                회원가입
               </Button>
             </div>
           </Grid>
