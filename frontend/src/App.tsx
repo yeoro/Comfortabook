@@ -1,11 +1,13 @@
 import * as React from "react";
 import "./App.css";
-import Loginpage from "./components/loginpage";
+// import Login from "./components/login";
+import Signin from "./components/signin";
 
 function App() {
   return (
     <div className="App">
-      <Loginpage />
+      {/* <Login /> */}
+      <Signin />
     </div>
   );
 }

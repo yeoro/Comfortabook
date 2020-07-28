@@ -13,3 +13,8 @@
 - Simulation
 
 ![wireframe](./image/wireframe.jpg))
+
+### ERD 모델
+
+![erd](./image/ERD..jpg)
+
