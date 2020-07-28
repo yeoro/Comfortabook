@@ -1,15 +1,11 @@
 import * as React from "react";
-import Grid from "@material-ui/core/Grid";
-
 import "./App.css";
+import Loginpage from "./components/loginpage";
 
 function App() {
   return (
     <div className="App">
-      <Grid container>
-        <Grid>hi</Grid>
-        <Grid>React</Grid>
-      </Grid>
+      <Loginpage />
     </div>
   );
 }
