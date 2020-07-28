@@ -1,5 +1,5 @@
--- create user table
-CREATE TABLE gucci.`user` (
+﻿-- create member table
+CREATE TABLE gucci.member (
 	`no` INT auto_increment NOT NULL,
 	id varchar(20) NOT NULL,
 	password varchar(20) NOT NULL,
@@ -13,8 +13,10 @@ ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci;
 
-insert into user(id, password, name , email , phone_number , is_manager ) 
+insert into `member` (id, password, name , email , phone_number , is_manager ) 
 	values ('admin','admin','관리자','admin@naver.com','010-1234-5678', true);
 	
-insert into user(id, password, name , email , phone_number , is_manager ) 
+insert into `member` (id, password, name , email , phone_number , is_manager ) 
 	values ('test','test','테스트','test@naver.com','010-1234-5678', false);
+	
+select * from member;
