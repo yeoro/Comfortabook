@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import SearchBooks from "./components/SearchBooks";
 import "./Search.css";
@@ -80,34 +79,11 @@ function BasicTextFields() {
   );
 }
 
-class Search extends React.Component {
-  const CLIENT_ID = '9sHgbLGnxPzpdoZNrWJT'
-  cosnt SECRET_KEY = 'Drxdqz8aCA'
-  state = {
-    books: [],
-  };
-
-  getBooks = async () => {
-    const {
-      data: {
-        data: { books },
-      },
-    } = await axios.get('https://openapi.naver.com/v1/search/book.json', {
-      params: {
-        query:
-      }
-    });
-  };
-
-  render() {}
-}
-
 function Search() {
   return (
     <div className="search">
       <SimpleSelect />
       <BasicTextFields />
-      <BookList />
     </div>
   );
 }
