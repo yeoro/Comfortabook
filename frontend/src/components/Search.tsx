@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
 
+import SearchBooks from "./components/SearchBooks";
+import "./Search.css";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -10,7 +13,12 @@ import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import { pink } from "@material-ui/core/colors";
 
-import "./Search.css";
+class Search extends React.Component {
+  state = {
+    isLoading: true,
+    books: [],
+  };
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,17 +40,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function SimpleSelect() {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
+  const [selector, setSelector] = React.useState("");
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
+    setSelector(event.target.value as string);
   };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
         <Select
-          value={age}
+          value={selector}
           onChange={handleChange}
           displayEmpty
           className={classes.selectEmpty}
