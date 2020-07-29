@@ -1,15 +1,16 @@
 import * as React from "react";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import "./signin.css";
 
 const useStyles = makeStyles({
   root: {
-    background: "#f3e5f5",
+    background: "linear-gradient(45deg, #ce93d8 30%, #f8bbd0 90%)",
     height: "100vh",
     width: "100vw",
   },
   login: {
-    background: "#e1bee7",
+    backgroundColor: "rgba(238, 238, 238, 0.2)",
     height: "50vh",
     width: "60vw",
   },
@@ -29,9 +30,6 @@ const useStyles = makeStyles({
     background: "#ba68c8",
     color: "white",
     fontWeight: 200,
-  },
-  inputfield: {
-    border: "#ba68c8 !important",
   },
 });
 
@@ -54,10 +52,7 @@ function Loginpage() {
           >
             <Grid container justify="flex-start" spacing={1}>
               <Grid item>
-                <TextField
-                  className={classes.inputfield}
-                  label="email"
-                ></TextField>
+                <TextField label="email"></TextField>
               </Grid>
               <Grid item>
                 <Button size="small" className={classes.emailcheck}>
