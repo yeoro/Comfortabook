@@ -16,5 +16,5 @@
 
 ### ERD 모델
 
-![erd](./image/ERD..jpg)
+![erd](./image/ERD.jpg)
 
