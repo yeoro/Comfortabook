@@ -1,11 +1,11 @@
 import * as React from "react";
 import "./App.css";
-import Loginpage from "./components/loginpage";
+import Search from "./components/Search";
 
 function App() {
   return (
     <div className="App">
-      <Loginpage />
+      <Search />
     </div>
   );
 }
