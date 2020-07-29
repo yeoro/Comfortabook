@@ -5,3 +5,7 @@
 .MuiInput-underline:after {
   border-bottom: 2px solid #ba68c8 !important;
 }
+
+.loginBtn {
+  text-align: center;
+}
