@@ -1,0 +1,26 @@
+.search {
+  background-color: #fce4ec;
+  height: 100vh;
+}
+
+.makeStyles-root-6 {
+  display: inline;
+}
+
+.makeStyles-root-6 > * {
+  width: 320px !important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #f06292 !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid #f06292 !important;
+}
+
+.MuiSvgIcon-root {
+  width: 30px !important;
+  height: 40px !important;
+  margin: 18px 0px 0px 0px !important;
+}
