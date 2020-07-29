@@ -454,6 +454,7 @@ N - 반대 방향으로 탐색 계속
 
 :. = - 현재 위치의 행번호
 
+
 -명령모드-
 
 명령모드에서 벗어나 편집모드로 진입하기
@@ -606,3 +607,159 @@ sudo mysql -u raspi_user -p
 ```
 
 이렇게 친 후에 DB 테이블 생성을 아래와 같이 하면된다.
+
+```
+MariaDB [raspi_db]> create table collect_data(
+	-> sensor varchar(30) not null,
+	-> collect_time datetime not null,
+	-> value1 float,
+	-> value2 float);
+```
+
+
+
+DB를 확인해 보자.
+
+```
+MariaDB [raspi_db]> show tables;
+----------------------
+Tables_in_raspi_db
+----------------------
+collect_data
+----------------------
+```
+
+
+
+##### 외부 접속 허용
+
+maria DB의 초기설정의 외부 IP에서 접속하지 못하고 localhost에서만 접속하도록 셋팅되어 있는데, 바꿔주자. /etc/mysql/mariadb.conf.d 디렉토리의 50-server.cnf 파일의 `bind-address = 127.0.0.1을 주석처리하자.
+
+
+
+재가동하면 외부접속 허용이 완료된다.
+
+```
+sudo service mysql restart
+```
+
+
+
+##### 파이썬으로 DB 접속하기
+
+DB 생성을 완료 했으면 파이썬에서 DB에 접속하여 데이터를 쓰고 읽어오게 하는 소스를 생성해얗나다.
+
+파이썬에서 mariaDB를 연결하기 위해서는 DB연동 패키지를 설치하자.(pymysql)
+
+```
+sudo pip3 install pymysql
+```
+
+
+
+DB에 접속하는 코드 작성(한 행씩 처리하게 가능하다)
+
+
+
+온도습도센서라고 하면 40비트의 데이터로 온도 습도를 전송해준다.
+
+제어할 라이브러리는 git clone으로 받아온다. 그리고 설치.
+
+GND에 관련 핀에서 연결해서 데이터를 수집
+
+
+
+데이터에 맞게 필요한 파이썬 라이브러리를 찾아서 사용.
+
+
+
+---
+
+### 음성 센서 관련
+
+https://blog.naver.com/PostView.nhn?blogId=simjk98&logNo=221230495875&parentCategoryNo=&categoryNo=7&viewDate=&isShowPopularPosts=false&from=postView
+
+
+
+
+
+음성 센서 확정 짓기.(MQTT 통신이냐 다른 통신이냐/ 디지털 센서이냐 아날로그 센서이냐.)
+
+pdf파일 저장
+
+
+
+---
+
+### 전자서적 저장
+
+전자서적(document)을 XML로 바꿔서 라즈베리파이에  저장
+
+
+
+![document by XML](C:\Users\multicampus\Desktop\pjt_2\s03p12d204\embedded\picture\document by XML.PNG)
+
+
+
+##### document -> XML
+
+Q. 전자서적.
+
+
+
+##### XML -> 라즈베리파이
+
+
+
+음성인식
+
+https://diy-project.tistory.com/88
+
+```
+pcm.!default {
+  type asym
+  capture.pcm "mic"
+  playback.pcm "speaker"
+}
+pcm.mic {
+  type plug
+  slave {
+    pcm "hw:<card number>,<device number>"
+  }
+}
+pcm.speaker {
+  type plug
+  slave {
+    pcm "hw:<card number>,<device number>"
+  }
+}
+```
+
+위와 같은것이 나노 에디터이다. 저장을 하기 위해서는 
+
+https://swiftcoding.org/cli-and-nano-editor
+
+컨트롤+O
+
+
+
+---
+
+우리가 가지고 있는 마이크 spec
+
+https://learn.adafruit.com/usb-audio-cards-with-a-raspberry-pi/recording-audio
+
+
+
+Google Assistant 확장_Python
+
+https://developers.google.com/assistant/sdk/guides/service/python/embed/setup
+
+
+
+##### Google Assistant gRPC API 용 Python 샘플
+
+https://github.com/googlesamples/assistant-sdk-python/tree/master/google-assistant-sdk/googlesamples/assistant/grpc
+
+
+
