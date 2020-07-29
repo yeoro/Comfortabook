@@ -1,91 +1,60 @@
 import React from "react";
+import axios from "axios";
 
-import SearchBooks from "./components/SearchBooks";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import SearchSelector from "../components/SearchSelector";
+import SearchBar from "../components/SearchBar";
 import "./Search.css";
-
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
-import SearchIcon from "@material-ui/icons/Search";
-import { pink } from "@material-ui/core/colors";
 
 class Search extends React.Component {
   state = {
-    isLoading: true,
+    isLodaing: true,
     books: [],
-  };
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        width: "25ch",
-      },
-    },
-  })
-);
-
-function SimpleSelect() {
-  const classes = useStyles();
-  const [selector, setSelector] = React.useState("");
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelector(event.target.value as string);
+    searchWord: "해리포터",
   };
 
-  return (
-    <div>
-      <FormControl className={classes.formControl}>
-        <Select
-          value={selector}
-          onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          <MenuItem value="">
-            <em>전체</em>
-          </MenuItem>
-          <MenuItem value={10}>제목</MenuItem>
-          <MenuItem value={20}>저자</MenuItem>
-          <MenuItem value={30}>출판사</MenuItem>
-        </Select>
-        <FormHelperText>검색 조건</FormHelperText>
-      </FormControl>
-    </div>
-  );
-}
+  getBooks = async () => {
+    const CLIENT_ID = "4mBvXnxwSutbeO3Kl1Qw";
+    const CLIENT_SECRET = "uiyoNOTqZt";
+    const searchWord = this.state.searchWord;
+    try {
+      if (searchWord === "") {
+        this.setState({ books: [], isLoading: false });
+      } else {
+        const {
+          data: { items },
+        } = await axios.get("https://openapi.naver.com/v1/search/book.json", {
+          params: {
+            query: searchWord,
+            display: 20,
+            start: 1,
+            sort: "sim",
+          },
+          headers: {
+            "X-Naver-Client-Id": CLIENT_ID,
+            "X-Naver-Client-Secret": CLIENT_SECRET,
+          },
+        });
 
-function BasicTextFields() {
-  const classes = useStyles();
+        this.setState({ books: items, isLoading: false });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="standard-basic" label="검색어를 입력하세요." />
-      <SearchIcon style={{ color: pink[300] }} />
-    </form>
-  );
-}
-
-function Search() {
-  return (
-    <div className="search">
-      <SimpleSelect />
-      <BasicTextFields />
-    </div>
-  );
+  render() {
+    this.getBooks();
+    return (
+      <div className="search">
+        <Header />
+        <SearchSelector />
+        <SearchBar />
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default Search;
