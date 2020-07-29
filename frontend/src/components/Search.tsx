@@ -1,11 +1,12 @@
 import React from "react";
+import axios from "axios";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
-
 import SearchIcon from "@material-ui/icons/Search";
 import { pink } from "@material-ui/core/colors";
 
@@ -71,11 +72,34 @@ function BasicTextFields() {
   );
 }
 
+class Search extends React.Component {
+  const CLIENT_ID = '9sHgbLGnxPzpdoZNrWJT'
+  cosnt SECRET_KEY = 'Drxdqz8aCA'
+  state = {
+    books: [],
+  };
+
+  getBooks = async () => {
+    const {
+      data: {
+        data: { books },
+      },
+    } = await axios.get('https://openapi.naver.com/v1/search/book.json', {
+      params: {
+        query:
+      }
+    });
+  };
+
+  render() {}
+}
+
 function Search() {
   return (
     <div className="search">
       <SimpleSelect />
       <BasicTextFields />
+      <BookList />
     </div>
   );
 }
