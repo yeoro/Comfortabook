@@ -1,13 +1,13 @@
 import * as React from "react";
 import "./App.css";
-// import Login from "./components/login";
-import Signin from "./components/signin";
+import Login from "./components/login";
+// import Signin from "./components/signin";
 
 function App() {
   return (
     <div className="App">
-      {/* <Login /> */}
-      <Signin />
+      <Login />
+      {/* <Signin /> */}
     </div>
   );
 }
