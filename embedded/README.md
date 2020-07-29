@@ -7,8 +7,6 @@
 
 ---
 
-
-
 ### 사운드 센서 제어하기
 
 - python 설치
@@ -28,17 +26,11 @@
   print("soundlevel", soundlevel)
   sleep(1)
 
-
-
-
-
 ---
 
+-구글 어시스턴트
 
-
-
-
-# 라즈베리파이_DB+웹연결
+# 라즈베리파이\_DB+웹연결
 
 라즈베리파이4 설치가이드
 
@@ -46,13 +38,9 @@
 https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up
 ```
 
-
-
 #### MariaDB
 
 > MySQL의 발전된 형태다.
-
-
 
 apt-get을 최신 상태로 업데이트하기
 
@@ -61,15 +49,11 @@ $ sudo apt-get update
 $ sudo apt-get upgrade
 ```
 
-
-
 Mariadb 설치
 
 ```
 $ sudo apt-get install mariadb-server
 ```
-
-
 
 제거하기
 
@@ -77,15 +61,11 @@ $ sudo apt-get install mariadb-server
 $ sudo apt-get remove mariadb-server
 ```
 
-
-
 설치확인
 
 ```
 $ dpkg -l | grep mariadb
 ```
-
-
 
 구동확인
 
@@ -96,8 +76,6 @@ $ ps -ef | grep mysql
 ```
 $ systemctl status mysql
 ```
-
-
 
 MariaDB server 시작과 중지
 
@@ -125,8 +103,6 @@ $ sudo /etc/init.d/mysql status
 $ sudo /etc/init.d/mysql start
 ```
 
-
-
 서버 시작 시 MariaDB Server 자동 구동 여부 설정
 
 ```
@@ -137,23 +113,17 @@ $ sudo systemctl disable mysqld.service
 $ sudo systemctl enable mariadb.service
 ```
 
-
-
 동작중인 모든 서비스 목록 확인
 
 ```
 $ sudo systemctl list-units --type=service --state=running
 ```
 
-
-
 자동시작 서비스 목록 확인
 
 ```
 $ sudo systemctl list-files --type=service --state=enabled
 ```
-
-
 
 대소문자 구별을 하지 않도록 설정 파일 변경
 
@@ -163,21 +133,17 @@ $ sudo mysql -uroot -p
 
 치고 설정한 비밀번호로 바꾸면
 
-MariaDB [(none)]> 
-
-
+MariaDB [(none)]>
 
 ```
 MariaDB [(none)]> show variables like '%case%';
 ```
 
-
-
 위와 같은 shell이 뜬다.
 
- ```
+```
 pi@raspberrypi:~ $ sudo mysql -uroot -p
-Enter password: 
+Enter password:
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 36
 Server version: 10.3.22-MariaDB-0+deb10u1 Raspbian 10
@@ -195,13 +161,11 @@ MariaDB [(none)]> show variables like '%case%';
 +------------------------+-------+
 2 rows in set (0.005 sec)
 
-MariaDB [(none)]> 
+MariaDB [(none)]>
 
- ```
+```
 
 lower_case_table_names 의 값이 0이면 대소문자를 구별한다. 이제 1로 바꿔보자.
-
-
 
 ```
 $ sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -211,19 +175,13 @@ $ sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf
 
 lower_case_table_names=1
 
-
-
-+ 아래의 리눅스 편집 하는 것들 확인하자.
-
-
+- 아래의 리눅스 편집 하는 것들 확인하자.
 
 파일 저장 후 mariadb 재시작
 
 ```
 $ sudo systemctl restart mysqld.service
 ```
-
-
 
 적용 여부 재확인
 
@@ -239,9 +197,7 @@ MariaDB [(none)]> show variables like '%case%';
 
 ```
 
- MariaDB 나가는 법은 `quit;`
-
-
+MariaDB 나가는 법은 `quit;`
 
 ##### 외부 접속을 위한 계정 생성 및 설정 파일 변경
 
@@ -250,8 +206,6 @@ MariaDB [(none)]> show variables like '%case%';
 ```
 $ sudo mysql -uroot -p
 ```
-
-
 
 DB 사용자 확인
 
@@ -266,16 +220,12 @@ MariaDB [(none)]> select host,user from mysql.user;
 
 ```
 
-
-
 모든 IP 대역(%)에서 접속 가능한 ssafy/ssafy 계정 생성
 
 ```
 MariaDB [(none)]> create user ssafy@'%' identified by 'ssafy';
 Query OK, 0 rows affected (0.001 sec)
 ```
-
-
 
 ssafy 계정에 모든 권한 부여
 
@@ -284,19 +234,15 @@ MariaDB [(none)]> grant all privileges on *.* to ssafy@'%';
 Query OK, 0 rows affected (0.001 sec)
 ```
 
-
-
 주석처리
 
 ```
 $ sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
 
-`# bind-address = 127.0.0.1` 
+`# bind-address = 127.0.0.1`
 
 위 부분을 주석처리를 하자.
-
-
 
 파일 저장 후 mariadb 재시작
 
@@ -304,31 +250,15 @@ $ sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf
 $ sudo systemctl restart mysqld.service
 ```
 
-
-
 아래의 명령어 실행하여 MariaDB 가 모든 IP 대역을 수신하는지 여부 확인
 
 ```
 $ sudo netstat -ntl
 ```
 
+페이지 소스는 프론트서버에게만 받고, API를 호출 할 때만 백엔드 서버를 통해 데이터 베이스와 상호작용한다.
 
-
-
-
-페이지 소스는 프론트서버에게만 받고, API를 호출 할 때만 백엔드 서버를 통해 데이터 베이스와 상호작용한다. 
-
-_ Raspberry Pi 내에 아두이노와 연동된 장치를 제어하기 위한 드라이버가 존재해, 키오스크 클라이언트와 주기적으로 통신하며 정보를 주고 받는다.
-
-
-
-
-
-
-
-
-
-
+\_ Raspberry Pi 내에 아두이노와 연동된 장치를 제어하기 위한 드라이버가 존재해, 키오스크 클라이언트와 주기적으로 통신하며 정보를 주고 받는다.
 
 ---
 
@@ -340,8 +270,6 @@ sudo mysql
 
 을 입력하면 mysql로 접속하게 된다.
 
-
-
 ---
 
 기본적으로 mariadb는 내부에서만 쓸 수 있다. 따라서 설정을 통해 외부 접속이 가능하게 변경을 해야한다. 아래의 명령어는 root 계정에 권한을 주는 것이다. 즉, 모든 주소로 접속이 가능하게 하자.
@@ -351,15 +279,11 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '비밀번호';
 FLUSH PRIVILEGES;
 ```
 
-
-
 /etc/mysql/my.cnf를 nano로 열면 내용 중에 127.0.0.1 즉 내부에서만 접속이 가능하도록 세팅된 부분이 있습니다. 이걸 앞에 #를 붙여서 주석처리하거나 127.0.0.1을 0.0.0.0 으로 변경합니다. 그리고 여기서 포트 번호도 변경가능합니다. 디폴트는 3306이다.
 
 ```
 bind-addreess = 127.0.0.1
 ```
-
-
 
 아래의 명령어를 통해 방화벽 설정을 하자.
 
@@ -375,8 +299,6 @@ sudo iptables-save
 
 그렇게 하면 준비가 완료됩니다. 외부에서 접속할 때는 공유기에 들어오고 있는 기본 ip 주소:임의의 포트입니다. 예를 들면 123.456.789.012:8808 같은 형식으로 SQL 접속을 하면 되는 것을 볼 수 있습니다.
 
-
-
 ---
 
 데이터 저장
@@ -389,8 +311,6 @@ sudo iptables-save
 - [DROP TABLE](https://mariadb.com/kb/en/drop-table/) 은 존재하고 있는 테이블을 완전히 제거하기 위해서 사용한다.
 - [DESCRIBE](https://mariadb.com/kb/en/describe/) 는 테이블의 구조를 보여준다.
 
-
-
 데이터 조작
 
 - [SELECT](https://mariadb.com/kb/en/select/) 는 데이터를 읽고(혹은 조회하고) 싶을 때 사용한다.
@@ -400,15 +320,11 @@ sudo iptables-save
 - [REPLACE](https://mariadb.com/kb/en/replace/) 는 새로운 데이터를 추가하거나 존재하는 데이터를 변경(혹은 대체)하려할 때 사용한다.
 - [TRUNCATE](https://mariadb.com/kb/en/truncate-table/) 는 테이블 내 모든 데이터를 비우려(혹은 삭제하려)할 때 사용한다.
 
-
-
 트랜잭션
 
 - [START TRANSACTION](https://mariadb.com/kb/en/start-transaction/) 는 트랜잭션을 시작할 때 사용한다.
 - [COMMIT](https://mariadb.com/kb/en/commit/) 는 변경사항을 적용하고 트랜잭션을 종료한다.
 - [ROLLBACK](https://mariadb.com/kb/en/rollback/) 는 변경사항을 포기하고 트랜잭션을 종료한다.
-
-
 
 예제
 
@@ -417,7 +333,7 @@ CREATE DATABASE mydb; -- mydb 데이터베이스 생성
 USE mydb; -- 기본 데이터베이스로 mydb를 지정
 CREATE TABLE mytable ( id INT PRIMARY KEY, name VARCHAR(20) ); -- mytable 테이블 생성
 INSERT INTO mytable VALUES ( 1, 'Will' ); -- 데이터 입력
-INSERT INTO mytable VALUES ( 2, 'Marry' ); 
+INSERT INTO mytable VALUES ( 2, 'Marry' );
 INSERT INTO mytable VALUES ( 3, 'Dean' );
 SELECT id, name FROM mytable WHERE id = 1;
 UPDATE mytable SET name = 'Willy' WHERE id = 1;
@@ -427,10 +343,6 @@ SELECT id, name FROM mytable;
 DROP DATABASE mydb;
 SELECT count(1) from mytable; gives the number of records in the table
 ```
-
-
-
-
 
 ---
 
@@ -442,8 +354,6 @@ VI 문서 편집기 사용하기
 
 vi test.txt
 
-
-
 편집모드
 
 i - 커서 앞에 텍스트 삽입
@@ -452,15 +362,11 @@ a - 커서 뒤에 텍스트 삽입
 
 o - 현재 행 아래에 텍스트 삽입
 
-
-
 텍스트 교체
 
 r- 한 글자만 교체
 
 R - 커서가 있는 자리부터 여러문자 교체
-
-
 
 커서이동
 
@@ -472,8 +378,6 @@ R - 커서가 있는 자리부터 여러문자 교체
 
 오른쪽 - l
 
-
-
 신속이동
 
 w - 오른쪽으로 특수문자 혹은 한 단어의 처음으로 이동
@@ -484,27 +388,21 @@ W - 오른쪽으로 한 단어의 처음으로 이동
 
 B - 왼쪽으로 한 단어의 처음으로 이동
 
-
-
 한 행 안에서의 이동
 
 0 (숫자) - 행의 맨 처음으로 이동
 
-$ - 행의 맨 마지막으로 이동
-
-
+\$ - 행의 맨 마지막으로 이동
 
 페이지 이동
 
 G - 문서의 맨 끝 행으로 이동
 
-nG -  n번째 행으로 이동
+nG - n번째 행으로 이동
 
-C-f    한페이지 아래로 이동
+C-f 한페이지 아래로 이동
 
-C-b   한페이지 위로 이동
-
-
+C-b 한페이지 위로 이동
 
 삭제명령
 
@@ -516,17 +414,13 @@ D - 커서부터 행 끝까지 삭제
 
 x - 한 글자 삭제
 
-
-
 텍스트 복사
 
 yw - 한단어 복사
 
-y$ - 커서부터 행 끝까지 복사
+y\$ - 커서부터 행 끝까지 복사
 
-yy -  한줄 모두 복사
-
-
+yy - 한줄 모두 복사
 
 텍스트 탐색
 
@@ -542,31 +436,23 @@ N - 반대 방향으로 탐색 계속
 
 ? - 후방 탐색 계속
 
-
-
 행 번호 붙이기
 
 : set nu
-
-
 
 행 번호 없애기
 
 :set nonu
 
-
-
 특정 행 번호로 이동
 
 :1 - 1번째 행으로 이동
 
-:$ - 마지막 행으로 이동
+:\$ - 마지막 행으로 이동
 
-:$= - 현재 문서의 총 줄(행) 수
+:\$= - 현재 문서의 총 줄(행) 수
 
 :. = - 현재 위치의 행번호
-
-
 
 -명령모드-
 
@@ -586,8 +472,6 @@ O (대문자 O) : 현재 행을 한 줄 아래로 밀어내고 입력 모드로 
 
 명령모드 : **i, a, o, O** 누르면 삽입모드로 입력이 가능하다.
 
-
-
 VI 방식의 종료와 저장, 새이름으로 저장
 
 :q - 저장하기 않고 vi 종료하기
@@ -603,10 +487,6 @@ VI 방식의 종료와 저장, 새이름으로 저장
 :wq! - 일기 전용인 파일을 수정 후 강제로 저장하고 종료하기
 
 :w 새파일명 - 새이름으로 저장
-
-
-
-
 
 ---
 
@@ -641,12 +521,6 @@ chkconfig mariadb on
 /etc/init.d/mariadb stop
 /etc/init.d/mariadb stop
 
-
-
-
-
-
-
 ---
 
 ### Chromium
@@ -661,12 +535,6 @@ https://www.danpurdy.co.uk/web-development/raspberry-pi-kiosk-screen-tutorial/
 
 https://tutorials-raspberrypi.com/google-chrome-for-raspberry-pi/
 
-
-
-
-
-
-
 ```
 $ sudo apt-get install chromium-browser
 ```
@@ -677,25 +545,15 @@ $ sudo apt-get install chromium-browser
 $ sudo apt-get update
 ```
 
-
-
-
-
-### 마이크 장비 
+### 마이크 장비
 
 라즈베리파이 제로 제로W AI 음성인식 개발 2 MICs 햇
 
 https://www.techshenzhen.com/goods/goods_view.php?goodsNo=1000000899
 
-
-
 마이크 스피커 작동 확인
 
 https://m.blog.naver.com/skyshin0304/221291564090
-
-
-
-
 
 ---
 
@@ -709,23 +567,17 @@ https://blog.naver.com/PostView.nhn?blogId=simjk98&logNo=221229266764&redirect=D
 sudo apt-get install mariadb-server
 ```
 
-
-
 설치 후 정상 가동 확인
 
 ```
 ps -ef | grep mysql
 ```
 
-
-
 DB 접속
 
 ```
 sudo mysql -u root -p
 ```
-
-
 
 데이터베이스 생성
 
@@ -736,16 +588,12 @@ character set utf8 collate utf8_general_ci;
 
 유니코드사용(한글사용)을 위해 캐릭터 셋을 uft8로 지정하고 문자비교시에도 utf8을 이용하여 비교할 수 있도록 collate를 지정해 준다.
 
-
-
 사용자 생성 및 원한 설정
 
 ```
 > create user 'raspi_user'@'%'identified by '패스워드';
 > grant all privileges on raspi_db.* to 'raspi_user'@'%';
 ```
-
-
 
 raspi_user로 접속하여 raspi_db에 테이블 생성
 
