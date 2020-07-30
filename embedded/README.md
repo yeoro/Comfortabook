@@ -44,6 +44,86 @@
     https://developers.google.com/assistant/sdk/guides/service/python/extend/handle-device-commands => 홈페이지 참조.
 ```
 
+---
+
+#### Tensorflow
+
+tensorflow를 시작하려한다.
+
+\- 머신러닝과 딥러닝을 도와주는 라이브러리
+
+\- 머신러닝과 딥러닝을 도와주는 API
+
+일단 TensorFlow 홈페이지에 들어가서, 나는 라즈베리파이 위에 올릴 Tensorflow 가 필요했는데, Iot 위에 올리는 TensorFlow Lite 가이드가 있어서 눌렀다. 여기서는 여러분의 시간은 중요하기 때문에 중요 개념만 넣어보았다.
+
+https://www.tensorflow.org/lite/guide?hl=ko
+
+
+
+TensorFlow Lite 가이드
+
+TensorFlow Lite는 개발자가 휴대기기, 내장형 기기 및 IoT 기기에서 TensorFlow 모델을 실행할 수 있도록 지원하는 도구 모음입니다. 기기 내 지연 시간이 짧고 바이너리 크기가 작은 머신러닝 추론을 ��
+
+[www.tensorflow.org
+
+TensorFlow Lite는 2가지로 구성된다.
+
+
+
+### TensorFlow Lite inference
+
+inference(유추)라는 용어의 의미는 input 데이터를 예측하기 위한 절차이다. inference를 수행하려면 반드시 interpreter를 통해 작동해야한다. 
+
+
+
+##### Important concepts
+
+TensorFlow LIte inference는 다음 스텝을 따른다.
+
+1. Loading a model
+
+   수행 그래프를 포함한 `.tflite` 모델을 메모리로 로드해야한다.
+
+2. Transforming data
+
+   가공되지 않는 input 데이터와 모델에서 기대하는 input 데이터는 다르다. 예를 들면, 이미지를 모델과 호환시키려면 반드시 이미지의 크기를 바꾸던가 이미지 포맷을 해야한다.
+
+3. Running inference
+
+   이 단계에서는 TensorFlow Lite API를 사용하여 모델을 실행한다. 다음 단계에서 설명 하는 것과 같이 tensor를 할달하고 interpreter를 만드는 것들도 포함한다.
+
+4. Interpreting output
+
+   model inference로 부터 결과를 받을 때, 응용프로그램에 유용하고 의미있는 방식으로 tensor를 해석해야한다.
+
+
+
+##### 지원 platforms
+
+TensorFlow inference APIs는 대부분의 일반적인 mobile과 embedded platforms에서 사용된다. 예를 들면 안드로이드, IOS, Linux 같은 다양한 프로그램 언어에서 사용가능하다.
+
+
+
+### TensorFlow Lite converter
+
+TensorFlow Lite converter(변환기)는 TensorFlow 모델을 사용하여 TensorFlow Lite `FlatBuffer`(`.tflite`) 파일을 생성한다. The converter supports [SavedModel directories](https://www.tensorflow.org/guide/saved_model), [`tf.keras` models](https://www.tensorflow.org/guide/keras/overview), and [concrete functions](https://tensorflow.org/guide/concrete_function).
+
+- FlatBuffer는 C ++, C #, C, Go, Java, Kotlin, JavaScript, Lobster, Lua, TypeScript, PHP, Python, Rust 및 Swift를위한 효율적인 크로스 플랫폼 직렬화 라이브러리(작은 크기와 이식성에 최적화)
+
+쉽게 말하면 여기서 일반 TensorFlow파일을 변환해서 가볍게 만든다고 생각하면 된다.
+
+
+
+
+
+
+
+
+
+---
+
+
+
 ## Google assistant
 
 원하는 장치 핸들러하기
