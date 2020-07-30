@@ -14,7 +14,7 @@ export interface State {
 
 class Search extends React.Component<Props, State> {
   state = {
-    mode: "home",
+    mode: "search",
   };
   getPage() {
     if (this.state.mode === "home") {
