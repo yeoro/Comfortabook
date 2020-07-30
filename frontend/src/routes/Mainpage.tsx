@@ -2,10 +2,10 @@ import React from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import SearchBar from "../components/SearchBar";
+import Search from "../components/Search";
 import Home from "../components/Home";
 import Mypage from "../components/Mypage";
-import Booklist from "../components/BookList";
+import Library from "../components/Library";
 import "./Mainpage.css";
 
 interface Props {
@@ -17,7 +17,7 @@ interface State {
 
 type StatusTypes = "Home" | "Search" | "Library" | "Mypage";
 
-class Search extends React.Component<Props, State> {
+class Mainpage extends React.Component<Props, State> {
   state = {
     mode: this.props.modevalue,
   };
@@ -25,9 +25,9 @@ class Search extends React.Component<Props, State> {
     if (this.state.mode === "Home") {
       return <Home />;
     } else if (this.state.mode === "Search") {
-      return <SearchBar />;
+      return <Search />;
     } else if (this.state.mode === "Library") {
-      return <Booklist />;
+      return <Library />;
     } else if (this.state.mode === "Mypage") {
       return <Mypage />;
     }
@@ -39,7 +39,7 @@ class Search extends React.Component<Props, State> {
   };
   render() {
     return (
-      <div className="search">
+      <div className="mainpage">
         <Header />
         {this.getPage()}
         <Footer changePage={this.changePage} />
@@ -48,4 +48,4 @@ class Search extends React.Component<Props, State> {
   }
 }
 
-export default Search;
+export default Mainpage;

@@ -3,7 +3,7 @@ import React from "react";
 function BookList() {
   return (
     <div>
-      <h1>내 서재</h1>
+      <h1>북 리스트</h1>
     </div>
   );
 }

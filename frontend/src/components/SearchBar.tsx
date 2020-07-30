@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -10,6 +10,7 @@ import { pink } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 
 import "./SearchBar.css";
+import { EventEmitter } from "events";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,59 +41,75 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const useInput = (initialValue: string, validator: any) => {
-  const [value, setValue] = useState(initialValue);
-
-  const onChange = (event: any) => {
-    const {
-      target: { value },
-    } = event;
-    let willUpdate = true;
-    if (typeof validator === "function") {
-      willUpdate = validator(value);
-    }
-    if (willUpdate) {
-      setValue(value);
-    }
-  };
-  return { value, onChange };
-};
-
-function SearchBar() {
-  const emptyValue = (value: any) => true;
-  const searchWord = useInput("", emptyValue);
+function SearchBar(props: any) {
+  // select
   const [selector, setSelector] = useState("title");
+  const [searchSelector, setSearchSelector] = useState("title");
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const selectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelector(event.target.value as string);
   };
 
+  const updateSelector = () => {
+    setSearchSelector(selector);
+  };
+
+  useEffect(updateSelector, [selector]);
+
+  // input
+  const [input, setInput] = useState("");
+  const [searchText, setSearchText] = useState("");
+
+  const inputChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setInput(event.target.value as string);
+  };
+
+  const updateInput = () => {
+    setSearchText(input);
+  };
+
+  useEffect(updateInput, [input]);
+
   const classes = useStyles();
 
+  const sendData = () => {
+    props.setSelectData(searchSelector);
+    props.setValueData(searchText);
+  };
+
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      sendData();
+    }
+  };
+
   return (
-    <form className={classes.searchBar} noValidate autoComplete="off">
-      <FormControl className={classes.formControl}>
-        <Select
-          value={selector}
-          onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          <MenuItem value={"title"}>제목</MenuItem>
-          <MenuItem value={"author"}>저자</MenuItem>
-          <MenuItem value={"publisher"}>출판사</MenuItem>
-        </Select>
-      </FormControl>
-      <TextField
-        className={classes.textField}
-        placeholder="검색어를 입력하세요."
-        {...searchWord}
-      />
-      <Button className={classes.button}>
-        <SearchIcon style={{ color: pink[300] }} />
-      </Button>
-    </form>
+    <div className="searchBar">
+      <form className={classes.searchBar} noValidate autoComplete="off">
+        <FormControl className={classes.formControl}>
+          <Select
+            value={selector}
+            onChange={selectChange}
+            displayEmpty
+            className={classes.selectEmpty}
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            <MenuItem value={"title"}>제목</MenuItem>
+            <MenuItem value={"author"}>저자</MenuItem>
+            <MenuItem value={"publisher"}>출판사</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          className={classes.textField}
+          placeholder="검색어를 입력하세요."
+          onChange={inputChange}
+          onKeyPress={handleKeyPress}
+        />
+        <Button className={classes.button} onClick={sendData}>
+          <SearchIcon style={{ color: pink[300] }} />
+        </Button>
+      </form>
+    </div>
   );
 }
 
