@@ -2,39 +2,61 @@ import * as React from "react";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Signup.css";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   root: {
     background: "linear-gradient(45deg, #ce93d8 30%, #f8bbd0 90%)",
-    height: "100vh",
-    width: "100vw",
+    height: "1024px",
+    width: "600px",
   },
   login: {
     backgroundColor: "rgba(238, 238, 238, 0.2)",
-    height: "50vh",
-    width: "60vw",
+    height: "60%",
+    width: "60%",
   },
   form: {
     height: "100%",
   },
   formGrid: {
     height: "100%",
-    padding: "0 20%",
+    padding: "0 10%",
   },
   Button: {
     background: "#ba68c8",
     color: "white",
     fontWeight: 200,
+    width: "100%",
   },
   emailcheck: {
     background: "#ba68c8",
     color: "white",
     fontWeight: 200,
   },
+  tfield: {
+    width: "100%",
+  },
 });
 
 function Loginpage() {
+  const [signup, setSignup] = useState({
+    password: "",
+    password_confirm: "",
+    email: "",
+    name: "",
+    phone_num: "",
+  });
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSignup({
+      ...signup,
+      [name]: value,
+    });
+  };
+
   const classes = useStyles();
+
   return (
     <Grid
       className={classes.root}
@@ -51,8 +73,13 @@ function Loginpage() {
             direction="column"
           >
             <Grid container justify="flex-start" spacing={1}>
-              <Grid item>
-                <TextField label="email"></TextField>
+              <Grid item className={classes.tfield}>
+                <TextField
+                  name="email"
+                  onChange={onChange}
+                  className={classes.tfield}
+                  label="E-MAIL"
+                ></TextField>
               </Grid>
               <Grid item>
                 <Button size="small" className={classes.emailcheck}>
@@ -60,10 +87,24 @@ function Loginpage() {
                 </Button>
               </Grid>
             </Grid>
-            <TextField label="password" type="password"></TextField>
-            <TextField label="password confirm" type="password"></TextField>
-            <TextField label="이름"></TextField>
-            <TextField label="전화번호"></TextField>
+            <TextField
+              onChange={onChange}
+              name="password"
+              label="PASSWORD"
+              type="password"
+            ></TextField>
+            <TextField
+              onChange={onChange}
+              name="password_confirm"
+              label="PASSWORD_CONFIRM"
+              type="password"
+            ></TextField>
+            <TextField onChange={onChange} name="name" label="이름"></TextField>
+            <TextField
+              onChange={onChange}
+              name="phone_num"
+              label="전화번호"
+            ></TextField>
             <div>
               <Button className={classes.Button} variant="contained">
                 회원가입
