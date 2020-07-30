@@ -14,13 +14,17 @@ const useStyles = makeStyles({
     width: 500,
   },
 });
+interface Props {
+  changePage: (event: any) => void;
+}
 
-export default function LabelBottomNavigation() {
+export default function Footer(Props: Props) {
   const classes = useStyles();
   const [value, setValue] = React.useState("Home");
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setValue(newValue);
+    Props.changePage(newValue);
   };
 
   return (
@@ -37,12 +41,12 @@ export default function LabelBottomNavigation() {
       />
       <BottomNavigationAction
         label="내 서재"
-        value="LibraryBooks"
+        value="Library"
         icon={<LibraryBooksIcon />}
       />
       <BottomNavigationAction
         label="관리"
-        value="management"
+        value="Mypage"
         icon={<PersonIcon />}
       />
     </BottomNavigation>
