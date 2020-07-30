@@ -28,6 +28,22 @@
 
 ---
 
+### 사운드로 LED Turn on, off하기
+
+- 특성 등록
+
+- 명령 처리
+
+```python
+
+    googlesamples-assistant-pushtotalk => 샘플 실행으로서 제대로 음성을 받는지 확인
+    git clone https://github.com/googlesamples/assistant-sdk-python => 소스 코드를 받는다
+    cd assistant-sdk-python/google-assistant-sdk/googlesamples/assistant/grpc
+    nano pushtotalk.py => turn on, off 파일을 파이썬으로 생성
+
+    https://developers.google.com/assistant/sdk/guides/service/python/extend/handle-device-commands => 홈페이지 참조.
+```
+
 ## Google assistant
 
 원하는 장치 핸들러하기
@@ -35,8 +51,6 @@
 아래는 오픈소스 코드이다.
 
 https://github.com/googlesamples/assistant-sdk-python/tree/master/google-assistant-sdk/googlesamples/assistant/grpc
-
-
 
 위의 깃헙사이트 들어가보자. 그러면 수정해야할 코드들이 보인다. 우리는 pushtotalk.py 파일을 수정해야한다.
 
@@ -56,13 +70,9 @@ https://github.com/googlesamples/assistant-sdk-python/tree/master/google-assista
 
 위의 방식을 참고해서 우리가 하고자 하는 것들을 만들면된다.
 
-
-
 아래의 주소는 Handlers 방식에 대한 예시이다.
 
 https://developers.google.com/assistant/sdk/guides/service/python/extend/add-trait-and-handler
-
-
 
 ##### 작성 양식
 
@@ -75,14 +85,12 @@ def my-function(parameter-name):
         logging.info('Something else happened.')
 ```
 
-| 코드           | 설명                                                         |
-| -------------- | ------------------------------------------------------------ |
+| 코드           | 설명                                                                                                         |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
 | command-name   | https://developers.google.com/assistant/sdk/reference/traits<br />에 나오는 표중에서 찾아서 이름을 적어주자. |
-| my-function    | 자유롭게 원하는 핸들러 함수를 지정해 준다.                   |
-| parameter-name | 각각의 명령어가 가지는 parameters를 적어주자. 정확하게 작성해줘야한다. |
-| conditional    | 엄격하게 만들 필요는 없지만, 작동의 차별화를 주는데 도움을 줄것이다. |
-
-
+| my-function    | 자유롭게 원하는 핸들러 함수를 지정해 준다.                                                                   |
+| parameter-name | 각각의 명령어가 가지는 parameters를 적어주자. 정확하게 작성해줘야한다.                                       |
+| conditional    | 엄격하게 만들 필요는 없지만, 작동의 차별화를 주는데 도움을 줄것이다.                                         |
 
 ex)
 
@@ -101,12 +109,6 @@ def color(color):
     else:
         logging.info('color is not blue')
 ```
-
-
-
-
-
-
 
 # 라즈베리파이\_DB+웹연결
 
@@ -532,7 +534,6 @@ N - 반대 방향으로 탐색 계속
 
 :. = - 현재 위치의 행번호
 
-
 -명령모드-
 
 명령모드에서 벗어나 편집모드로 진입하기
@@ -694,8 +695,6 @@ MariaDB [raspi_db]> create table collect_data(
 	-> value2 float);
 ```
 
-
-
 DB를 확인해 보자.
 
 ```
@@ -707,21 +706,15 @@ collect_data
 ----------------------
 ```
 
-
-
 ##### 외부 접속 허용
 
 maria DB의 초기설정의 외부 IP에서 접속하지 못하고 localhost에서만 접속하도록 셋팅되어 있는데, 바꿔주자. /etc/mysql/mariadb.conf.d 디렉토리의 50-server.cnf 파일의 `bind-address = 127.0.0.1을 주석처리하자.
-
-
 
 재가동하면 외부접속 허용이 완료된다.
 
 ```
 sudo service mysql restart
 ```
-
-
 
 ##### 파이썬으로 DB 접속하기
 
@@ -733,11 +726,7 @@ DB 생성을 완료 했으면 파이썬에서 DB에 접속하여 데이터를 �
 sudo pip3 install pymysql
 ```
 
-
-
 DB에 접속하는 코드 작성(한 행씩 처리하게 가능하다)
-
-
 
 온도습도센서라고 하면 40비트의 데이터로 온도 습도를 전송해준다.
 
@@ -745,11 +734,7 @@ DB에 접속하는 코드 작성(한 행씩 처리하게 가능하다)
 
 GND에 관련 핀에서 연결해서 데이터를 수집
 
-
-
 데이터에 맞게 필요한 파이썬 라이브러리를 찾아서 사용.
-
-
 
 ---
 
@@ -757,37 +742,23 @@ GND에 관련 핀에서 연결해서 데이터를 수집
 
 https://blog.naver.com/PostView.nhn?blogId=simjk98&logNo=221230495875&parentCategoryNo=&categoryNo=7&viewDate=&isShowPopularPosts=false&from=postView
 
-
-
-
-
 음성 센서 확정 짓기.(MQTT 통신이냐 다른 통신이냐/ 디지털 센서이냐 아날로그 센서이냐.)
 
 pdf파일 저장
-
-
 
 ---
 
 ### 전자서적 저장
 
-전자서적(document)을 XML로 바꿔서 라즈베리파이에  저장
-
-
+전자서적(document)을 XML로 바꿔서 라즈베리파이에 저장
 
 ![document by XML](C:\Users\multicampus\Desktop\pjt_2\s03p12d204\embedded\picture\document by XML.PNG)
-
-
 
 ##### document -> XML
 
 Q. 전자서적.
 
-
-
 ##### XML -> 라즈베리파이
-
-
 
 음성인식
 
@@ -813,13 +784,11 @@ pcm.speaker {
 }
 ```
 
-위와 같은것이 나노 에디터이다. 저장을 하기 위해서는 
+위와 같은것이 나노 에디터이다. 저장을 하기 위해서는
 
 https://swiftcoding.org/cli-and-nano-editor
 
 컨트롤+O
-
-
 
 ---
 
@@ -827,17 +796,10 @@ https://swiftcoding.org/cli-and-nano-editor
 
 https://learn.adafruit.com/usb-audio-cards-with-a-raspberry-pi/recording-audio
 
-
-
-Google Assistant 확장_Python
+Google Assistant 확장\_Python
 
 https://developers.google.com/assistant/sdk/guides/service/python/embed/setup
-
-
 
 ##### Google Assistant gRPC API 용 Python 샘플
 
 https://github.com/googlesamples/assistant-sdk-python/tree/master/google-assistant-sdk/googlesamples/assistant/grpc
-
-
-
