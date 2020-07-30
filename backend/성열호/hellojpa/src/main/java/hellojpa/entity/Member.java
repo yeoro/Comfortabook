@@ -1,6 +1,6 @@
 package hellojpa.entity;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -48,4 +47,7 @@ public class Member {
 	@Column(name = "member_type")
 	@Enumerated(EnumType.STRING)
 	private MemberType memberType;
+	
+	@OneToMany(mappedBy = "member") // Book 클래스의 member와 매핑
+	private List<Book> books;
 }

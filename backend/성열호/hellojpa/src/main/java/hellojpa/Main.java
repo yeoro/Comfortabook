@@ -1,6 +1,7 @@
 package hellojpa;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,35 +31,51 @@ public class Main {
 		// 보통 비즈니스 로직은 try/catch 안에서 실행된다.
 		try {
 			
-			Member member = new Member();
-			member.setId("kwonsky");
-			member.setPassword("kwonsky");
-			member.setName("kwonsky");
-			member.setEmail("kwonsky@ssafy.com");
-			member.setMemberType(MemberType.member);
-			em.persist(member);
+			Member member = em.find(Member.class, 1);
+			em.persist(member); // persist()로 영속상태로 저장한다.
+//			member.setId("kwonsky");
+//			member.setPassword("kwonsky");
+//			member.setName("kwonsky");
+//			member.setEmail("kwonsky@ssafy.com");
+//			member.setMemberType(MemberType.member);
 			
-			Book book = new Book();
-			book.setIsbn("3");
-			book.setTitle("JPA");
-			book.setAuthor("kim");
-			book.setPublisher("ssafy");
-			book.setPublishDate(new Date());
-			book.setCategory("programming");
-			book.setMember(member);
-			em.persist(book);
+			Book book1 = em.find(Book.class, 1);
+			book1.setMember(member);
+			em.persist(book1);
+			System.out.println(book1.getTitle());
+
+			Book book2 = em.find(Book.class, 2);
+			book2.setMember(member);
+			em.persist(book2);
+			System.out.println(book2.getTitle());
 			
-			System.out.println("member_no : " + member.getMemberNo());
+//			Member member3 = em.find(Member.class, 19);
+//			em.remove(member3);
+//			book.setIsbn("3");
+//			book.setTitle("JPA");
+//			book.setAuthor("kim");
+//			book.setPublisher("ssafy");
+//			book.setPublishDate(new Date());
+//			book.setCategory("programming");
+//			book.setMember(member);
 			
-			em.flush(); // DB에 쿼리 전부 보냄
-			em.clear(); // 캐시 초기화
+//			em.flush(); // DB에 쿼리 전부 보냄
+//			em.clear(); // 영속성 컨텍스트의 캐시를 초기화함
 			
-			Book findBook = em.find(Book.class, book.getBookNo());
-			Member findMember = findBook.getMember();
+			System.out.println("member no : " + book1.getMember().getMemberNo());
+			System.out.println("member name : " + book2.getMember().getName());
+			System.out.println("book list : ");
+			List<Book> books = member.getBooks();
+			for(Book b : books) {
+				System.out.println(b.getTitle());
+			}
 			
-			System.out.println(findMember.getName());
-			
-			
+//			String jpql = "select b From Book b where b.title like '%jpa%'";
+			String jpql = "select b From Book b join fetch b.member";
+			List<Book> result = em.createQuery(jpql, Book.class).getResultList();
+			for(Book b : result) {
+				System.out.println("Book = " + b.getTitle() + ", Member = " + b.getMember().getName());
+			}
 			
 			tx.commit();
 		} catch (Exception e) {
