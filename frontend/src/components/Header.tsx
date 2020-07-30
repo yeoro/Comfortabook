@@ -8,8 +8,9 @@ import "./Header.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    header: {
       flexGrow: 1,
+      textAlign: "center",
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -24,7 +25,7 @@ export default function Header() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.header}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
