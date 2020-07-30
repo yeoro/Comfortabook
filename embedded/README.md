@@ -28,7 +28,85 @@
 
 ---
 
--구글 어시스턴트
+## Google assistant
+
+원하는 장치 핸들러하기
+
+아래는 오픈소스 코드이다.
+
+https://github.com/googlesamples/assistant-sdk-python/tree/master/google-assistant-sdk/googlesamples/assistant/grpc
+
+
+
+위의 깃헙사이트 들어가보자. 그러면 수정해야할 코드들이 보인다. 우리는 pushtotalk.py 파일을 수정해야한다.
+
+```python
+    device_handler = device_helpers.DeviceRequestHandler(device_id)
+
+    @device_handler.command('action.devices.commands.OnOff')
+    def onoff(on):
+        if on:
+            logging.info('Turning device on')
+        else:
+            logging.info('Turning device off')
+
+```
+
+412번째 줄 부터 나오는 내용이다.
+
+위의 방식을 참고해서 우리가 하고자 하는 것들을 만들면된다.
+
+
+
+아래의 주소는 Handlers 방식에 대한 예시이다.
+
+https://developers.google.com/assistant/sdk/guides/service/python/extend/add-trait-and-handler
+
+
+
+##### 작성 양식
+
+```python
+@device_handler.command('action.devices.commands.command-name')
+def my-function(parameter-name):
+    if conditional:
+        logging.info('Something happened.')
+    else:
+        logging.info('Something else happened.')
+```
+
+| 코드           | 설명                                                         |
+| -------------- | ------------------------------------------------------------ |
+| command-name   | https://developers.google.com/assistant/sdk/reference/traits<br />에 나오는 표중에서 찾아서 이름을 적어주자. |
+| my-function    | 자유롭게 원하는 핸들러 함수를 지정해 준다.                   |
+| parameter-name | 각각의 명령어가 가지는 parameters를 적어주자. 정확하게 작성해줘야한다. |
+| conditional    | 엄격하게 만들 필요는 없지만, 작동의 차별화를 주는데 도움을 줄것이다. |
+
+
+
+ex)
+
+```python
+@device_handler.command('action.devices.commands.BrightnessAbsolute')
+def brightnessCheck(brightness):
+    if brightness > 50:
+        logging.info('brightness > 50')
+    else:
+        logging.info('brightness <= 50')
+
+@device_handler.command('action.devices.commands.ColorAbsolute')
+def color(color):
+    if color.get('name') == "blue":
+        logging.info('color is blue')
+    else:
+        logging.info('color is not blue')
+```
+
+
+
+
+
+
 
 # 라즈베리파이\_DB+웹연결
 
