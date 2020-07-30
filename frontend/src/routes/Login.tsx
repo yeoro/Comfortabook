@@ -63,12 +63,12 @@ function Login() {
                 ></TextField>
               </Grid>
             </Grid>
-            <Grid justify="center" item>
-              <div className="loginBtn">
+            <Grid container justify="center" item>
+              <Grid item>
                 <Button to="/" width={true}>
                   LOGIN
                 </Button>
-              </div>
+              </Grid>
             </Grid>
             <Grid item container justify="center" spacing={1}>
               <Grid item>

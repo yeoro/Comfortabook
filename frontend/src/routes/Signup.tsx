@@ -47,18 +47,12 @@ function Loginpage() {
     phone_num: "",
   });
 
-  const [pwerror, setPwerror] = useState("valid");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSignup({
       ...signup,
       [name]: value,
     });
-    if (signup.password === signup.password_confirm) {
-      setPwerror("in-valid");
-    } else {
-      setPwerror("valid");
-    }
   };
 
   const classes = useStyles();
@@ -105,7 +99,6 @@ function Loginpage() {
               label="PASSWORD_CONFIRM"
               type="password"
             ></TextField>
-            <p className={pwerror}>비밀번호가 다릅니다.</p>
             <TextField onChange={onChange} name="name" label="이름"></TextField>
             <TextField
               onChange={onChange}
