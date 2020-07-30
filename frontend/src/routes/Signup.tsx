@@ -2,7 +2,7 @@ import * as React from "react";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Signup.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -46,6 +46,7 @@ function Loginpage() {
     name: "",
     phone_num: "",
   });
+  const [pwError, setPwError] = useState(true);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -54,6 +55,16 @@ function Loginpage() {
       [name]: value,
     });
   };
+
+  const updateSignup = () => {
+    if (signup.password === signup.password_confirm) {
+      setPwError(true);
+    } else {
+      setPwError(false);
+    }
+  };
+
+  useEffect(updateSignup, [signup]);
 
   const classes = useStyles();
 
@@ -93,12 +104,22 @@ function Loginpage() {
               label="PASSWORD"
               type="password"
             ></TextField>
-            <TextField
-              onChange={onChange}
-              name="password_confirm"
-              label="PASSWORD_CONFIRM"
-              type="password"
-            ></TextField>
+            {pwError ? (
+              <TextField
+                onChange={onChange}
+                name="password_confirm"
+                label="PASSWORD_CONFIRM"
+                type="password"
+              ></TextField>
+            ) : (
+              <TextField
+                onChange={onChange}
+                name="password_confirm"
+                label="PASSWORD_CONFIRM"
+                type="password"
+                helperText="비밀번호가 다릅니다."
+              ></TextField>
+            )}
             <TextField onChange={onChange} name="name" label="이름"></TextField>
             <TextField
               onChange={onChange}
