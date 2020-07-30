@@ -2,20 +2,22 @@ import React, { useState } from "react";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import { pink } from "@material-ui/core/colors";
+import Button from "@material-ui/core/Button";
+
+import "./SearchBar.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    searchBar: {
       "& > *": {
         margin: theme.spacing(1),
-        width: "25ch",
       },
+      display: "flex",
     },
     formControl: {
       margin: theme.spacing(1),
@@ -23,6 +25,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
+    },
+    textField: {
+      width: "70vw",
+    },
+    button: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+      width: 20,
+      margin: 0,
+      padding: 0,
     },
   })
 );
@@ -48,7 +61,7 @@ const useInput = (initialValue: string, validator: any) => {
 function SearchBar() {
   const emptyValue = (value: any) => true;
   const searchWord = useInput("", emptyValue);
-  const [selector, setSelector] = useState("d_titl");
+  const [selector, setSelector] = useState("title");
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelector(event.target.value as string);
@@ -57,7 +70,7 @@ function SearchBar() {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.searchBar} noValidate autoComplete="off">
       <FormControl className={classes.formControl}>
         <Select
           value={selector}
@@ -66,15 +79,19 @@ function SearchBar() {
           className={classes.selectEmpty}
           inputProps={{ "aria-label": "Without label" }}
         >
-          <MenuItem value={"d_titl"}>제목</MenuItem>
-          <MenuItem value={"d_auth"}>저자</MenuItem>
-          <MenuItem value={"d_publ"}>출판사</MenuItem>
+          <MenuItem value={"title"}>제목</MenuItem>
+          <MenuItem value={"author"}>저자</MenuItem>
+          <MenuItem value={"publisher"}>출판사</MenuItem>
         </Select>
-        <FormHelperText>검색 조건</FormHelperText>
       </FormControl>
-      <br />
-      <TextField placeholder="검색어를 입력하세요." {...searchWord} />
-      <SearchIcon style={{ color: pink[300] }} />
+      <TextField
+        className={classes.textField}
+        placeholder="검색어를 입력하세요."
+        {...searchWord}
+      />
+      <Button className={classes.button}>
+        <SearchIcon style={{ color: pink[300] }} />
+      </Button>
     </form>
   );
 }

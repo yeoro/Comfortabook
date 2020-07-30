@@ -10,8 +10,8 @@ import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import "./Footer.css";
 
 const useStyles = makeStyles({
-  root: {
-    width: 500,
+  footer: {
+    width: "100vw",
   },
 });
 interface Props {
@@ -31,7 +31,7 @@ export default function Footer(Props: Props) {
     <BottomNavigation
       value={value}
       onChange={handleChange}
-      className={classes.root}
+      className={classes.footer}
     >
       <BottomNavigationAction label="홈" value="Home" icon={<HomeIcon />} />
       <BottomNavigationAction
