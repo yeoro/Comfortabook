@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ssafy.cb.service.KakaoAPIService;
  
 @Controller
+
 public class HomeController {
 	
 	@Autowired
