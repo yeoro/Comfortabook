@@ -18,6 +18,7 @@
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "material-auto-rotating-carousel": "^3.0.2",
+    "nuka-carousel": "^4.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
