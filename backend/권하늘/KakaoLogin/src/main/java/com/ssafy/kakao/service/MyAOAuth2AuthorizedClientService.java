@@ -1,8 +1,5 @@
 package com.ssafy.kakao.service;
 
-import java.util.LinkedHashMap;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
@@ -13,13 +10,14 @@ import org.springframework.stereotype.Service;
 import com.ssafy.kakao.dto.Member;
 import com.ssafy.kakao.repo.MemberRepository;
 
+import lombok.RequiredArgsConstructor;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
+@RequiredArgsConstructor
 public class MyAOAuth2AuthorizedClientService implements OAuth2AuthorizedClientService {
 
-	@Autowired
-	private MemberRepository memberRepository;
+	private final MemberRepository memberRepository;
 	
 	
 	@Override
