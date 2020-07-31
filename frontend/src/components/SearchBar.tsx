@@ -10,7 +10,6 @@ import { pink } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 
 import "./SearchBar.css";
-import { EventEmitter } from "events";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1),
       },
       display: "flex",
+      marginBottom: "7vh",
     },
     formControl: {
       margin: theme.spacing(1),
