@@ -1,7 +1,6 @@
 import React from "react";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { pink } from "@material-ui/core/colors";
 
 import "./BookList.css";
 
@@ -29,7 +28,12 @@ function BookList() {
       {books.map((book, index) => (
         <div className="book" key={index}>
           <AddCircleIcon className="book__icon" />
-          <img src={book.image} className="book__img" />
+          <img
+            src={book.image}
+            alt={book.title}
+            title={book.title}
+            className="book__img"
+          />
           <h3 className="book__title">{book.title}</h3>
         </div>
       ))}
