@@ -1,46 +1,39 @@
-﻿-- create member table
-CREATE TABLE gucci.member (
-	`no` INT auto_increment NOT NULL,
-	id varchar(20) NOT NULL,
-	password varchar(20) NOT NULL,
-	name varchar(10) NOT NULL,
-	email varchar(50) NOT NULL,
-	phone_number varchar(20) NULL,
-	is_manager BOOL NULL,
-	CONSTRAINT user_pk PRIMARY KEY (`no`)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8
-COLLATE=utf8_general_ci;
+﻿-- gucci.book definition
+CREATE TABLE `book` (
+  `book_no` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'book_no',
+  `isbn` varchar(255) DEFAULT NULL COMMENT 'isbn',
+  `title` varchar(255) DEFAULT NULL COMMENT 'title',
+  `CategoryName` varchar(255) DEFAULT NULL COMMENT 'CategoryName',
+  `author` varchar(255) DEFAULT NULL COMMENT 'author',
+  `publisher` varchar(255) DEFAULT NULL COMMENT 'publisher',
+  `pubdate` date DEFAULT NULL COMMENT 'pubdate',
+  `description` varchar(255) DEFAULT NULL COMMENT 'description',
+  `cover` varchar(255) DEFAULT NULL COMMENT 'cover',
+  `member_no` bigint(20) DEFAULT NULL COMMENT 'member_no',
+  PRIMARY KEY (`book_no`),
+  KEY `FK_Book_member_no_Member_member_no` (`member_no`),
+  CONSTRAINT `FK_Book_member_no_Member_member_no` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-insert into `member` (id, password, name , email , phone_number , is_manager ) 
-	values ('admin','admin','관리자','admin@naver.com','010-1234-5678', true);
-	
-insert into `member` (id, password, name , email , phone_number , is_manager ) 
-	values ('test','test','테스트','test@naver.com','010-1234-5678', false);
-	
+insert into book(isbn, title) values('123', 'Java');
+insert into book(isbn, title) values('456', 'Spring');
+select * from book;
+
+
+-- gucci.`member` definition
+CREATE TABLE `member` (
+  `member_no` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'member_no',
+  `email` varchar(255) DEFAULT NULL COMMENT 'email',
+  `password` varchar(255) DEFAULT NULL COMMENT 'password',
+  `name` varchar(255) DEFAULT NULL COMMENT 'name',
+  `phone_number` varchar(255) DEFAULT NULL COMMENT 'phone_number',
+  `access_token` varchar(255) DEFAULT NULL COMMENT 'access_token',
+  `oauth_id` varchar(255) DEFAULT NULL COMMENT 'oauth_id',
+  `provider_name` varchar(255) DEFAULT NULL COMMENT 'provider_name',
+  `role` varchar(255) DEFAULT NULL COMMENT 'role',
+  PRIMARY KEY (`member_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+insert into member(email, password, name, `role`) values('admin', 'admin', 'admin', 'admin');
+insert into member(email, password, name) values('test', 'test', 'test');
 select * from member;
-
--- create book table
-CREATE TABLE gucci.book (
-   isbn varchar(30) NOT NULL,
-   title varchar(100) NOT NULL,
-   author varchar(20) NOT NULL,
-   publisher varchar(20) NOT NULL,
-   publish_date DATETIME NOT NULL,
-   category varchar(10) NOT NULL,
-   price INT NULL,
-   description varchar(100) NULL,
-   image varchar(30) null,
-   user_no INT,
-   CONSTRAINT user_fk FOREIGN KEY (user_no) REFERENCES user(no),
-   CONSTRAINT book_pk PRIMARY KEY (isbn)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8
-COLLATE=utf8_general_ci;
-
-insert into book( isbn, title, author, publisher, publish_date, category ) 
-		  values( '1', 'test1', 'test1', 'test1', '2020-01-01', 'test1' );
-insert into book( isbn, title, author, publisher, publish_date, category ) 
-		  values( '2', 'test2', 'test2', 'test2', '2020-02-02', 'test2' );
