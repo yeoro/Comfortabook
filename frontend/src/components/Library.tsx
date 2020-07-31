@@ -1,9 +1,10 @@
 import React from "react";
+import LibraryTabs from "./LibraryTabs";
 
 function Library() {
   return (
     <div>
-      <h1>내 서재</h1>
+      <LibraryTabs />
     </div>
   );
 }
