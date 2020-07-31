@@ -116,7 +116,114 @@ TensorFlow Lite converter(변환기)는 TensorFlow 모델을 사용하여 Tensor
 
 
 
+**이미지를 분류하는 신경망 모델**에 대해 알아보자. 쭉 읽어보면된다. 
 
+기본이미지 분류하는 코드가 아래라고 한다.
+
+```
+from __future__ import absolute_import, division, print_function, unicode_literals, unicode_literals
+
+# tensorflow와 tf.keras를 임포트합니다
+import tensorflow as tf
+from tensorflow import keras
+
+# 헬퍼(helper) 라이브러리를 임포트합니다
+import numpy as np
+import matplotlib.pyplot as plt
+
+print(tf.__version__)
+
+
+fashion_mnist = keras.datasets.fashion_mnist
+
+(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+
+
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+```
+
+### 코드 해석
+
+위 코드를 하나씩 보자,  
+**from future import absolute\_import, division, print\_function, unicode\_literals, unicode\_literals**
+
+이부분은 사실 아직 멀 가져 오는지 모르겠다.
+
+**import tensorflow as tf**
+
+tensorflow를 불러오고 지금부터는 tensorflow를 tf라고 쓰겠다.  
+**from tensorflow import keras**
+
+keras는 tensorflow를 쉽게 쓰려고 만든 것이라고 생각하자. (텐서플로 모델을 만들고 훈련할 수 있는 고수준 API인 tf.keras를 사용한다.)
+
+
+**import numpy as np**  
+
+이건 파이썬 함수!
+
+**import matplotlib.pyplot as plt**
+
+Matplotlib은 파이썬에서 data를 차트나 Plot으로 그려주는 라이브러리 패키지로 가장 많이 사용되는 Data Visualization(데이타 시각화) 패키지 이다. 사용법은 위와 같이 matplotlib.pyplot를 import하면된다.
+
+ex)
+
+```
+from matplotlib import pyplit as plt
+plt.plot([1, 2, 4], [10, 11, 9])
+plt.show()
+```
+
+위와 같이 하면 (1, 10), (2, 11), (4, 9)를 꼭지점으로 하나씩 직선으로 연결된 그래프가 나온다
+
+**print(tf.version)**
+
+tensorflow의 버전을 확인할 수 있다.
+
+**fashion\_mnist = keras.datasets.fashion\_mnist**
+
+keras안의 datasets 안의 fashion\_mnist를 fashion\_mnist라는 변수에 담았군
+
+**(train\_images, train\_labels), (test\_images, test\_labels) = fashion\_mnist.load\_data()**
+
+load\_data() 함수를 호출하면 네 개의 NumPy 배열이 반환된다고 한다. 이때 앞의 train\_image랑 train\_labels배열은 모델학습에 사용되는 **훈련 세트**라고 한다. 뒤의 test\_images와 test\_labels는 테스트에 사용되는 **테스트**라고 한다. 먼말인지 모르겠지만 일단 쭉쭉 읽어보자. 여기서 나오는 4가지에 대해서는 밑의 데이터 탐색에서 알아보자.
+
+**class\_names = \['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',**  
+**'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'\]**
+
+기본적으로 우리가 분석할 이미지는 28x28 크기의 넘파이 배열이고 픽셀 값은 0과 255 사이이다. label은 0에서 9까지의 정수 배열이다. label 0은 T-shirt/top, 1은 Trouser... 이런식으로 인덱스에 따른 옷의 클래스가 정해져있다. 각 이미지는 위의 label중 하나에 mapping 되어있다. 그런데 데이터 자체에 숫자만 들어가있고 클래스 이름은 들어가 있지 않기 때문에 별도의 리스트로 만들어 class\_names라는 변수에 저장한거다. 나중에 이미지 출력 시 숫자가 아닌 class\_names\[1\]이라고 하면 문자로 출력 가능하다.
+
+### 데이터 탐색(**train\_images, train\_labels, test\_images, test\_labels**)
+
+모델을 훈련하기 전에 load\_data 함수에나 나온 4가지 NumPy 배열에 대해 알아보자. 
+
+\> train\_images.shape
+
+< (6000, 28, 28)
+
+훈련 세트가 60,000개가 있고 각 이미지는 28x28이라는 것을 알 수 있다.
+
+\> len(train\_labels)
+
+< 60000
+
+훈련 set에는 60,000개의 label이 있다.
+
+\> train\_labels
+
+< arr(\[9, 0, 0, ..., 3, 0, 5\], dtype=uint8)
+
+배열안에 0과 9사이의 label이 있군.
+
+\> test\_images.shape
+
+< (10000, 28, 28)
+
+10000개의 이미지와 28x28 픽셀로 표현된다.
+
+\> len(test\_labels)
+
+< 10000
 
 
 
