@@ -23,3 +23,15 @@
   text-align: center;
   opacity: 0.7;
 }
+
+.book__icon {
+  position: relative;
+  top: 45px;
+  left: 250px;
+  color: white;
+  cursor: pointer;
+}
+
+.book__icon:hover {
+  color: #9e9e9e;
+}

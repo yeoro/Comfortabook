@@ -1,5 +1,8 @@
 import React from "react";
 
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { pink } from "@material-ui/core/colors";
+
 import "./BookList.css";
 
 function BookList() {
@@ -20,10 +23,12 @@ function BookList() {
         "https://www.gotit.co.kr/wp-content/uploads/2019/03/origin_%EC%88%98%EC%A7%80%EB%AA%85%EB%B6%88%ED%97%88%EC%A0%84%EC%B2%AD%EC%88%9C%EC%97%AC%EC%8B%A0.jpg",
     },
   ];
+
   return (
     <div className="books">
       {books.map((book, index) => (
         <div className="book" key={index}>
+          <AddCircleIcon className="book__icon" />
           <img src={book.image} className="book__img" />
           <h3 className="book__title">{book.title}</h3>
         </div>
