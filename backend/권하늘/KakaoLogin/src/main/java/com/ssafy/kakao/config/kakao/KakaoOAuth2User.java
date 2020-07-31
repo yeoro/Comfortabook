@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 
 import lombok.Getter;
 
+@Getter
 public class KakaoOAuth2User implements OAuth2User {
 	
 	private String id;

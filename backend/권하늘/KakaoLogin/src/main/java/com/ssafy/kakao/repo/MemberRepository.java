@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ssafy.kakao.dto.Member;
 
+@Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
 }
