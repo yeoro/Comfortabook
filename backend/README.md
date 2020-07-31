@@ -1,5 +1,13 @@
 백엔드 관련 이슈
 
+PJT 구조
+- controller
+- Service
+- Repository
+- dto
+- domain (Entity class)
+- config
+
 1. DB 설계
 >Member  
     - member_no (PK, auto increment, long, not null)  
