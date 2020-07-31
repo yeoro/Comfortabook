@@ -2,3 +2,7 @@
   display: inline-block !important;
   height: 20% !important;
 }
+
+#simple-tabpanel-0 {
+  height: 300px !important;
+}
