@@ -37,5 +37,5 @@ public class PublicRestApiController {
     public List<User> allUsers(){
         return this.userRepository.findAll();
     }
-
+    
 }

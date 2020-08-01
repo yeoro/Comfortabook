@@ -44,7 +44,7 @@ public class User {
         this.password = password;
         this.roles = roles;
         this.permissions = permissions;
-        
+         
         this.active = 1;
 
     }

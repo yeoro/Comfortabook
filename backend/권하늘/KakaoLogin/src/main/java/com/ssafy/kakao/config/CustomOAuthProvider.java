@@ -34,7 +34,6 @@ public enum CustomOAuthProvider {
 		System.out.println("builder : " + builder);
 		System.out.println("registrationId : " + registrationId);
 		System.out.println("DEFAULT_LOGIN_REDIRECT_URL : " + DEFAULT_LOGIN_REDIRECT_URL);
-		System.out.println(builder.);
 		
 		return builder;
 	}
