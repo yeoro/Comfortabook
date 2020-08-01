@@ -1,4 +1,4 @@
-package com.ssafy.cb.repository;
+package com.ssafy.cb.auth;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,14 +8,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.cb.dto.User;
+import com.ssafy.cb.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class DbInit implements CommandLineRunner {
+	
     private final UserRepository userRepository;
+    
     private final PasswordEncoder passwordEncoder;
+    
     @Override
     public void run(String... args) throws Exception {
         // Delete all

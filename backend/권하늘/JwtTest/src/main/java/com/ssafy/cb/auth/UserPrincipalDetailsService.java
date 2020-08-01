@@ -1,4 +1,4 @@
-package com.ssafy.cb.repository;
+package com.ssafy.cb.auth;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.cb.dto.User;
-import com.ssafy.cb.dto.UserPrincipal;
+import com.ssafy.cb.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
