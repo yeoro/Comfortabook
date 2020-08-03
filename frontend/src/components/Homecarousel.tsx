@@ -8,9 +8,8 @@ import { makeStyles } from "@material-ui/core";
 import "./Homecarousel.css";
 
 const useStyles = makeStyles({
-  root: {
+  homecarousel: {
     backgroundColor: "#fce4ec",
-    height: "300px",
   },
   img: {
     opacity: "0.7",
@@ -20,12 +19,24 @@ const useStyles = makeStyles({
 function Homecarousel() {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div className={classes.homecarousel}>
       <Carousel framePadding="0">
-        <img className={classes.img} src={library1} alt="slide1"></img>
-        <img className={classes.img} src={library2} alt="slide2"></img>
-        <img className={classes.img} src={library3} alt="slide3"></img>
-        <img className={classes.img} src={library4} alt="slide4"></img>
+        <div className="carousel-item">
+          <img className={classes.img} src={library1} alt="slide1"></img>
+          <h1 className="sentence">도</h1>
+        </div>
+        <div className="carousel-item">
+          <img className={classes.img} src={library2} alt="slide2"></img>
+          <h1 className="sentence">레</h1>
+        </div>
+        <div className="carousel-item">
+          <img className={classes.img} src={library3} alt="slide3"></img>
+          <h1 className="sentence">미</h1>
+        </div>
+        <div className="carousel-item">
+          <img className={classes.img} src={library4} alt="slide4"></img>
+          <h1 className="sentence">파</h1>
+        </div>
       </Carousel>
     </div>
   );
