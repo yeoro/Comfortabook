@@ -1,0 +1,15 @@
+.searchBar .MuiInputBase-root {
+  margin-top: 0 !important;
+}
+
+.searchBar .MuiSvgIcon-root {
+  width: 30px !important;
+}
+
+.searchBar .MuiInput-underline:after {
+  border-bottom: 2px solid #f48fb1 !important;
+}
+
+.makeStyles-searchBar-5 {
+  width: 80vw;
+}
