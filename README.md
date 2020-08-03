@@ -9,3 +9,13 @@
 - Installation
 - Setup
 - Simulation
+<<<<<<< HEAD
+=======
+
+![wireframe](./image/wireframe.jpg))
+
+### ERD 모델
+
+![erd](./image/ERD.jpg)
+
+>>>>>>> 9cbb5cd139a578ec2c239624bb5068771d416ab7

@@ -1,0 +1,14 @@
+.MuiBox-root {
+  padding: 0 !important;
+}
+
+.carousel-item {
+  position: relative;
+  height: 300px;
+}
+
+.sentence {
+  position: absolute;
+  bottom: 20px;
+  left: 45%;
+}
