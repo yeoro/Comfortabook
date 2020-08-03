@@ -1,43 +1,34 @@
 import React from "react";
 import Carousel from "nuka-carousel";
+import library1 from "../img/library1.jpg";
+import library2 from "../img/library2.jpg";
+import library3 from "../img/library3.jpg";
+import library4 from "../img/library4.jpg";
+import { makeStyles } from "@material-ui/core";
+import "./Homecarousel.css";
 
-export default class extends React.Component {
-  componentDidMount() {
-    this.setState({
-      mode: "Home",
-    });
-  }
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#fce4ec",
+    height: "300px",
+  },
+  img: {
+    opacity: "0.7",
+  },
+});
 
-  render() {
-    return (
-      <div style={{ height: "300px" }}>
-        <Carousel>
-          <img
-            src="https://via.placeholder.com/400/ffffff/c0392b/&text=slide1"
-            alt="slice1"
-          />
-          <img
-            src="https://via.placeholder.com/400/ffffff/c0392b/&text=slide2"
-            alt="slice1"
-          />
-          <img
-            src="https://via.placeholder.com/400/ffffff/c0392b/&text=slide3"
-            alt="slice1"
-          />
-          <img
-            src="https://via.placeholder.com/400/ffffff/c0392b/&text=slide4"
-            alt="slice1"
-          />
-          <img
-            src="https://via.placeholder.com/400/ffffff/c0392b/&text=slide5"
-            alt="slice1"
-          />
-          <img
-            src="https://via.placeholder.com/400/ffffff/c0392b/&text=slide6"
-            alt="slice1"
-          />
-        </Carousel>
-      </div>
-    );
-  }
+function Homecarousel() {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Carousel framePadding="0">
+        <img className={classes.img} src={library1} alt="slide1"></img>
+        <img className={classes.img} src={library2} alt="slide2"></img>
+        <img className={classes.img} src={library3} alt="slide3"></img>
+        <img className={classes.img} src={library4} alt="slide4"></img>
+      </Carousel>
+    </div>
+  );
 }
+
+export default Homecarousel;

@@ -1,8 +1,8 @@
-.MuiBox-root.MuiBox-root-12 {
-  display: inline-block !important;
-  height: 20% !important;
+.MuiBox-root {
+  padding: 0 !important;
 }
 
-#simple-tabpanel-0 {
-  height: 300px !important;
+.sentence {
+  position: relative;
+  z-index: 1;
 }

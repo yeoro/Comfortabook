@@ -8,7 +8,11 @@ export interface State {}
 class Today extends React.Component<Props, State> {
   state = {};
   render() {
-    return <Homecarousel />;
+    return (
+      <div>
+        <Homecarousel />
+      </div>
+    );
   }
 }
 
