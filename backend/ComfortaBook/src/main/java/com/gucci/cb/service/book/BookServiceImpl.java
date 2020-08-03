@@ -1,18 +1,18 @@
-package com.gucci.cb.service;
+package com.gucci.cb.service.book;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.gucci.cb.domain.Book;
-import com.gucci.cb.dto.BookDTO;
-import com.gucci.cb.repository.BookRepository;
+import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.dto.book.BookDTO;
+import com.gucci.cb.repository.book.BookRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Service

@@ -1,9 +1,9 @@
-package com.gucci.cb.service;
+package com.gucci.cb.service.book;
 
 import java.util.List;
 
-import com.gucci.cb.domain.Book;
-import com.gucci.cb.dto.BookDTO;
+import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.dto.book.BookDTO;
 
 public interface BookService {
 
