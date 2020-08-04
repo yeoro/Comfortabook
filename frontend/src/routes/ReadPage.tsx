@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import thumbnail from "../img/thumbnail.jpg";
 import book1 from "../books/book1.json";
+import ReadPageFooter from "../components/ReadPageFooter";
+import ReadPageHeader from "../components/ReadPageHeader";
 
 export interface state {}
 
@@ -20,7 +22,7 @@ const styles = (theme: Theme) =>
     },
     book: {
       height: "auto",
-      width: "100%",
+      width: "90%",
       padding: "5vh 5vw",
       overflow: "scroll",
       fontSize: "10px | 20px | 30px",
@@ -39,11 +41,13 @@ class Read extends React.Component<sProps, state> {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <ReadPageHeader />
         <Paper className={classes.book}>
           <h1>{book1.title}</h1>
           <img src={thumbnail} alt="thumbnail"></img>
           <p>{book1.description}</p>
         </Paper>
+        <ReadPageFooter />
       </div>
     );
   }

@@ -35,6 +35,10 @@ const useStyles = makeStyles({
 });
 
 function Login() {
+  // const [login, setLogin] = useState({
+  //   password: "",
+  //   email: "",
+  // });
   const classes = useStyles();
   return (
     <Grid
@@ -53,10 +57,15 @@ function Login() {
           >
             <Grid container item spacing={3}>
               <Grid item className={classes.tfield}>
-                <TextField className={classes.tfield} label="ID"></TextField>
+                <TextField
+                  name="email"
+                  className={classes.tfield}
+                  label="ID"
+                ></TextField>
               </Grid>
               <Grid item className={classes.tfield}>
                 <TextField
+                  name="password"
                   className={classes.tfield}
                   label="PASSWORD"
                   type="password"
