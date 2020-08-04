@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
 	public Docket swaggerApi() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(swaggerInfo()).select()
 				.apis(RequestHandlerSelectors.basePackage("com.gucci.cb.controller"))
-				.paths(PathSelectors.ant("/v1/**"))
+				.paths(PathSelectors.ant("/**"))
 				.build()
 				.useDefaultResponseMessages(false); // 기본으로 세팅되는 200,401,403,404 메시지를 표시 하지 않음
 	}

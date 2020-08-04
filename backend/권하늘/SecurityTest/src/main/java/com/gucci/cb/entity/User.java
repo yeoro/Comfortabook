@@ -43,6 +43,9 @@ public class User implements UserDetails {
 	@Column(nullable = false, length = 100)
 	private String name;
 	
+	@Column(name = "phone_numer", length = 100)
+	private String phoneNumber;
+	
 	@Column(length = 100)
 	private String provider;
 	
@@ -54,6 +57,7 @@ public class User implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
+	
 	
 	@Override
 	public String getUsername() { // 회원 id
