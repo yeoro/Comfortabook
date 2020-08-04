@@ -7,6 +7,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import thumbnail from "../img/thumbnail.jpg";
+import book1 from "../books/book1.json";
 
 export interface state {}
 
@@ -18,9 +19,11 @@ const styles = (theme: Theme) =>
       backgroundColor: "#9e9e9e",
     },
     book: {
-      height: "100%",
+      height: "auto",
       width: "100%",
       padding: "5vh 5vw",
+      overflow: "scroll",
+      fontSize: "10px | 20px | 30px",
     },
     img: {
       width: "80%",
@@ -37,8 +40,9 @@ class Read extends React.Component<sProps, state> {
     return (
       <div className={classes.root}>
         <Paper className={classes.book}>
+          <h1>{book1.title}</h1>
           <img src={thumbnail} alt="thumbnail"></img>
-          <p>dddddd</p>
+          <p>{book1.description}</p>
         </Paper>
       </div>
     );
