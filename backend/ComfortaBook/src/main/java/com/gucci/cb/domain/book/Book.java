@@ -57,11 +57,4 @@ public class Book {
 		this.title = title;
 		this.author = author;
 	}
-	
-	public void updatee(String cover) {
-		this.cover = cover;
-	}
-	
-	
-	
 }
