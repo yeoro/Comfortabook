@@ -13,21 +13,25 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfiguration {
-	
+public class SwaggerConfig {
+
 	@Bean
-	public Docket swaggerApi() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(swaggerInfo()).select()
+	public Docket postsApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("gucci")
+				.apiInfo(apiInfo())
+				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.gucci.cb.controller"))
 				.paths(PathSelectors.ant("/**"))
-				.build()
-				.useDefaultResponseMessages(false); // 기본으로 세팅되는 200,401,403,404 메시지를 표시 하지 않음
+				.build();
 	}
 
-	private ApiInfo swaggerInfo() {
-		return new ApiInfoBuilder().title("ComfortaBook")
-				.description("서버 API에 대한 연동 문서입니다.")
-				.license("ssafy").licenseUrl("https://www.ssafy.com").version("1").build();
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("ComfortaBook API")
+				.description("Team Gucci PJT")
+				.termsOfServiceUrl("https://edu.ssafy.com")
+				.license("SSAFY License")
+				.licenseUrl("ssafy@ssafy.com").version("1.0").build();
 	}
-	
+
 }
