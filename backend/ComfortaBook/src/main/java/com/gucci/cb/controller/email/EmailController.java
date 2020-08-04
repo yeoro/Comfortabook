@@ -25,11 +25,11 @@ public class EmailController {
 	// 임시 비밀번호 전송
 	@ApiOperation(value = "임시 비밀번호 전송", response = String.class)
 	@PostMapping("/findPw")
-	public ResponseEntity<Void> snedTempPassword (
+	public ResponseEntity<Void> sendTempPassword (
 			@ApiParam(value = "이메일", required = true) @RequestParam String email,
 			@ApiParam(value = "이름", required = true) @RequestParam String name){
 		
-		emailService.snedTempPassword(email, name);
+		emailService.sendTempPassword(email, name);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

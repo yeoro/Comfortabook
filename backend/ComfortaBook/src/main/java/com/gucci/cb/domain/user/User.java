@@ -43,7 +43,7 @@ public class User implements UserDetails {
 //	@Column(nullable = false, length = 100)
 	private String name;
 	
-	@Column(name = "phone_numer")
+	@Column(name = "phone_number")
 	private String phoneNumber;
 	
 //	@Column(length = 100)
