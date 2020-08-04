@@ -11,8 +11,6 @@ import book1 from "../books/book1.json";
 import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
 
-export interface state {}
-
 const styles = (theme: Theme) =>
   createStyles({
     root: {
@@ -33,24 +31,67 @@ const styles = (theme: Theme) =>
     },
   });
 
-export interface sProps extends WithStyles<typeof styles> {}
+export interface sProps extends WithStyles<typeof styles> {
+  sizevalue: StatusTypes;
+}
 
-class Read extends React.Component<sProps, state> {
-  // state = {};
+interface State {
+  size?: StatusTypes;
+  className: string;
+}
+
+type StatusTypes = "10" | "20" | "30" | "40";
+
+class Read extends React.Component<sProps, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      size: "10",
+      className: "medium",
+    };
+  }
+  changeSize = (value: StatusTypes) => {
+    this.setState({
+      size: value,
+    });
+    if (value === "10") {
+      this.setState({
+        className: "medium",
+      });
+    } else if (value === "20") {
+      this.setState({
+        className: "large",
+      });
+    } else if (value === "30") {
+      this.setState({
+        className: "x-large",
+      });
+    } else if (value === "40") {
+      this.setState({
+        className: "xx-large",
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
+    const fontstyle = {
+      fontSize: this.state.className,
+    };
     return (
       <div className={classes.root}>
-        <ReadPageHeader />
+        <ReadPageHeader
+          changeSize={this.changeSize}
+          value={this.props.sizevalue}
+        />
         <Paper className={classes.book}>
           <h1>{book1.title}</h1>
           <img src={thumbnail} alt="thumbnail"></img>
-          <p>{book1.description}</p>
+          <p style={fontstyle}>{book1.description}</p>
         </Paper>
         <ReadPageFooter />
       </div>
     );
   }
 }
-
 export default withStyles(styles)(Read);
