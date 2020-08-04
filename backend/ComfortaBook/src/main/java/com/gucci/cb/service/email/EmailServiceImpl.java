@@ -28,7 +28,7 @@ public class EmailServiceImpl implements EmailService{
 	
 	@Override
 	@Transactional
-	public void snedTempPassword(String email, String name) {
+	public void sendTempPassword(String email, String name) {
 		
 		String userName = name;
 		String userEmail = email;
