@@ -11,14 +11,13 @@ import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.repository.book.BookRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 	
-	private BookRepository bookRepository; 
+	private final BookRepository bookRepository; 
 	
 	// 도서 정보 등록
 	@Override
