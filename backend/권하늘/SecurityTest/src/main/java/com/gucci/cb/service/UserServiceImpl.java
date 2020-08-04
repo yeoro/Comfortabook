@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User signUp(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userJpaRepository.save(user);
 		return user;
 		
@@ -52,12 +53,15 @@ public class UserServiceImpl implements UserService {
 		return userJpaRepository.findByEmail(id).orElseThrow(CUserNotFoundException::new);
 	}
 
-	@Override
-	@Transactional
-	public User updateUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	@Transactional
+//	public void updateUser(long userNo, User user) {
+//		
+//		User user = userJpaRepository.findById(userNo).orElseThrow(() -> new IllegalArgumentException("asd"));
+//		
+//		user.up
+//		user.update(bookDto.getTitle(), bookDto.getAuthor());
+//	}
 
 	@Override
 	@Transactional

@@ -19,7 +19,7 @@ public interface UserService {
 	public User findUser(String id);
 	
 	// 회원 정보 수정
-	public User updateUser(User user);
+//	public void updateUser(long userNo, User user);
 	
 	// 회원 탈퇴
 	public void deleteUser(long userNo);
