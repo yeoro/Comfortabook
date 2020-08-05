@@ -6,10 +6,12 @@ import {
   withStyles,
   Paper,
 } from "@material-ui/core";
-import thumbnail from "../img/thumbnail.jpg";
+// import thumbnail from "../img/thumbnail.jpg";
 import book1 from "../books/book1.json";
 import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
+import scrollIntoView from "scroll-into-view-if-needed";
+import ReadCarousel from "../components/ReadCarousel";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -38,6 +40,10 @@ export interface sProps extends WithStyles<typeof styles> {
 interface State {
   size?: StatusTypes;
   className: string;
+  title: string;
+  bookbody: any;
+  page: number;
+  p: number;
 }
 
 type StatusTypes = "10" | "20" | "30" | "40";
@@ -47,7 +53,11 @@ class Read extends React.Component<sProps, State> {
     super(props);
     this.state = {
       size: "10",
-      className: "medium",
+      className: "x-large",
+      title: book1.title,
+      bookbody: book1.description,
+      page: 0,
+      p: 1,
     };
   }
   changeSize = (value: StatusTypes) => {
@@ -56,28 +66,36 @@ class Read extends React.Component<sProps, State> {
     });
     if (value === "10") {
       this.setState({
-        className: "medium",
+        className: "large",
       });
     } else if (value === "20") {
       this.setState({
-        className: "large",
+        className: "x-large",
       });
     } else if (value === "30") {
       this.setState({
-        className: "x-large",
+        className: "xx-large",
       });
     } else if (value === "40") {
       this.setState({
-        className: "xx-large",
+        className: "xxx-large",
       });
     }
   };
-
+  movePage = (value: number) => {
+    if (value === 0) {
+      let node = document.getElementsByTagName("h1")[0];
+      scrollIntoView(node, { behavior: "auto", scrollMode: "if-needed" });
+    } else {
+      let node = document.getElementsByTagName("p")[value - 1];
+      scrollIntoView(node, { behavior: "auto", scrollMode: "if-needed" });
+    }
+    this.setState({
+      page: value,
+    });
+  };
   render() {
     const { classes } = this.props;
-    const fontstyle = {
-      fontSize: this.state.className,
-    };
     return (
       <div className={classes.root}>
         <ReadPageHeader
@@ -85,11 +103,32 @@ class Read extends React.Component<sProps, State> {
           value={this.props.sizevalue}
         />
         <Paper className={classes.book}>
-          <h1>{book1.title}</h1>
+          <ReadCarousel
+            page={this.state.page}
+            book={book1}
+            movePage={this.movePage}
+            className={this.state.className}
+          />
+          {/* <h1 id="book">{book1.title}</h1>
           <img src={thumbnail} alt="thumbnail"></img>
-          <p style={fontstyle}>{book1.description}</p>
+          {this.state.bookbody.map((body: any, i: number) => {
+            return (
+              <div>
+                <p id={`${i}`} style={fontstyle}>
+                  {body.content}
+                </p>
+                <br></br>
+                <hr></hr>
+                <br></br>
+              </div>
+            );
+          })} */}
         </Paper>
-        <ReadPageFooter />
+        <ReadPageFooter
+          pagenum={this.state.page}
+          movePage={this.movePage}
+          page={book1.description.length}
+        />
       </div>
     );
   }
