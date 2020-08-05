@@ -13,23 +13,27 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NonLinearSlider() {
-  const [value, setValue] = React.useState<number | number[]>(1);
+interface Props {
+  page: number;
+  movePage: (value: any) => void;
+  pagenum: number;
+}
 
+export default function NonLinearSlider(props: Props) {
   const handleChange = (event: any, newValue: number | number[]) => {
-    setValue(newValue);
+    props.movePage(newValue);
   };
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Typography id="non-linear-slider" gutterBottom>
-        {value} / 300
+        {props.pagenum} / {props.page}
       </Typography>
       <Slider
-        value={value}
-        min={1}
+        value={props.pagenum}
+        min={0}
         step={1}
-        max={300}
+        max={props.page}
         onChange={handleChange}
         valueLabelDisplay="auto"
         aria-labelledby="non-linear-slider"
@@ -37,3 +41,4 @@ export default function NonLinearSlider() {
     </div>
   );
 }
+export const MemoizedMovie = React.memo(NonLinearSlider);
