@@ -1,4 +1,4 @@
-package com.gucci.cb.controller;
+package com.gucci.cb.controller.book;
 
 import java.util.List;
 
@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gucci.cb.domain.Book;
-import com.gucci.cb.dto.BookDTO;
-import com.gucci.cb.service.BookService;
+import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.dto.book.BookDTO;
+import com.gucci.cb.service.book.BookService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
