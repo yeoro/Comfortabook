@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // JWT Token으로 인증하므로 세션 필요 x -> 생성x
 		.and()
 		.authorizeRequests() // 다음 요청에 대한 사용 권한 체크
-		.antMatchers("/*/signin", "/*/signin/**",  "/*/signup", "/*/signup/**", "/*/findPw/**").permitAll() // 가입 및 인증 주소는 누구나 접근 가능
-		.antMatchers(HttpMethod.GET, "api/**").permitAll() // api로 시작하는 GET 요청 리소스는 누구나 접근 가능
+		.antMatchers("/*/signin", "/*/signin/**",  "/*/signup", "/*/signup/**", "/*/findPw/**", "/social/**").permitAll() // 가입 및 인증 주소는 누구나 접근 가능
+		.antMatchers(HttpMethod.GET, "/**").permitAll() // api로 시작하는 GET 요청 리소스는 누구나 접근 가능
 		.anyRequest().hasRole("USER") // 그 외 나머지 요청은 모두 인증 된 회원만 접근 가능
 		.and()
 		.addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class) // JWT Token 필터를 id/password 인증 필터 전에 넣는다.
