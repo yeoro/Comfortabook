@@ -1,8 +1,11 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import KakaoLogin from "react-kakao-login";
+
 import "./Signup.css";
-import { useState, useEffect } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -68,6 +71,44 @@ function Loginpage() {
 
   const classes = useStyles();
 
+  // Kakao Login
+  const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
+
+  const [loginData, setLoginData] = useState("kakao");
+
+  const success = (res: any) => {
+    setLoginData(res);
+    console.log(res);
+  };
+
+  const updateLoginData = () => {
+    const email = JSON.stringify(loginData.profile.kakao_account.email);
+    const _email = email.replace(/^"+|"+$/g, "");
+
+    const nickname = JSON.stringify(
+      loginData.profile.kakao_account.profile.nickname
+    );
+    const _nickname = _nickname.replace(/^"+|"+$/g, "");
+
+    const signupResponse = await axios({
+      method: "post",
+      url: "/user/signup/kakao",
+      data: {
+        accessToken: JSON.stringify(loginData.response.access_token),
+        name: _nickname,
+      },
+      responseType: "json",
+    });
+    alert(signupResponse);
+  };
+
+  useEffect(updateLoginData, [loginData]);
+
+  const failure = (err: any) => {
+    alert(err);
+    console.log(JSON.stringify(err));
+  };
+
   return (
     <Grid
       className={classes.root}
@@ -130,6 +171,13 @@ function Loginpage() {
               <Button className={classes.Button} variant="contained">
                 회원가입
               </Button>
+              <KakaoLogin
+                jsKey={KAKAO_API_KEY}
+                onSuccess={success}
+                onFailure={failure}
+                getProfile={true}
+                useDefaultStyle
+              />
             </div>
           </Grid>
         </form>
