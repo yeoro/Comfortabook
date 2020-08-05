@@ -2,6 +2,10 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
 
+# 다른 hub 검색
+# https://tfhub.dev/
+
+
 # Load Pretrained Word2Vec
 embed = hub.load("https://tfhub.dev/google/Wiki-words-250-with-normalization/2")
 
