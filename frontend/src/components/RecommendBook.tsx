@@ -5,16 +5,13 @@ import BookList from "./BookList";
 
 class RecommendBook extends React.Component {
   state = {
-    item: [],
+    data: [],
   };
 
   getBestseller = async () => {
-    const TTB_KEY = "ttbee2e1738001";
-    let url = `/ttb/api/ItemList.aspx?ttbkey=${TTB_KEY}&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`;
-    const {
-      data: { item },
-    } = await axios.get(url);
-    this.setState({ item });
+    const URL = "/book/list";
+    const { data } = await axios.get(URL);
+    this.setState({ data });
   };
 
   componentDidMount() {
@@ -22,12 +19,12 @@ class RecommendBook extends React.Component {
   }
 
   render() {
-    const { item } = this.state;
+    const { data } = this.state;
     return (
       <div>
-        {item.map((i: any) => (
+        {data.map((i: any) => (
           <BookList
-            key={i.itemId}
+            key={i.bookNo}
             title={i.title}
             author={i.author}
             image={i.cover}
