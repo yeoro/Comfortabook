@@ -18,15 +18,16 @@ import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.service.book.BookService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @AllArgsConstructor
 @RequestMapping("/book")
+@Api(tags = {"Book"})
 public class BookController {
 	
 	private BookService bookService;
