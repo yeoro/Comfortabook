@@ -56,10 +56,10 @@ public class UserController {
 	
 	@ApiOperation(value = "회원가입", notes = "회원가입을 한다.")
 	@PostMapping(value = "/signup")
-	public ResponseEntity<User> signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
-							   @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
-							   @ApiParam(value = "이름", required = true) @RequestParam String name, 
-							   @ApiParam(value = "전화번호", required = true) @RequestParam String phoneNumber) {
+	public ResponseEntity<User> signup(@ApiParam(value = "회원ID : 이메일") @RequestParam("id") String id,
+							   @ApiParam(value = "비밀번호") @RequestParam String password,
+							   @ApiParam(value = "이름") @RequestParam String name, 
+							   @ApiParam(value = "전화번호") @RequestParam String phoneNumber) {
 		
 		User user = User.builder()
 						.email(id)
