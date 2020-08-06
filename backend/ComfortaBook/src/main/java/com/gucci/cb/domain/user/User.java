@@ -1,4 +1,4 @@
-package com.gucci.cb.entity;
+package com.gucci.cb.domain.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,19 +34,19 @@ public class User implements UserDetails {
 	@Column(name = "user_no")
 	private long userNo;
 	
-	@Column(nullable = false, unique = true, length = 50)
+//	@Column(nullable = false, unique = true, length = 50)
 	private String email;
 	
-	@Column(length = 100)
+//	@Column(length = 100)
 	private String password;
 	
-	@Column(nullable = false, length = 100)
+//	@Column(nullable = false, length = 100)
 	private String name;
 	
-	@Column(name = "phone_numer", length = 100)
+	@Column(name = "phone_number")
 	private String phoneNumber;
 	
-	@Column(length = 100)
+//	@Column(length = 100)
 	private String provider;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -56,6 +56,16 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+	}
+	
+	public void updatePassword(String password) {
+		this.password = password;
+	}
+	
+	public void update(String name, String password, String phoneNumber) {
+		this.name = name;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
 	}
 	
 	
@@ -83,6 +93,5 @@ public class User implements UserDetails {
 	public boolean isEnabled() { // 계정이 사용 가능한지
 		return true;
 	}
-
-
 }
+

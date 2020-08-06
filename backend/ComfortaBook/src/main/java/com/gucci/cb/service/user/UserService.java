@@ -1,8 +1,9 @@
-package com.gucci.cb.service;
+package com.gucci.cb.service.user;
 
 import java.util.List;
 
-import com.gucci.cb.entity.User;
+import com.gucci.cb.domain.user.User;
+
 
 public interface UserService {
 	
@@ -19,7 +20,7 @@ public interface UserService {
 	public User findUser(String id);
 	
 	// 회원 정보 수정
-//	public void updateUser(long userNo, User user);
+	public void updateUser(String id, String name, String password, String phoneNumber);
 	
 	// 회원 탈퇴
 	public void deleteUser(long userNo);

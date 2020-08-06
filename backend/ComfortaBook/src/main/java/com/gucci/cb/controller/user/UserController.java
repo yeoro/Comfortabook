@@ -1,7 +1,8 @@
-package com.gucci.cb.controller;
+package com.gucci.cb.controller.user;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gucci.cb.entity.User;
-import com.gucci.cb.service.UserService;
+import com.gucci.cb.config.security.JwtTokenUtil;
+import com.gucci.cb.domain.user.User;
+import com.gucci.cb.dto.social.KakaoProfile;
+import com.gucci.cb.repository.user.UserJpaRepository;
+import com.gucci.cb.service.social.KakaoService;
+import com.gucci.cb.service.user.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -44,6 +49,9 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	private final KakaoService kakaoService;
+	private final UserJpaRepository userJpaRepository;
+	private final JwtTokenUtil jwtTokenUtil;
 	
 	@ApiOperation(value = "회원가입", notes = "회원가입을 한다.")
 	@PostMapping(value = "/signup")
@@ -64,6 +72,29 @@ public class UserController {
 		return new ResponseEntity<User>(userService.signUp(user), HttpStatus.OK);
 	}
 	
+	
+	@ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
+    @PostMapping(value = "/signup/{provider}")
+    public ResponseEntity<User> signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
+                                       @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken,
+                                       @ApiParam(value = "이름", required = true) @RequestParam String name) {
+
+        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+        Optional<User> user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider);
+        if (user.isPresent())
+            throw new IllegalArgumentException("에러 메세지 입력");
+
+        User inUser = User.builder()
+                .email(String.valueOf(profile.getId()))
+                .provider(provider)
+                .name(name)
+                .roles(Collections.singletonList("ROLE_USER"))
+                .build();
+
+        return new ResponseEntity<User>(userJpaRepository.save(inUser), HttpStatus.OK);
+    }
+	
+	
 	@ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
     @PostMapping(value = "/signin")
 	public ResponseEntity<String> signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
@@ -71,6 +102,19 @@ public class UserController {
 		
 		return new ResponseEntity<String>(userService.signIn(id, password), HttpStatus.OK);
 	}
+	
+	
+    @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
+    @PostMapping(value = "/signin/{provider}")
+    public ResponseEntity<String> signinByProvider(
+            @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
+            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken) {
+
+        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+        User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력"));
+       
+        return new ResponseEntity<String>(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()), HttpStatus.OK);
+    }
 
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
@@ -89,46 +133,42 @@ public class UserController {
 	@GetMapping("/detail")
 	public ResponseEntity<User> findUser() {
 		
-		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다.
+		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다. (pk로 조회)
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String id = authentication.getName();
 		
 		return new ResponseEntity<User>(userService.findUser(id), HttpStatus.OK);
 	}
 
-//	@ApiImplicitParams({
-//		@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//	})
-//	@ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")
-//	@PutMapping(value = "/update/{userNo}")
-//	public ResponseEntity<User> modify(
-//			@ApiParam(value = "전화번호", required = true) @PathVariable long userNo,
-//			@ApiParam(value = "비밀번호", required = true) @RequestParam String password,
-//			@ApiParam(value = "전화번호", required = true) @RequestParam String phoneNumber,
-//			@ApiParam(value = "회원이름", required = true) @RequestParam String name) {
-//		
-//		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다.
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		String id = authentication.getName();
-//		
-//		User user = User.builder()
-//				.name(name)
-//				.password(password)
-//				.phoneNumber(phoneNumber)
-//				.build();
-//		
-//		return new ResponseEntity<User>(userService.updateUser(user);)
-//	}
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+	})
+	@ApiOperation(value = "회원 정보 수정", notes = "회원정보를 수정한다")
+	@PutMapping(value = "/update/{userNo}")
+	public ResponseEntity<Void> modifyUser(
+			@ApiParam(value = "비밀번호", required = true) @RequestParam String password,
+			@ApiParam(value = "전화번호", required = true) @RequestParam String phoneNumber,
+			@ApiParam(value = "이름", required = true) @RequestParam String name) {
+		
+		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다.
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String id = authentication.getName();
+		
+		userService.updateUser(id, name, password, phoneNumber);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
 	})
 	@ApiOperation(value = "회원 삭제", notes = "회원번호로 회원정보를 삭제한다")
 	@DeleteMapping(value = "/delete/{userNo}")
-	public ResponseEntity<Void> delete(
+	public ResponseEntity<Void> deleteUser(
 			@ApiParam(value = "회원번호", required = true) @PathVariable long userNo) {
 		
 		userService.deleteUser(userNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
+

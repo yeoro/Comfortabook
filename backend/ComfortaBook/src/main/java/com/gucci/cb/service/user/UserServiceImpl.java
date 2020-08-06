@@ -1,4 +1,4 @@
-package com.gucci.cb.service;
+package com.gucci.cb.service.user;
 
 import java.util.List;
 
@@ -8,12 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gucci.cb.config.security.JwtTokenUtil;
-import com.gucci.cb.entity.User;
-import com.gucci.cb.error.CEmailSigninFailedException;
-import com.gucci.cb.error.CUserNotFoundException;
-import com.gucci.cb.repository.UserJpaRepository;
+import com.gucci.cb.domain.user.User;
+import com.gucci.cb.repository.user.UserJpaRepository;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +34,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String signIn(String id, String password) {
-		User user = userJpaRepository.findByEmail(id).orElseThrow(CEmailSigninFailedException::new);
+		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력 "));
 		if(!passwordEncoder.matches(password, user.getPassword())) {
-			throw new CEmailSigninFailedException();
+			throw new IllegalArgumentException("에러 메세지 입력");
 		}
 		
 		return jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles());
@@ -50,18 +49,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUser(String id) {
-		return userJpaRepository.findByEmail(id).orElseThrow(CUserNotFoundException::new);
+		return userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력"));
 	}
 
-//	@Override
-//	@Transactional
-//	public void updateUser(long userNo, User user) {
-//		
-//		User user = userJpaRepository.findById(userNo).orElseThrow(() -> new IllegalArgumentException("asd"));
-//		
-//		user.up
-//		user.update(bookDto.getTitle(), bookDto.getAuthor());
-//	}
+	@Override
+	@Transactional
+	public void updateUser(String id, String name, String password, String phoneNumber) {
+		
+		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("회원 정보 수정 중 오류가 발생하였습니다."));
+		user.update(name, passwordEncoder.encode(password), phoneNumber);
+		
+	}
 
 	@Override
 	@Transactional
