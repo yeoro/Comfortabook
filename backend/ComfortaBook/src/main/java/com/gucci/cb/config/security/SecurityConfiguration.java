@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+		.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+		.and()
 		.httpBasic().disable() // Rest API 이므로 기본 설정 사용x (기본 설정은 비인증시 로그인폼 화면으로 리다이렉트 됨)
 		.csrf().disable() // Rest API 이므로 csrf 보안 필요x
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // JWT Token으로 인증하므로 세션 필요 x -> 생성x

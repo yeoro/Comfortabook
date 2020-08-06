@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,10 +57,10 @@ public class UserController {
 	
 	@ApiOperation(value = "회원가입", notes = "회원가입을 한다.")
 	@PostMapping(value = "/signup")
-	public ResponseEntity<User> signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
-							   @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
-							   @ApiParam(value = "이름", required = true) @RequestParam String name, 
-							   @ApiParam(value = "전화번호", required = true) @RequestParam String phoneNumber) {
+	public ResponseEntity<User> signup(@ApiParam(value = "회원ID : 이메일") @RequestBody String id,
+							   @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
+							   @ApiParam(value = "이름", required = true) @RequestBody String name, 
+							   @ApiParam(value = "전화번호", required = true) @RequestBody String phoneNumber) {
 		
 		User user = User.builder()
 						.email(id)
@@ -77,8 +78,8 @@ public class UserController {
 	@ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
     @PostMapping(value = "/signup/{provider}")
     public ResponseEntity<User> signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-                                       @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken,
-                                       @ApiParam(value = "이름", required = true) @RequestParam String name) {
+                                       @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken,
+                                       @ApiParam(value = "이름", required = true) @RequestBody String name) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         Optional<User> user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider);
@@ -98,8 +99,8 @@ public class UserController {
 	
 	@ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
     @PostMapping(value = "/signin")
-	public ResponseEntity<String> signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
-									   @ApiParam(value = "비밀번호", required = true) @RequestParam String password) {
+	public ResponseEntity<String> signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
+									   @ApiParam(value = "비밀번호", required = true) @RequestBody String password) {
 		
 		return new ResponseEntity<String>(userService.signIn(id, password), HttpStatus.OK);
 	}
@@ -109,7 +110,7 @@ public class UserController {
     @PostMapping(value = "/signin/{provider}")
     public ResponseEntity<String> signinByProvider(
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken) {
+            @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력"));
@@ -147,9 +148,9 @@ public class UserController {
 	@ApiOperation(value = "회원 정보 수정", notes = "회원정보를 수정한다")
 	@PutMapping(value = "/update/{userNo}")
 	public ResponseEntity<Void> modifyUser(
-			@ApiParam(value = "비밀번호", required = true) @RequestParam String password,
-			@ApiParam(value = "전화번호", required = true) @RequestParam String phoneNumber,
-			@ApiParam(value = "이름", required = true) @RequestParam String name) {
+			@ApiParam(value = "비밀번호", required = true) @RequestBody String password,
+			@ApiParam(value = "전화번호", required = true) @RequestBody String phoneNumber,
+			@ApiParam(value = "이름", required = true) @RequestBody String name) {
 		
 		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다.
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
