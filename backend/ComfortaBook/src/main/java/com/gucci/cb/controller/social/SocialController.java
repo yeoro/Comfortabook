@@ -44,7 +44,6 @@ public class SocialController {
                 .append("?client_id=").append(kakaoClientId)
                 .append("&response_type=code")
                 .append("&redirect_uri=").append(baseUrl).append(kakaoRedirect);
-
         mav.addObject("loginUrl", loginUrl);
         mav.setViewName("social/login");
         return mav;
