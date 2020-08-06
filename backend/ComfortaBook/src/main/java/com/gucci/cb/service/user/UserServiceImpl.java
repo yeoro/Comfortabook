@@ -35,10 +35,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String signIn(String id, String password) {
 		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력 "));
-//		if(!passwordEncoder.matches(password, user.getPassword())) {
-//			throw new IllegalArgumentException("에러 메세지 입력");
-//		}
-		
+		if(!passwordEncoder.matches(null, user.getPassword())) {
+			throw new IllegalArgumentException("에러 메세지 입력 null...");
+		}
+		System.out.println(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()));
 		return jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles());
 	}
 
