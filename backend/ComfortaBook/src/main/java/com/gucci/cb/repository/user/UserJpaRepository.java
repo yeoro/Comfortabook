@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.gucci.cb.domain.user.User;
 
-
 public interface UserJpaRepository extends JpaRepository<User, Long> {
 	
 	Optional<User> findByEmail(String id);
