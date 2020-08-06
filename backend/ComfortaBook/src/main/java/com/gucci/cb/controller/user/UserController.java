@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gucci.cb.config.security.JwtTokenUtil;
 import com.gucci.cb.domain.user.User;
 import com.gucci.cb.dto.social.KakaoProfile;
+import com.gucci.cb.dto.user.UserDTO;
 import com.gucci.cb.repository.user.UserJpaRepository;
 import com.gucci.cb.service.social.KakaoService;
 import com.gucci.cb.service.user.UserService;
@@ -57,16 +57,13 @@ public class UserController {
 	
 	@ApiOperation(value = "회원가입", notes = "회원가입을 한다.")
 	@PostMapping(value = "/signup")
-	public ResponseEntity<User> signup(@ApiParam(value = "회원ID : 이메일") @RequestBody String id,
-							   @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
-							   @ApiParam(value = "이름", required = true) @RequestBody String name, 
-							   @ApiParam(value = "전화번호", required = true) @RequestBody String phoneNumber) {
+	public ResponseEntity<User> signup(@RequestBody UserDTO userDTO) {
 		
 		User user = User.builder()
-						.email(id)
-						.password(password)
-						.name(name)
-						.phoneNumber(phoneNumber)
+						.email(userDTO.getEmail())
+						.password(userDTO.getPassword())
+						.name(userDTO.getName())
+						.phoneNumber(userDTO.getPhoneNumber())
 						.roles(Collections.singletonList("ROLE_USER"))
 						.build();
 		
@@ -77,11 +74,9 @@ public class UserController {
 	
 	@ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
     @PostMapping(value = "/signup/{provider}")
-    public ResponseEntity<User> signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-                                       @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken,
-                                       @ApiParam(value = "이름", required = true) @RequestBody String name) {
+    public ResponseEntity<User> signupProvider( @PathVariable("provider") String provider, @RequestBody UserDTO userDTO) {
 
-        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+        KakaoProfile profile = kakaoService.getKakaoProfile(userDTO.getAccessToken());
         Optional<User> user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider);
         if (user.isPresent())
             throw new IllegalArgumentException("에러 메세지 입력");
@@ -89,7 +84,7 @@ public class UserController {
         User inUser = User.builder()
                 .email(String.valueOf(profile.getId()))
                 .provider(provider)
-                .name(name)
+                .name(userDTO.getName())
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
 
@@ -99,10 +94,9 @@ public class UserController {
 	
 	@ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
     @PostMapping(value = "/signin")
-	public ResponseEntity<String> signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
-									   @ApiParam(value = "비밀번호", required = true) @RequestBody String password) {
+	public ResponseEntity<String> signin(@RequestBody UserDTO userDTO) {
 		
-		return new ResponseEntity<String>(userService.signIn(id, password), HttpStatus.OK);
+		return new ResponseEntity<String>(userService.signIn(userDTO.getEmail(), userDTO.getPassword()), HttpStatus.OK);
 	}
 	
 	
@@ -147,16 +141,13 @@ public class UserController {
 	})
 	@ApiOperation(value = "회원 정보 수정", notes = "회원정보를 수정한다")
 	@PutMapping(value = "/update/{userNo}")
-	public ResponseEntity<Void> modifyUser(
-			@ApiParam(value = "비밀번호", required = true) @RequestBody String password,
-			@ApiParam(value = "전화번호", required = true) @RequestBody String phoneNumber,
-			@ApiParam(value = "이름", required = true) @RequestBody String name) {
+	public ResponseEntity<Void> modifyUser(@RequestBody UserDTO userDTO) {
 		
 		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다.
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String id = authentication.getName();
 		
-		userService.updateUser(id, name, password, phoneNumber);
+		userService.updateUser(id, userDTO.getName(), userDTO.getPassword(), userDTO.getPhoneNumber());
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
