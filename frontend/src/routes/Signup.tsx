@@ -71,43 +71,40 @@ function Loginpage() {
 
   const classes = useStyles();
 
-  // Kakao Login
-  // const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
-
-  // const [loginData, setLoginData] = useState("kakao");
-
-  // const success = (res: any) => {
-  //   setLoginData(res);
-  //   console.log(res);
-  // };
-
-  // const updateLoginData = () => {
-  //   const email = JSON.stringify(loginData.profile.kakao_account.email);
-  //   const _email = email.replace(/^"+|"+$/g, "");
-
-  //   const nickname = JSON.stringify(
-  //     loginData.profile.kakao_account.profile.nickname
-  //   );
-  //   const _nickname = _nickname.replace(/^"+|"+$/g, "");
-
+  // signup
+  // const signup = async (res: any) => {
+  //   const URL = ''
   //   const signupResponse = await axios({
-  //     method: "post",
-  //     url: "/user/signup/kakao",
+  //     method: 'post',
+  //     url: URL,
   //     data: {
-  //       accessToken: JSON.stringify(loginData.response.access_token),
-  //       name: _nickname,
-  //     },
-  //     responseType: "json",
-  //   });
-  //   alert(signupResponse);
-  // };
+  //       email: JSON.stringify(signup.email),
 
-  // useEffect(updateLoginData, [loginData]);
+  //     }
+  //   })
+  // }
 
-  // const failure = (err: any) => {
-  //   alert(err);
-  //   console.log(JSON.stringify(err));
-  // };
+  // Kakao Login
+  const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
+
+  const success = async (res: any) => {
+    const URL = "/user/signup/kakao";
+    const kakaoLoginResponse = await axios({
+      method: "post",
+      url: URL,
+      data: {
+        accessToken: JSON.stringify(res.response.access_token),
+        name: JSON.stringify(res.profile.kakao_account.profile.nickname),
+      },
+      responseType: "json",
+    });
+    console.log(kakaoLoginResponse);
+  };
+
+  const failure = (err: any) => {
+    alert(err);
+    console.log(JSON.stringify(err));
+  };
 
   return (
     <Grid

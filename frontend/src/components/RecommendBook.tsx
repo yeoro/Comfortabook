@@ -12,6 +12,7 @@ class RecommendBook extends React.Component {
     const URL = "/book/list";
     const { data } = await axios.get(URL);
     this.setState({ data });
+    console.log({ data });
   };
 
   componentDidMount() {
