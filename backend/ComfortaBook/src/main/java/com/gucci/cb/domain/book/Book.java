@@ -1,4 +1,4 @@
-package com.gucci.cb.domain;
+package com.gucci.cb.domain.book;
 
 import java.util.Date;
 
@@ -56,6 +56,10 @@ public class Book {
 	public void update(String title, String author) {
 		this.title = title;
 		this.author = author;
+	}
+	
+	public void updatee(String cover) {
+		this.cover = cover;
 	}
 	
 	
