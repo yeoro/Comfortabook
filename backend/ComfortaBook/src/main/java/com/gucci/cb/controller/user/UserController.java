@@ -107,7 +107,7 @@ public class UserController {
             @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력"));
+        User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("user controller 1"));
        
         return new ResponseEntity<String>(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()), HttpStatus.OK);
     }

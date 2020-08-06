@@ -49,9 +49,9 @@ public class KakaoService {
 			if (response.getStatusCode() == HttpStatus.OK)
 				return gson.fromJson(response.getBody(), KakaoProfile.class);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("에러 메세지 입력");
+			throw new IllegalArgumentException("getKakaoProfile 1");
 		}
-		throw new IllegalArgumentException("에러 메세지 입력");
+		throw new IllegalArgumentException("getKakaoProfile 2");
 	}
 
 	public RetKakaoAuth getKakaoTokenInfo(String code) {
