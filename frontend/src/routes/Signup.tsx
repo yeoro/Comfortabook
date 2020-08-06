@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 // import KakaoLogin from "react-kakao-login";
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Loginpage() {
+function Loginpage(props: any) {
   const [signup, setSignup] = useState({
     password: "",
     password_confirm: "",
@@ -71,39 +71,31 @@ function Loginpage() {
 
   const classes = useStyles();
 
-  // signup
-  // const signup = async (res: any) => {
-  //   const URL = ''
-  //   const signupResponse = await axios({
-  //     method: 'post',
-  //     url: URL,
-  //     data: {
-  //       email: JSON.stringify(signup.email),
-
-  //     }
-  //   })
-  // }
-
-  // Kakao Login
-  const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
-
-  const success = async (res: any) => {
-    const URL = "/user/signup/kakao";
-    const kakaoLoginResponse = await axios({
-      method: "post",
-      url: URL,
-      data: {
-        accessToken: JSON.stringify(res.response.access_token),
-        name: JSON.stringify(res.profile.kakao_account.profile.nickname),
-      },
-      responseType: "json",
-    });
-    console.log(kakaoLoginResponse);
-  };
-
-  const failure = (err: any) => {
-    alert(err);
-    console.log(JSON.stringify(err));
+  const doSignup = async (user: any) => {
+    let summonerUrl = "/user/signup";
+    await axios
+      .post(
+        "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+        {
+          email: signup.email,
+          name: signup.name,
+          password: signup.password,
+          phoneNumber: signup.phone_num,
+        },
+        undefined
+      )
+      .then((summonerData) => {
+        props.history.push("/");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        } else if (error.request) {
+          console.log(error.request);
+        } else if (error.message) {
+          console.log(error.message);
+        }
+      });
   };
 
   return (
@@ -165,7 +157,11 @@ function Loginpage() {
               label="전화번호"
             ></TextField>
             <div>
-              <Button className={classes.Button} variant="contained">
+              <Button
+                onClick={doSignup}
+                className={classes.Button}
+                variant="contained"
+              >
                 회원가입
               </Button>
               {/* <KakaoLogin

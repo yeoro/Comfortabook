@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://i3d204.p.ssafy.io:9999",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -52,6 +51,8 @@
     ]
   },
   "devDependencies": {
+    "@types/cors": "^2.8.7",
     "http-proxy-middleware": "^1.0.5"
-  }
+  },
+  "proxy": "http://i3d204.p.ssafy.io:9999"
 }
