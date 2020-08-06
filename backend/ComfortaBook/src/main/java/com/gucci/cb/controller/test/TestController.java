@@ -23,7 +23,7 @@ public class TestController {
 	
 	@ApiOperation(value = "Test Message GET Method", response = String.class)
 	@GetMapping("/g")
-	public ResponseEntity<String> testGET(@RequestParam String s) {
+	public ResponseEntity<String> testGET(@RequestParam(name = "s") String s) {
 		System.out.println("Test Message(GET) : " + s);
 		return new ResponseEntity<String>(s, HttpStatus.OK);
 	}
