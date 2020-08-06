@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import KakaoLogin from "react-kakao-login";
+// import KakaoLogin from "react-kakao-login";
 
 import "./Signup.css";
 
@@ -168,13 +168,13 @@ function Loginpage() {
               <Button className={classes.Button} variant="contained">
                 회원가입
               </Button>
-              <KakaoLogin
+              {/* <KakaoLogin
                 jsKey={KAKAO_API_KEY}
                 onSuccess={success}
                 onFailure={failure}
                 getProfile={true}
                 useDefaultStyle
-              />
+              /> */}
             </div>
           </Grid>
         </form>
