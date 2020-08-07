@@ -30,11 +30,17 @@ const useStyles = makeStyles({
     color: "white",
     fontWeight: 200,
     width: "100%",
+    "&:hover": { background: "#ab47bc" },
+  },
+  divemailcheck: {
+    float: "right",
   },
   emailcheck: {
     background: "#ba68c8",
     color: "white",
     fontWeight: 200,
+    "&:hover": { background: "#ab47bc" },
+    float: "right",
   },
   tfield: {
     width: "100%",
@@ -157,7 +163,7 @@ function Signup(props: any) {
                   label="E-MAIL"
                 ></TextField>
               </Grid>
-              <Grid item>
+              <Grid item className={classes.divemailcheck}>
                 <Button size="small" className={classes.emailcheck}>
                   중복확인
                 </Button>
@@ -205,7 +211,10 @@ function Signup(props: any) {
                 onFailure={failure}
                 getProfile={true}
                 useDefaultStyle
-              />
+                className="kakao-login"
+              >
+                카카오 아이디로 회원가입
+              </KakaoLogin>
             </div>
           </Grid>
         </form>
