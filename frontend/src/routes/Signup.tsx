@@ -1,7 +1,6 @@
 import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 // import KakaoLogin from "react-kakao-login";
