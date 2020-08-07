@@ -1,10 +1,11 @@
 import * as React from "react";
-// import { useState } from "react";
+import { useState } from "react";
 import { Grid, TextField, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import Button from "../components/CustomBtn";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -34,11 +35,44 @@ const useStyles = makeStyles({
   },
 });
 
-function Login() {
-  // const [login, setLogin] = useState({
-  //   password: "",
-  //   email: "",
-  // });
+function Login(props: any) {
+  const [login, setLogin] = useState({
+    password: "",
+    email: "",
+  });
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLogin({
+      ...login,
+      [name]: value,
+    });
+  };
+
+  const dologin = async () => {
+    let summonerUrl = "/user/signin";
+    await axios
+      .post(
+        "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+        {
+          email: login.email,
+          password: login.password,
+        },
+        undefined
+      )
+      .then((summonerData) => {
+        console.log("success");
+        props.history.push("/mainpage");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        } else if (error.request) {
+          console.log(error.request);
+        } else if (error.message) {
+          console.log(error.message);
+        }
+      });
+  };
   const classes = useStyles();
   return (
     <Grid
@@ -58,6 +92,7 @@ function Login() {
             <Grid container item spacing={3}>
               <Grid item className={classes.tfield}>
                 <TextField
+                  onChange={onChange}
                   name="email"
                   className={classes.tfield}
                   label="ID"
@@ -65,6 +100,7 @@ function Login() {
               </Grid>
               <Grid item className={classes.tfield}>
                 <TextField
+                  onChange={onChange}
                   name="password"
                   className={classes.tfield}
                   label="PASSWORD"
@@ -74,7 +110,7 @@ function Login() {
             </Grid>
             <Grid container justify="center" item>
               <Grid item>
-                <Button to="/" width={true}>
+                <Button onClick={dologin} width={true}>
                   LOGIN
                 </Button>
               </Grid>
