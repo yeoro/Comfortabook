@@ -97,10 +97,11 @@ function Signup(props: any) {
         }
       });
   };
+
   // Kakao Login
   const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
 
-  const redirect = () => {
+  const goMainpage = () => {
     console.log("redirect");
     const { history } = props;
     history.push("/mainpage");
@@ -108,17 +109,23 @@ function Signup(props: any) {
 
   const success = async (res: any) => {
     console.log(res);
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
-    const kakaoLoginResponse = await axios({
-      method: "post",
-      url: URL,
-      data: {
-        accessToken: res.response.access_token,
-        // name: res.profile.kakao_account.profile.nickname,
-      },
-      responseType: "json",
-    });
-    console.log(kakaoLoginResponse);
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signup/kakao";
+    await axios
+      .post(
+        URL,
+        {
+          accessToken: res.response.access_token,
+          name: res.profile.kakao_account.profile.nickname,
+        },
+        undefined
+      )
+      .then((event) => {
+        console.log(event);
+        goMainpage();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const failure = (err: any) => {

@@ -9,7 +9,7 @@ class RecommendBook extends React.Component {
   };
 
   getBestseller = async () => {
-    const URL = "/book/list";
+    const URL = "http://i3d204.p.ssafy.io:9999/book/list";
     const { data } = await axios.get(URL);
     this.setState({ data });
     console.log({ data });
