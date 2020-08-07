@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Loginpage(props: any) {
+function Signup(props: any) {
   const [signup, setSignup] = useState({
     password: "",
     password_confirm: "",
@@ -71,7 +71,7 @@ function Loginpage(props: any) {
 
   const classes = useStyles();
 
-  const doSignup = async (user: any) => {
+  const doSignup = async () => {
     let summonerUrl = "/user/signup";
     await axios
       .post(
@@ -84,7 +84,7 @@ function Loginpage(props: any) {
         },
         undefined
       )
-      .then((summonerData) => {
+      .then(() => {
         props.history.push("/");
       })
       .catch((error) => {
@@ -179,4 +179,4 @@ function Loginpage(props: any) {
   );
 }
 
-export default Loginpage;
+export default Signup;

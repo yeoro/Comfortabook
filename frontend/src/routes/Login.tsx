@@ -34,7 +34,6 @@ const useStyles = makeStyles({
     width: "100%",
   },
 });
-interface Props {}
 
 function Login(props: any) {
   const [login, setLogin] = useState({
@@ -49,10 +48,7 @@ function Login(props: any) {
     });
   };
 
-  const dologin = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
+  const dologin = async () => {
     let summonerUrl = "/user/signin";
     await axios
       .post(
@@ -114,7 +110,9 @@ function Login(props: any) {
             </Grid>
             <Grid container justify="center" item>
               <Grid item>
-                <Button width={true}>LOGIN</Button>
+                <Button onClick={dologin} width={true}>
+                  LOGIN
+                </Button>
               </Grid>
             </Grid>
             <Grid item container justify="center" spacing={1}>
