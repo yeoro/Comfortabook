@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
     },
     textField: {
-      width: "70vw",
+      width: "55vw",
     },
     button: {
       "& > *": {
