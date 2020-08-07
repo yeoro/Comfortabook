@@ -8,12 +8,12 @@ class RecommendBook extends React.Component {
     // data: [],
   };
 
-  // getBestseller = async () => {
-  //   const URL = "/book/list";
-  //   const { data } = await axios.get(URL);
-  //   this.setState({ data });
-  //   console.log({ data });
-  // };
+  getBestseller = async () => {
+    const URL = "http://i3d204.p.ssafy.io:9999/book/list";
+    const { data } = await axios.get(URL);
+    this.setState({ data });
+    console.log({ data });
+  };
 
   // componentDidMount() {
   //   this.getBestseller();

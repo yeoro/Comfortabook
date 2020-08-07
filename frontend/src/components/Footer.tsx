@@ -11,7 +11,7 @@ import "./Footer.css";
 
 const useStyles = makeStyles({
   footer: {
-    width: "100vw",
+    width: "600px",
   },
 });
 interface Props {

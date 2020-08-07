@@ -21,11 +21,13 @@ class Mainpage extends React.Component<Props, State> {
   state = {
     mode: this.props.modevalue,
   };
+
   componentDidMount() {
     this.setState({
       mode: "Home",
     });
   }
+
   getPage = () => {
     if (this.state.mode === "Home") {
       return <Home />;
@@ -37,11 +39,13 @@ class Mainpage extends React.Component<Props, State> {
       return <Mypage />;
     }
   };
+
   changePage = (value: StatusTypes) => {
     this.setState({
       mode: value,
     });
   };
+
   render() {
     return (
       <div className="mainpage">
