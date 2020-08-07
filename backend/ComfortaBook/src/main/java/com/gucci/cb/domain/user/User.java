@@ -49,7 +49,7 @@ public class User implements UserDetails {
 //	@Column(length = 100)
 	private String provider;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@Builder.Default
 	private List<String> roles = new ArrayList<>();
 	
