@@ -1,6 +1,7 @@
 package com.gucci.cb.controller.user;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import com.gucci.cb.domain.user.User;
 import com.gucci.cb.dto.social.KakaoProfile;
 import com.gucci.cb.dto.user.UserDTO;
 import com.gucci.cb.repository.user.UserJpaRepository;
+import com.gucci.cb.service.social.KakaoAPIService;
 import com.gucci.cb.service.social.KakaoService;
 import com.gucci.cb.service.user.UserService;
 
@@ -52,6 +54,7 @@ public class UserController {
 
 	private final UserService userService;
 	private final KakaoService kakaoService;
+	private final KakaoAPIService kakaoAPIService;
 	private final UserJpaRepository userJpaRepository;
 	private final JwtTokenUtil jwtTokenUtil;
 	
@@ -106,8 +109,8 @@ public class UserController {
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
             @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken) {
 
-        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("user controller 1"));
+    	HashMap<String, Object> userInfo = kakaoAPIService.getUserInfo(accessToken);
+        User user = userJpaRepository.findByEmailAndProvider(String.valueOf(userInfo.get("email")), provider).orElseThrow(() -> new IllegalArgumentException("user controller 1"));
        
         return new ResponseEntity<String>(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()), HttpStatus.OK);
     }
