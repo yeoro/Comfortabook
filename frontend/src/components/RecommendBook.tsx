@@ -5,7 +5,7 @@ import BookList from "./BookList";
 
 class RecommendBook extends React.Component {
   state = {
-    data: [],
+    // data: [],
   };
 
   getBestseller = async () => {
@@ -15,15 +15,15 @@ class RecommendBook extends React.Component {
     console.log({ data });
   };
 
-  componentDidMount() {
-    this.getBestseller();
-  }
+  // componentDidMount() {
+  //   this.getBestseller();
+  // }
 
   render() {
-    const { data } = this.state;
+    // const { data } = this.state;
     return (
       <div>
-        {data.map((i: any) => (
+        {/* {data.map((i: any) => (
           <BookList
             key={i.bookNo}
             title={i.title}
@@ -31,7 +31,7 @@ class RecommendBook extends React.Component {
             image={i.cover}
             publisher={i.publisher}
           />
-        ))}
+        ))} */}
       </div>
     );
   }
