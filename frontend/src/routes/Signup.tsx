@@ -1,10 +1,9 @@
 import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-// import KakaoLogin from "react-kakao-login";
+import KakaoLogin from "react-kakao-login";
 
 import "./Signup.css";
 
@@ -98,6 +97,34 @@ function Signup(props: any) {
         }
       });
   };
+  // Kakao Login
+  const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
+
+  const redirect = () => {
+    console.log("redirect");
+    const { history } = props;
+    history.push("/mainpage");
+  };
+
+  const success = async (res: any) => {
+    console.log(res);
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    const kakaoLoginResponse = await axios({
+      method: "post",
+      url: URL,
+      data: {
+        accessToken: res.response.access_token,
+        // name: res.profile.kakao_account.profile.nickname,
+      },
+      responseType: "json",
+    });
+    console.log(kakaoLoginResponse);
+  };
+
+  const failure = (err: any) => {
+    alert(err);
+    console.log(JSON.stringify(err));
+  };
 
   return (
     <Grid
@@ -165,13 +192,13 @@ function Signup(props: any) {
               >
                 회원가입
               </Button>
-              {/* <KakaoLogin
+              <KakaoLogin
                 jsKey={KAKAO_API_KEY}
                 onSuccess={success}
                 onFailure={failure}
                 getProfile={true}
                 useDefaultStyle
-              /> */}
+              />
             </div>
           </Grid>
         </form>
