@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.5",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "jwt-decode": "^2.2.0",
     "material-auto-rotating-carousel": "^3.0.2",
     "nuka-carousel": "^4.7.0",
     "react": "^16.13.1",
