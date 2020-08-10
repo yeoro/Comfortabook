@@ -1,9 +1,10 @@
-package com.gucci.cb.service;
+package com.gucci.cb.service.book;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import com.gucci.cb.domain.Book;
-import com.gucci.cb.dto.BookDTO;
+import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.dto.book.BookDTO;
 
 public interface BookService {
 
@@ -11,7 +12,8 @@ public interface BookService {
 	Book insert(Book book);
 	
 	// 전체 도서 조회
-	List<Book> findAll();
+//	List<Book> findAll();
+	Page<Book> findAll(Pageable pageable);
 	
 	// 도서 상세 조회
 	Book findByNo(Long bookNo);

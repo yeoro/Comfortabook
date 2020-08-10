@@ -1,7 +1,9 @@
-package com.gucci.cb.controller;
+package com.gucci.cb.controller.book;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,20 +16,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gucci.cb.domain.Book;
-import com.gucci.cb.dto.BookDTO;
-import com.gucci.cb.service.BookService;
+import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.dto.book.BookDTO;
+import com.gucci.cb.repository.book.BookRepository;
+import com.gucci.cb.service.book.BookService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/book")
+@Api(tags = {"Book"})
 public class BookController {
 	
-	private BookService bookService;
+	private final BookService bookService;
+	private final BookRepository bookRepository;
 	
 	// 도서 정보 등록
 	@ApiOperation(value = "도서 정보 등록", response = Book.class)
@@ -39,9 +45,14 @@ public class BookController {
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
 	@GetMapping("/list")
-	public ResponseEntity<List<Book>> retrieveBook() {
-		List<Book> books = bookService.findAll();
-		return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
+	public ResponseEntity<Page<Book>> retrieveBook(final Pageable pageable) {
+//		Page<Book> books = bookRepository.findAll(pageable);
+//		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
+		
+		return new ResponseEntity<Page<Book>>(bookService.findAll(pageable), HttpStatus.OK);
+		
+//		List<Book> books = bookService.findAll();
+//		return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
 	}
 	
 	// 도서 상세 조회
