@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     height: "1024px",
     width: "600px",
   },
-  login: {
+  signup: {
     backgroundColor: "rgba(238, 238, 238, 0.2)",
     height: "60%",
     width: "60%",
@@ -33,14 +33,15 @@ const useStyles = makeStyles({
     "&:hover": { background: "#ab47bc" },
   },
   divemailcheck: {
-    float: "right",
+    display: "flex",
+    width: "100%",
+    flexDirection: "row-reverse",
   },
   emailcheck: {
     background: "#ba68c8",
     color: "white",
     fontWeight: 200,
     "&:hover": { background: "#ab47bc" },
-    float: "right",
   },
   tfield: {
     width: "100%",
@@ -115,13 +116,13 @@ function Signup(props: any) {
 
   const success = async (res: any) => {
     console.log(res);
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signup/kakao";
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
     await axios
       .post(
         URL,
         {
           accessToken: res.response.access_token,
-          name: res.profile.kakao_account.profile.nickname,
+          // name: res.profile.kakao_account.profile.nickname,
         },
         undefined
       )
@@ -146,7 +147,7 @@ function Signup(props: any) {
       justify="center"
       alignItems="center"
     >
-      <Box className={classes.login} borderRadius={10}>
+      <Box className={classes.signup} borderRadius={10}>
         <form className={classes.form}>
           <Grid
             container
@@ -210,10 +211,11 @@ function Signup(props: any) {
                 onSuccess={success}
                 onFailure={failure}
                 getProfile={true}
-                useDefaultStyle
-                className="kakao-login"
+                className="kakao-signup"
               >
-                카카오 아이디로 회원가입
+                <span className="kakao-signup-font">
+                  카카오 아이디로 회원가입
+                </span>
               </KakaoLogin>
             </div>
           </Grid>
