@@ -82,7 +82,7 @@ public class UserController {
         KakaoProfile profile = kakaoService.getKakaoProfile(userDTO.getAccessToken());
         Optional<User> user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider);
         if (user.isPresent())
-            throw new IllegalArgumentException("에러 메세지 입력");
+            throw new IllegalArgumentException("이미 연동 된 소셜 계정");
 
         User inUser = User.builder()
                 .email(String.valueOf(profile.getId()))
@@ -109,10 +109,10 @@ public class UserController {
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
             @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken) {
 
-    	HashMap<String, Object> userInfo = kakaoAPIService.getUserInfo(accessToken);
-        User user = userJpaRepository.findByEmailAndProvider(String.valueOf(userInfo.get("email")), provider).orElseThrow(() -> new IllegalArgumentException("user controller 1"));
-       
-        return new ResponseEntity<String>(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()), HttpStatus.OK);
+    	KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+    	User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("user 정보 호출 에러"));
+
+        return new ResponseEntity<String>(jwtTokenUtil.createToken(String.valueOf(user.getEmail()), user.getRoles()), HttpStatus.OK);
     }
 
 	@ApiImplicitParams({
@@ -135,6 +135,9 @@ public class UserController {
 		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다. (pk로 조회)
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String id = authentication.getName();
+		
+		System.out.println("X-AUTH-TOKEN : " + authentication);
+		System.out.println("id : " + id);
 		
 		return new ResponseEntity<User>(userService.findUser(id), HttpStatus.OK);
 	}
