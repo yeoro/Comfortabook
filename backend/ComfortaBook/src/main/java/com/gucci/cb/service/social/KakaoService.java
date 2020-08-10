@@ -60,6 +60,7 @@ public class KakaoService {
 			// Request profile
 			ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.profile"), request, String.class);
 			
+			
 			System.out.println("response : " + response);
 			System.out.println("Requset profile !!!!!!!!!!!!!!!!!");
 			System.out.println("response.getBody() fromJson : " + gson.fromJson(response.getBody(), KakaoProfile.class));

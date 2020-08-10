@@ -106,12 +106,20 @@ public class UserController {
     @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
     @PostMapping(value = "/signin/{provider}")
     public ResponseEntity<String> signinByProvider(
-            @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
+            @ApiParam(value = "서비스 제공자 provider", required = true) @PathVariable String provider,
             @ApiParam(value = "소셜 access_token", required = true) @RequestBody String accessToken) {
 
-    	KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-    	User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("user 정보 호출 에러"));
-
+    	
+//    	KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+//    	User user = userJpaRepository.findByEmailAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(() -> new IllegalArgumentException("user 정보 호출 에러"));
+    	
+//    	System.out.println("user 정보 : " + user.getUserNo());
+    	
+    	HashMap<String, Object> userInfo = kakaoAPIService.getUserInfo(accessToken);
+    	User user = userJpaRepository.findByEmailAndProvider(String.valueOf(userInfo.get("id")), provider).orElseThrow(() -> new IllegalArgumentException("User정보 호출!!"));
+    	
+    	System.out.println("userInfo : " + userInfo.get("id"));
+    	
         return new ResponseEntity<String>(jwtTokenUtil.createToken(String.valueOf(user.getEmail()), user.getRoles()), HttpStatus.OK);
     }
 
