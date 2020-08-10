@@ -136,6 +136,9 @@ public class UserController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String id = authentication.getName();
 		
+		System.out.println("X-AUTH-TOKEN : " + authentication);
+		System.out.println("id : " + id);
+		
 		return new ResponseEntity<User>(userService.findUser(id), HttpStatus.OK);
 	}
 
