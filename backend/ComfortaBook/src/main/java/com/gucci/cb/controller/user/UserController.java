@@ -169,5 +169,8 @@ public class UserController {
 		userService.deleteUser(userNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	
+	
 }
 
