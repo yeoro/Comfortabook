@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "MapoFlowerIsland";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoFlowerIslandA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .MuiBox-root {
   padding: 0 !important;
 }
@@ -7,8 +15,39 @@
   height: 300px;
 }
 
-.sentence {
+.sentence1 {
+  font-family: "MapoFlowerIsland";
   position: absolute;
-  bottom: 20px;
-  left: 45%;
+  top: 50px;
+  left: 60%;
+  color: #424242;
+  font-weight: bold;
+  font-size: 30px;
+}
+.sentence2 {
+  font-family: "MapoFlowerIsland";
+  position: absolute;
+  bottom: 40px;
+  left: 10%;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
+.sentence3 {
+  font-family: "MapoFlowerIsland";
+  position: absolute;
+  bottom: 150px;
+  left: 10%;
+  color: #f5f5dc;
+  font-weight: bold;
+  font-size: 30px;
+}
+.sentence4 {
+  font-family: "MapoFlowerIsland";
+  position: absolute;
+  bottom: 40px;
+  left: 10%;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
 }

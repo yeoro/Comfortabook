@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       display: "flex",
       marginBottom: "7vh",
+      width: "550px",
     },
     formControl: {
       margin: theme.spacing(1),
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
     },
     textField: {
-      width: "70vw",
+      width: "65%",
     },
     button: {
       "& > *": {
