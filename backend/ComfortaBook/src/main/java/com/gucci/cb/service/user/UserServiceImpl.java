@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String signIn(String id, String password) {
-		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력 "));
+		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("아이디를 확인 해주세요."));
 		if(!passwordEncoder.matches(password, user.getPassword())) {
-			throw new IllegalArgumentException("에러 메세지 입력");
+			throw new IllegalArgumentException("비밀번호를 확인 해주세요.");
 		}
-		
+		System.out.println(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()));
 		return jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles());
 	}
 
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUser(String id) {
-		return userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력"));
+		return userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 회원입니다."));
 	}
 
 	@Override

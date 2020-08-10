@@ -36,22 +36,48 @@ public class KakaoService {
 	private String kakaoRedirect;
 
 	public KakaoProfile getKakaoProfile(String accessToken) {
+		System.out.println("accessToken : " + accessToken);
+		System.out.println("baseUrl : " + baseUrl);
+		System.out.println("kakaoClientId : " + kakaoClientId);
+		System.out.println("kakaoRedirect : " + kakaoRedirect);
+		System.out.println("env.getProperty(\"spring.social.kakao.url.profile : " +  env.getProperty("spring.social.kakao.url.profile"));
+		
 		// Set header : Content-type: application/x-www-form-urlencoded
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		headers.set("Authorization", "Bearer " + accessToken);
+		
+		System.out.println("headers : " + headers);
 
 		// Set http entity
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+		
+		System.out.println("request : " + request);
+		System.out.println("request.getHeaders()" + request.getHeaders());
+		System.out.println("request.getBody() : " + request.getBody());
+		
 		try {
 			// Request profile
 			ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.profile"), request, String.class);
-			if (response.getStatusCode() == HttpStatus.OK)
+			
+			
+			System.out.println("response : " + response);
+			System.out.println("Requset profile !!!!!!!!!!!!!!!!!");
+			System.out.println("response.getBody() fromJson : " + gson.fromJson(response.getBody(), KakaoProfile.class));
+			System.out.println("response.getBody() : " + response.getBody());
+			System.out.println("response.getStatusCodeValue() : " + response.getStatusCodeValue());
+			System.out.println("response.getStatusCode() : " + response.getStatusCode());
+			
+			if (response.getStatusCode() == HttpStatus.OK) {
+				System.out.println("if 성공 !!!");
 				return gson.fromJson(response.getBody(), KakaoProfile.class);
+			}
+			
 		} catch (Exception e) {
-			throw new IllegalArgumentException("에러 메세지 입력");
+			throw new IllegalArgumentException("getKakaoProfile 1");
 		}
-		throw new IllegalArgumentException("에러 메세지 입력");
+		
+		throw new IllegalArgumentException("getKakaoProfile 2");
 	}
 
 	public RetKakaoAuth getKakaoTokenInfo(String code) {
