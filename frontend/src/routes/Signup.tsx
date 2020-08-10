@@ -116,13 +116,13 @@ function Signup(props: any) {
 
   const success = async (res: any) => {
     console.log(res);
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signup/kakao";
     await axios
       .post(
         URL,
         {
+          name: res.profile.properties.nickname,
           accessToken: res.response.access_token,
-          // name: res.profile.kakao_account.profile.nickname,
         },
         undefined
       )
@@ -131,12 +131,12 @@ function Signup(props: any) {
         goMainpage();
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
   const failure = (err: any) => {
-    alert(err);
+    console.log("fail");
     console.log(JSON.stringify(err));
   };
 
