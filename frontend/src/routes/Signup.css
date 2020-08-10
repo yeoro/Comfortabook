@@ -1,9 +1,9 @@
 .MuiFormLabel-root.Mui-focused {
-  color: #ba68c8 !important;
+  color: #ba68c8;
 }
 
 .MuiInput-underline:after {
-  border-bottom: 2px solid #ba68c8 !important;
+  border-bottom: 2px solid #ba68c8;
 }
 
 .in-valid {

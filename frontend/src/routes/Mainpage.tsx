@@ -7,10 +7,13 @@ import Home from "../components/Home";
 import Mypage from "../components/Mypage";
 import Library from "../components/Library";
 import "./Mainpage.css";
-// import axios from "axios";
+import axios from "axios";
+import Auth from "../components/Authservice";
+import { History } from "history";
 
 interface Props {
   modevalue: StatusTypes;
+  history: History;
 }
 interface State {
   mode: StatusTypes;
@@ -25,25 +28,47 @@ class Mainpage extends React.Component<Props, State> {
     user_detail: null,
   };
 
-  // loadDetail = async () => {
-  //   axios
-  //     .get("http://i3d204.p.ssafy.io:9999/user/detail")
-  //     .then(({ data }) => {
-  //       this.setState({
-  //         user_detail: data.Item,
-  //       });
-  //     })
-  //     .catch((e) => {
-  //       // API 호출이 실패한 경우
-  //       console.error(e); // 에러표시
-  //     });
-  // };
+  loadDetail = async () => {
+    const token = localStorage.getItem("token");
+    let config = {
+      headers: {
+        "X-AUTH-TOKEN": token,
+      },
+    };
+    axios
+      .get("http://i3d204.p.ssafy.io:9999/user/detail", config)
+      .then(({ data }) => {
+        this.setState({
+          user_detail: {
+            name: data.name,
+            email: data.email,
+            phone_num: data.phoneNumber,
+          },
+        });
+      })
+      .catch((e) => {
+        // API 호출이 실패한 경우
+        console.error(e); // 에러표시
+      });
+  };
+
+  logout = () => {
+    Auth.logout();
+    this.props.history.push("/");
+  };
+
+  islogin = () => {
+    if (!Auth.isUserLoggedIn()) {
+      this.props.history.push("/");
+    }
+  };
 
   componentDidMount() {
     this.setState({
       mode: "Home",
     });
-    // this.loadDetail();
+    this.loadDetail();
+    this.islogin();
   }
 
   getPage = () => {
@@ -54,7 +79,7 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Library") {
       return <Library />;
     } else if (this.state.mode === "Mypage") {
-      return <Mypage detail={this.state.user_detail} />;
+      return <Mypage logout={this.logout} detail={this.state.user_detail} />;
     }
   };
 
