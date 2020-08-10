@@ -154,7 +154,7 @@ public class UserController {
 		@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
 	})
 	@ApiOperation(value = "회원 정보 수정", notes = "회원정보를 수정한다")
-	@PutMapping(value = "/update/{userNo}")
+	@PutMapping(value = "/update")
 	public ResponseEntity<Void> modifyUser(@RequestBody UserDTO userDTO) {
 		
 		// SecurityContext에서 인증 받은 회원의 정보를 얻어 온다.
