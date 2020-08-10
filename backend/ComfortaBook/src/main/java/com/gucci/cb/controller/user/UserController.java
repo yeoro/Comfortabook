@@ -116,6 +116,8 @@ public class UserController {
 //    	System.out.println("user 정보 : " + user.getUserNo());
     	
     	HashMap<String, Object> userInfo = kakaoAPIService.getUserInfo(accessToken);
+    	
+    	//
     	User user = userJpaRepository.findByEmailAndProvider(String.valueOf(userInfo.get("id")), provider).orElseThrow(() -> new IllegalArgumentException("User정보 호출!!"));
     	
     	System.out.println("userInfo : " + userInfo.get("id"));
