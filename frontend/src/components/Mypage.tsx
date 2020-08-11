@@ -30,6 +30,7 @@ const styles = () =>
 export interface Props extends WithStyles<typeof styles> {
   detail: any;
   logout: () => void;
+  goMainpage: () => void;
 }
 
 export interface State {
@@ -44,10 +45,11 @@ class Mypage extends React.Component<Props, State> {
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === "email") {
+    if (name === "password") {
       this.setState({
         user_detail: {
-          email: value,
+          email: this.state.user_detail.email,
+          password: value,
           name: this.state.user_detail.name,
           phone_num: this.state.user_detail.phone_num,
         },
@@ -56,6 +58,7 @@ class Mypage extends React.Component<Props, State> {
       this.setState({
         user_detail: {
           email: this.state.user_detail.email,
+          password: this.state.user_detail.password,
           name: value,
           phone_num: this.state.user_detail.phone_num,
         },
@@ -64,6 +67,7 @@ class Mypage extends React.Component<Props, State> {
       this.setState({
         user_detail: {
           email: this.state.user_detail.email,
+          password: this.state.user_detail.password,
           name: this.state.user_detail.name,
           phone_num: value,
         },
@@ -78,15 +82,24 @@ class Mypage extends React.Component<Props, State> {
         "X-AUTH-TOKEN": token,
       },
     };
-    await axios.put(
-      "http://i3d204.p.ssafy.io:9999/user/update",
-      {
-        email: this.state.user_detail.email,
-        name: this.state.user_detail.name,
-        phoneNumber: this.state.user_detail.phone_num,
-      },
-      config
-    );
+    await axios
+      .put(
+        "http://i3d204.p.ssafy.io:9999/user/update",
+        {
+          name: this.state.user_detail.name,
+          password: this.state.user_detail.password,
+          phoneNumber: this.state.user_detail.phone_num,
+        },
+        config
+      )
+      .then(() => {
+        alert("수정이 완료되었습니다.");
+        this.props.goMainpage();
+      })
+      .catch((e) => {
+        // API 호출이 실패한 경우
+        // alert(e.response.data.message); // 에러표시
+      });
   };
 
   render() {
@@ -144,6 +157,14 @@ class Mypage extends React.Component<Props, State> {
             <Button className={classes.logoutbtn} onClick={this.props.logout}>
               로그아웃
             </Button>
+          </Grid>
+          <Grid item>
+            <TextField
+              onChange={this.onChange}
+              name="pw"
+              label="비밀번호"
+              type="password"
+            />
           </Grid>
         </Grid>
       </div>
