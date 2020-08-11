@@ -26,9 +26,6 @@ class AdminBooklist extends React.Component<Props, State> {
         this.setState({
           books: res.data.content,
         });
-        this.state.books.map((element: any) => {
-          return console.log(element.title);
-        });
       })
       .catch((error: any) => {
         console.log(error);

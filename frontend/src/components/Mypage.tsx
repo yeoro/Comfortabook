@@ -55,6 +55,7 @@ class Mypage extends React.Component<Props, State> {
           name: this.state.user_detail.name,
           phone_num: this.state.user_detail.phone_num,
           role: this.state.user_detail.role,
+          no: this.state.user_detail.no,
         },
       });
     } else if (name === "name") {
@@ -65,6 +66,7 @@ class Mypage extends React.Component<Props, State> {
           name: value,
           phone_num: this.state.user_detail.phone_num,
           role: this.state.user_detail.role,
+          no: this.state.user_detail.no,
         },
       });
     } else {
@@ -75,6 +77,7 @@ class Mypage extends React.Component<Props, State> {
           name: this.state.user_detail.name,
           phone_num: value,
           role: this.state.user_detail.role,
+          no: this.state.user_detail.no,
         },
       });
     }
@@ -179,6 +182,7 @@ class Mypage extends React.Component<Props, State> {
               로그아웃
             </Button>
           </Grid>
+          {admingrid}
         </Grid>
       </div>
     );

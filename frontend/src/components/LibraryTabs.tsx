@@ -16,6 +16,9 @@ interface TabPanelProps {
   index: any;
   value: any;
 }
+interface bProps {
+  mybooks: any;
+}
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props: bProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -76,10 +79,10 @@ export default function SimpleTabs() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <MyBooks />
+          <MyBooks mybooks={props.mybooks} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Favorites />
+          <Favorites mybooks={props.mybooks} />
         </TabPanel>
       </div>
     </div>
