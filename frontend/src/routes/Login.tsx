@@ -85,35 +85,54 @@ class Login extends React.Component<Props, State> {
         console.log("success");
         this.props.history.push("/mainpage");
       })
-      .catch(() => {
+      .catch((e) => {
         // this.setState({showSuccessMessage:false})
         // this.setState({hasLoginFailed:true})
-        console.log("fail");
+        alert(e.response.data.message);
+      });
+  };
+
+  kakaosignin = async (token: string) => {
+    console.log(token);
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    await axios
+      .post(URL, token, undefined)
+      .then((res) => {
+        localStorage.setItem("token", res.data);
+        this.props.history.push("/mainpage");
+      })
+      .catch((error) => {
+        console.log("로그인 실패");
+        console.log(error.response);
       });
   };
 
   success = async (res: any) => {
-    console.log(res);
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signup/kakao";
     await axios
       .post(
         URL,
         {
+          name: res.profile.properties.nickname,
           accessToken: res.response.access_token,
-          // name: res.profile.kakao_account.profile.nickname,
         },
         undefined
       )
-      .then((event) => {
-        console.log(event);
+      .then((res) => {
+        console.log(res);
+        this.kakaosignin(res.config.data.accessToken);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.data.message === "이미 연동 된 소셜 계정") {
+          this.kakaosignin(JSON.parse(error.response.config.data).accessToken);
+        } else {
+          console.log(error.response);
+        }
       });
   };
 
   failure = (err: any) => {
-    alert(err);
+    console.log("fail");
     console.log(JSON.stringify(err));
   };
 
