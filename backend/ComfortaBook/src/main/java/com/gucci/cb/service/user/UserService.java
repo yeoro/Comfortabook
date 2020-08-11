@@ -27,5 +27,8 @@ public interface UserService {
 	
 	// 아이디 찾기
 	public User findId(String name, String phoneNumber);
+
+	// 아이디 중복 체크
+	public String duplicateCheck(String email);
 	
 }

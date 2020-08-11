@@ -25,19 +25,21 @@ export default function Header() {
   const classes = useStyles();
 
   return (
-    <div className={classes.header}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <img
-              src="/comfortabook.png"
-              alt="logo"
-              title="logo"
-              className="logo"
-            />
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <div className="header">
+      <div className={classes.header}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              <img
+                src="/comfortabook.png"
+                alt="logo"
+                title="logo"
+                className="logo"
+              />
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div>
     </div>
   );
 }
