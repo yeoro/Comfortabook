@@ -37,7 +37,7 @@ function Readcarousel(props: Props) {
         {props.book.description.map((body: any, i: number) => {
           return (
             <div>
-              <p id={`${i}`} style={fontstyle}>
+              <p className={props.className} id={`${i}`} style={fontstyle}>
                 {body.content}
               </p>
             </div>

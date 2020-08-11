@@ -8,6 +8,7 @@ import Signup from "./routes/Signup";
 import Mainpage from "./routes/Mainpage";
 import ReadPage from "./routes/ReadPage";
 import NotFound from "./routes/NotFound";
+import Admin from "./routes/Admin";
 
 const useStyles = makeStyles({
   root: {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/mainpage" component={Mainpage} />
         <Route path="/read" component={ReadPage} />
         <Route path="/notfound" component={NotFound} />
+        <Route path="/admin" component={Admin} />
       </Grid>
     </BrowserRouter>
   );

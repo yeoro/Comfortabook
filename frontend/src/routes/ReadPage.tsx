@@ -46,14 +46,14 @@ interface State {
   p: number;
 }
 
-type StatusTypes = "10" | "20" | "30" | "40";
+type StatusTypes = "20" | "30" | "40";
 
 class Read extends React.Component<sProps, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      size: "10",
-      className: "x-large",
+      size: "20",
+      className: "large",
       title: book1.title,
       bookbody: book1.description,
       page: 0,
@@ -64,21 +64,17 @@ class Read extends React.Component<sProps, State> {
     this.setState({
       size: value,
     });
-    if (value === "10") {
+    if (value === "20") {
       this.setState({
         className: "large",
       });
-    } else if (value === "20") {
+    } else if (value === "30") {
       this.setState({
         className: "x-large",
       });
-    } else if (value === "30") {
-      this.setState({
-        className: "xx-large",
-      });
     } else if (value === "40") {
       this.setState({
-        className: "xxx-large",
+        className: "xx-large",
       });
     }
   };
@@ -109,20 +105,6 @@ class Read extends React.Component<sProps, State> {
             movePage={this.movePage}
             className={this.state.className}
           />
-          {/* <h1 id="book">{book1.title}</h1>
-          <img src={thumbnail} alt="thumbnail"></img>
-          {this.state.bookbody.map((body: any, i: number) => {
-            return (
-              <div>
-                <p id={`${i}`} style={fontstyle}>
-                  {body.content}
-                </p>
-                <br></br>
-                <hr></hr>
-                <br></br>
-              </div>
-            );
-          })} */}
         </Paper>
         <ReadPageFooter
           pagenum={this.state.page}

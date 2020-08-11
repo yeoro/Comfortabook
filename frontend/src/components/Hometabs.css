@@ -1,11 +1,11 @@
 .MuiTab-root {
-  max-width: 300px !important;
+  max-width: 300px;
 }
 
 .MuiTab-textColorInherit {
-  color: #f48fb1 !important;
+  color: #f48fb1;
 }
 
 .Mui-selected {
-  color: #ec407a !important;
+  color: #ec407a;
 }
