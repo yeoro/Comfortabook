@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
-import com.gucci.cb.repository.book.BookRepository;
 import com.gucci.cb.service.book.BookService;
 
 import io.swagger.annotations.Api;
@@ -33,7 +33,6 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 	
 	private final BookService bookService;
-	private final BookRepository bookRepository;
 	
 	// 도서 정보 등록
 	@ApiOperation(value = "도서 정보 등록", response = Book.class)
@@ -78,5 +77,10 @@ public class BookController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	
+	// 내 도서 등록
+	@ApiOperation(value = "내 도서 등록", response = Book.class)
+	@PostMapping("/insertMyBook")
+	public ResponseEntity<UserBooks> insertMyBook(@RequestBody UserBooks userBooks) {
+		return new ResponseEntity<UserBooks>(bookService.insertByNo(userBooks), HttpStatus.OK);
+	}
 }

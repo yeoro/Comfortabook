@@ -33,14 +33,6 @@ public class UserBooks {
 	@Column(name = "book_no")
 	private Long bookNo;
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_no")
-//	private User user;
-//	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "book_no")
-//	private Book book;
-	
 	@Builder
 	public UserBooks(User user, Book book) {
 		this.userNo = user.getUserNo();

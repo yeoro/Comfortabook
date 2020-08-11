@@ -52,20 +52,9 @@ public class Book {
 	
 	private String cover;
 	
-	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_isbn")
 	private Collection<BookContents> bookContents;
-	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "member_no") // 양방향 연관관계의 주인만이 JoinCloumn, 외래키가 있는 곳을 주인으로
-//	private Member member;
-	
-//	@Builder
-	public Book(String title, String author) {
-		this.author = author;
-		this.title = title;
-	}
 	
 	public void update(String title, String author) {
 		this.title = title;
