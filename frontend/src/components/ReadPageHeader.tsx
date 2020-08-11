@@ -6,7 +6,7 @@ interface Props {
   value: StatusTypes;
 }
 
-type StatusTypes = "10" | "20" | "30" | "40";
+type StatusTypes = "20" | "30" | "40";
 
 const useStyles = makeStyles({
   root: {
@@ -22,14 +22,11 @@ export default function ReadPageHeader(props: Props) {
   const classes = useStyles();
   const [size, setSize] = React.useState(props.value);
   if (size === undefined) {
-    setSize("10");
+    setSize("20");
   }
   function sizeUp(event: any) {
     event.preventDefault();
-    if (size === "10") {
-      setSize("20");
-      props.changeSize("20");
-    } else if (size === "20") {
+    if (size === "20") {
       setSize("30");
       props.changeSize("30");
     } else if (size === "30") {
@@ -45,9 +42,6 @@ export default function ReadPageHeader(props: Props) {
     } else if (size === "40") {
       setSize("30");
       props.changeSize("30");
-    } else if (size === "20") {
-      setSize("10");
-      props.changeSize("10");
     }
   }
   return (

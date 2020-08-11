@@ -1,23 +1,24 @@
 import React from "react";
-
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import "./Admintabs.css";
+import { History } from "history";
 
-import MyBooks from "./Favorites";
-import Favorites from "./Favorites";
-import "./LibraryTabs.css";
+import AddBook from "./AddBook";
+import AdminBooklist from "./AdminBooklist";
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
   value: any;
 }
-interface bProps {
-  mybooks: any;
+
+interface hProps {
+  history: History;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -53,11 +54,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   tabs: {
+    backgroundColor: "grey",
     width: "50%",
   },
 }));
 
-export default function SimpleTabs(props: bProps) {
+export default function SimpleTabs(props: hProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -66,7 +68,7 @@ export default function SimpleTabs(props: bProps) {
   };
 
   return (
-    <div className="library-tabs">
+    <div className="admin">
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs
@@ -74,15 +76,15 @@ export default function SimpleTabs(props: bProps) {
             onChange={handleChange}
             aria-label="simple tabs example"
           >
-            <Tab className={classes.tabs} label="MY BOOKS" {...a11yProps(0)} />
-            <Tab className={classes.tabs} label="FAVORITES" {...a11yProps(1)} />
+            <Tab className={classes.tabs} label="책 관리" {...a11yProps(0)} />
+            <Tab className={classes.tabs} label="책 등록" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <MyBooks mybooks={props.mybooks} />
+          <AdminBooklist />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Favorites mybooks={props.mybooks} />
+          <AddBook history={props.history} />
         </TabPanel>
       </div>
     </div>

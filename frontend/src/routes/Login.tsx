@@ -1,11 +1,11 @@
 import * as React from "react";
+import { History } from "history";
 import axios from "axios";
 import KakaoLogin from "react-kakao-login";
 
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { History } from "history";
 
 import Auth from "../components/Authservice";
 import Loginheader from "../components/Loginheader";
@@ -96,7 +96,6 @@ class Login extends React.Component<Props, State> {
   };
 
   kakaosignin = async (token: string) => {
-    console.log(token);
     const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
     await axios
       .post(URL, token, undefined)
