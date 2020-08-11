@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
 	private final BookRepository bookRepository; 
 	private final UserBookRepository userBookRepository;
-	private final BookContentsRepository BookContentsRepository;
+	private final BookContentsRepository bookContentsRepository;
 
 	// 도서 정보 등록
 	@Override
