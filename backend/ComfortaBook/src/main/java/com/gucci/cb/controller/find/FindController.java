@@ -23,26 +23,34 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/find")
 public class FindController {
-	
+
 	private final EmailService emailService;
 	private final UserService userService;
-	
+
 	// 아이디 찾기
 	@ApiOperation(value = "아이디 찾기", response = String.class)
 	@PostMapping("/findId")
 	public ResponseEntity<User> findId (@RequestBody UserDTO userDto){
-		
+
 		return new ResponseEntity<User>(userService.findId(userDto.getName(), userDto.getPhoneNumber()), HttpStatus.OK);
 	}
-	
-	
+
+
 	// 임시 비밀번호 전송
-	   @ApiOperation(value = "임시 비밀번호 전송", response = String.class)
-	   @PostMapping("/findPw")
-	   public ResponseEntity<Void> sendTempPassword (@RequestBody UserDTO userDto){
-	      
-	      emailService.sendTempPassword(userDto.getEmail(), userDto.getName());
-	      return new ResponseEntity<Void>(HttpStatus.OK);
-	   }
+	@ApiOperation(value = "임시 비밀번호 전송", response = String.class)
+	@PostMapping("/findPw")
+	public ResponseEntity<Void> findPassword (@RequestBody UserDTO userDto){
+
+		emailService.sendTempPassword(userDto.getEmail(), userDto.getName());
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	// 아이디(이메일) 중복체크
+	@ApiOperation(value = "이메일 중복 체크", response = String.class)
+	@PostMapping("/checkId")
+	public ResponseEntity<String> duplicateCheckId (@RequestBody UserDTO userDto){
+		
+		return new ResponseEntity<String>(userService.duplicateCheck(userDto.getEmail()), HttpStatus.OK);
+	}
 
 }

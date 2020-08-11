@@ -1,6 +1,7 @@
 package com.gucci.cb.service.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -70,5 +71,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findId(String name, String phoneNumber) {
 		return userJpaRepository.findByNameAndPhoneNumber(name, phoneNumber).orElseThrow(() -> new IllegalArgumentException("이름 혹은 전화번호를 확인해주세요."));
+	}
+
+	@Override
+	public String duplicateCheck(String email) {
+		Optional<User> user = userJpaRepository.findByEmail(email);
+		System.out.println(user);
+		System.out.println(user.isPresent());
+		if(user.isPresent()) {
+			return "이미 사용 중인 이메일입니다.";
+		} else {
+			return "사용 가능한 이메일입니다.";
+		}
 	}
 }

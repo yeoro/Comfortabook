@@ -1,11 +1,16 @@
-.MuiTab-root {
-  max-width: 300px !important;
+.library-tabs .MuiTab-root {
+  max-width: 384px !important;
 }
 
-.MuiTab-textColorInherit {
+.library-tabs .MuiTab-textColorInherit {
   color: #f48fb1 !important;
 }
 
-.Mui-selected {
+.library-tabs .Mui-selected {
   color: #ec407a !important;
+}
+
+.library-tabs .MuiAppBar-colorPrimary {
+  background-color: #fce4ec !important;
+  box-shadow: none;
 }

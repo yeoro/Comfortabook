@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
 	private final JwtTokenUtil jwtTokenUtil;
 
@@ -48,4 +50,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				"/webjars/**", 
 				"/swagger/**");
 	}
+	
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+	  registry.addMapping("/**")
+	  	.allowedOrigins("*")
+	    .allowedMethods("*")
+	    .allowedHeaders("*");
+	}
+	
 }
