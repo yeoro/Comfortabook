@@ -1,11 +1,11 @@
-.PrivateTabIndicator-colorSecondary-7 {
+.admin .PrivateTabIndicator-colorSecondary-7 {
   background-color: black !important;
 }
 
-.MuiTab-wrapper {
+.admin .MuiTab-wrapper {
   color: black;
 }
 
-.MuiButtonBase-root {
+.admin .MuiButtonBase-root {
   border: black;
 }

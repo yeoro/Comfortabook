@@ -180,6 +180,7 @@ class Mypage extends React.Component<Props, State> {
             </Button>
           </Grid>
         </Grid>
+        {admingrid}
       </div>
     );
   }

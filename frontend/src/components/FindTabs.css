@@ -14,3 +14,7 @@
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
+.find-tabs .MuiTab-wrapper {
+  font-family: "RIDIBatang";
+}

@@ -68,23 +68,25 @@ export default function SimpleTabs(props: hProps) {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab className={classes.tabs} label="책 관리" {...a11yProps(0)} />
-          <Tab className={classes.tabs} label="책 등록" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <AdminBooklist />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <AddBook history={props.history} />
-      </TabPanel>
+    <div className="admin">
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab className={classes.tabs} label="책 관리" {...a11yProps(0)} />
+            <Tab className={classes.tabs} label="책 등록" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <AdminBooklist />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <AddBook history={props.history} />
+        </TabPanel>
+      </div>
     </div>
   );
 }
