@@ -59,7 +59,7 @@ public class User implements UserDetails {
 	@JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "FK_user"))
 	private Collection<UserBooks> userBooks;
 	
-	@ElementCollection(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Builder.Default
 	private List<String> roles = new ArrayList<>();
 	
