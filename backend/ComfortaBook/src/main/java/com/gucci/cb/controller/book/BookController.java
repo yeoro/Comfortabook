@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.domain.book.BookContents;
 import com.gucci.cb.dto.book.BookDTO;
+import com.gucci.cb.repository.book.BookContentsRepository;
 import com.gucci.cb.repository.book.BookRepository;
 import com.gucci.cb.service.book.BookService;
 
@@ -33,7 +35,6 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 	
 	private final BookService bookService;
-	private final BookRepository bookRepository;
 	
 	// 도서 정보 등록
 	@ApiOperation(value = "도서 정보 등록", response = Book.class)
@@ -57,9 +58,9 @@ public class BookController {
 	
 	// 도서 상세 조회
 	@ApiOperation(value = "도서 상세 조회", response = Book.class)
-	@GetMapping("/detail/{bookNo}")
-	public ResponseEntity<Book> detailBook(@PathVariable("bookNo") Long bookNo){
-		return new ResponseEntity<Book>(bookService.findByNo(bookNo), HttpStatus.OK);
+	@GetMapping("/detail/{isbn}")
+	public ResponseEntity<Book> detailBook(@PathVariable("isbn") String isbn){
+		return new ResponseEntity<Book>(bookService.findByIsbn(isbn), HttpStatus.OK);
 	}
 	
 	// 도서 정보 수정
@@ -77,6 +78,13 @@ public class BookController {
 		bookService.deleteByNo(bookNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	// 도서 내용 보기
+//	@ApiOperation(value = "도서 내용 보기")
+//	@GetMapping("/content/{bookIsbn}")
+//	public ResponseEntity<List<BookContents>> contentBook(@PathVariable("bookIsbn") String bookIsbn){
+//		return new ResponseEntity<List<BookContents>>(bookService.contentBookByIsbn(bookIsbn), HttpStatus.OK);
+//	}
 	
 	
 }

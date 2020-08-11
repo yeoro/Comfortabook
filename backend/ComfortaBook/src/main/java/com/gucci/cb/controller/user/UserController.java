@@ -1,7 +1,6 @@
 package com.gucci.cb.controller.user;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,6 @@ import com.gucci.cb.domain.user.User;
 import com.gucci.cb.dto.social.KakaoProfile;
 import com.gucci.cb.dto.user.UserDTO;
 import com.gucci.cb.repository.user.UserJpaRepository;
-import com.gucci.cb.service.social.KakaoAPIService;
 import com.gucci.cb.service.social.KakaoService;
 import com.gucci.cb.service.user.UserService;
 
@@ -54,7 +52,6 @@ public class UserController {
 
 	private final UserService userService;
 	private final KakaoService kakaoService;
-	private final KakaoAPIService kakaoAPIService;
 	private final UserJpaRepository userJpaRepository;
 	private final JwtTokenUtil jwtTokenUtil;
 	

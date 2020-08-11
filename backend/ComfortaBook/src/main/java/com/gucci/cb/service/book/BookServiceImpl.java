@@ -1,6 +1,5 @@
 package com.gucci.cb.service.book;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -24,7 +23,8 @@ public class BookServiceImpl implements BookService {
 
 	private final BookRepository bookRepository; 
 
-	private final BookContentsRepository BookContentsRepository;
+	private final BookContentsRepository bookContentsRepository;
+	
 
 	// 도서 정보 등록
 	@Override
@@ -53,7 +53,7 @@ public class BookServiceImpl implements BookService {
 						   .bookIsbn(isbn)
 						   .build();
 				
-				BookContentsRepository.save(content);
+				bookContentsRepository.save(content);
 				
 				curContent = temp + ".";
 				size = curContent.length();
@@ -80,8 +80,8 @@ public class BookServiceImpl implements BookService {
 	// 도서 상세 조회
 	@Override
 	@Transactional
-	public Book findByNo(Long bookNo) {
-		Book findBook = bookRepository.findById(bookNo)
+	public Book findByIsbn(String isbn) {
+		Book findBook = bookRepository.findByIsbn(isbn)
 				.orElseThrow(() -> new IllegalArgumentException("해당 도서가 존재하지 않습니다."));
 
 		return findBook;
@@ -102,4 +102,11 @@ public class BookServiceImpl implements BookService {
 	public void deleteByNo(Long bookNo) {
 		bookRepository.deleteById(bookNo);
 	}
+
+	// 도서 내용 보기
+//	@Override
+//	public List<BookContents> contentBookByIsbn(String bookIsbn) {
+//		System.out.println("bookIsbn : " + bookIsbn);
+//		return bookContentsRepository.contentBookByIsbn(bookIsbn).orElseThrow(() -> new IllegalArgumentException("isbn 확인 해주세요."));
+//	}
 }
