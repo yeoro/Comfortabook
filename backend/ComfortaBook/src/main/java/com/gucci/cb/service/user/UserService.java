@@ -25,4 +25,7 @@ public interface UserService {
 	// 회원 탈퇴
 	public void deleteUser(long userNo);
 	
+	// 아이디 찾기
+	public User findId(String name, String phoneNumber);
+	
 }
