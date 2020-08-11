@@ -136,7 +136,7 @@ class Login extends React.Component<Props, State> {
             direction="column"
             spacing={7}
           >
-            <FindTabs />
+            <FindTabs history={this.props.history} />
           </Grid>
         </Box>
       </Grid>

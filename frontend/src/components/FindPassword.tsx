@@ -37,6 +37,7 @@ const styles = () =>
 
 export interface State {
   email: string;
+  name: string;
 }
 export interface Props extends WithStyles<typeof styles> {
   history: History;
