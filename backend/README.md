@@ -55,3 +55,10 @@ CRUD rules
 > 비밀번호 찾기
 
     - 이름, 휴대폰 번호, 이메일 일치 확인 후 임시 비밀번호 전송, DB 수정
+
+
+AWS
+DNS : i3d204.p.ssafy.io
+Host Name : ubuntu@i3d204.p.ssafy.io
+1. connection - SSH - Auth - insert .ppk file
+2. session - insert host name - open
