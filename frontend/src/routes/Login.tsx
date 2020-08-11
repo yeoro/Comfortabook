@@ -53,6 +53,7 @@ export interface State {
   password: string;
   KAKAO_API_KEY: string;
 }
+
 export interface Props extends WithStyles<typeof styles> {
   history: History;
 }

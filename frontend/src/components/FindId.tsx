@@ -78,6 +78,7 @@ class FindId extends React.Component<Props, State> {
       )
       .then((response) => {
         console.log(response);
+        this.props.history.push("/");
       })
       .catch((error) => {
         if (error.response) {

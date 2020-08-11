@@ -65,6 +65,7 @@ function Signup(props: any) {
       ...signup,
       [name]: value,
     });
+    console.log(signup);
   };
 
   const updateSignup = () => {
