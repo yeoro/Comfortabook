@@ -3,6 +3,7 @@ import { Button, Grid, TextField } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import "./Mypage.css";
 import axios from "axios";
+import { History } from "history";
 
 const styles = () =>
   createStyles({
@@ -31,6 +32,7 @@ export interface Props extends WithStyles<typeof styles> {
   detail: any;
   logout: () => void;
   goMainpage: () => void;
+  history: History;
 }
 
 export interface State {
@@ -52,6 +54,7 @@ class Mypage extends React.Component<Props, State> {
           password: value,
           name: this.state.user_detail.name,
           phone_num: this.state.user_detail.phone_num,
+          role: this.state.user_detail.role,
         },
       });
     } else if (name === "name") {
@@ -61,6 +64,7 @@ class Mypage extends React.Component<Props, State> {
           password: this.state.user_detail.password,
           name: value,
           phone_num: this.state.user_detail.phone_num,
+          role: this.state.user_detail.role,
         },
       });
     } else {
@@ -70,6 +74,7 @@ class Mypage extends React.Component<Props, State> {
           password: this.state.user_detail.password,
           name: this.state.user_detail.name,
           phone_num: value,
+          role: this.state.user_detail.role,
         },
       });
     }
@@ -101,9 +106,25 @@ class Mypage extends React.Component<Props, State> {
         // alert(e.response.data.message); // 에러표시
       });
   };
-
   render() {
     const { classes } = this.props;
+    let admingrid;
+    if (this.state.user_detail.role === "ROLE_ADMIN") {
+      admingrid = (
+        <Grid container item>
+          <Button
+            className={classes.logoutbtn}
+            onClick={() => {
+              this.props.history.push("/admin");
+            }}
+          >
+            관리자 페이지
+          </Button>
+        </Grid>
+      );
+    } else {
+      admingrid = null;
+    }
     return (
       <div className="mypage">
         <Grid container className={classes.root} spacing={2}>
