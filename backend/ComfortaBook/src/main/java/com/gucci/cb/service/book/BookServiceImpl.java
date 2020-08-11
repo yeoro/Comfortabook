@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
 	private final BookRepository bookRepository; 
 	private final UserBookRepository userBookRepository;
-	private final BookContentsRepository BookContentsRepository;
+	private final BookContentsRepository bookContentsRepository;
 
 	// 도서 정보 등록
 	@Override
@@ -80,8 +80,8 @@ public class BookServiceImpl implements BookService {
 	// 도서 상세 조회
 	@Override
 	@Transactional
-	public Book findByIsbn(String isbn) {
-		Book findBook = bookRepository.findByIsbn(isbn)
+	public Book findByNo(Long bookNo) {
+		Book findBook = bookRepository.findById(bookNo)
 				.orElseThrow(() -> new IllegalArgumentException("해당 도서가 존재하지 않습니다."));
 
 		return findBook;
