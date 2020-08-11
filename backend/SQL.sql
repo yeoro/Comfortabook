@@ -1,9 +1,9 @@
-﻿-- gucci.book definition
+﻿-- 도서 테이블
 CREATE TABLE `book` (
   `book_no` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'book_no',
   `isbn` varchar(255) DEFAULT NULL COMMENT 'isbn',
   `title` varchar(255) DEFAULT NULL COMMENT 'title',
-  `CategoryName` varchar(255) DEFAULT NULL COMMENT 'CategoryName',
+  `category_name` varchar(255) DEFAULT NULL COMMENT 'CategoryName',
   `author` varchar(255) DEFAULT NULL COMMENT 'author',
   `publisher` varchar(255) DEFAULT NULL COMMENT 'publisher',
   `pubdate` date DEFAULT NULL COMMENT 'pubdate',
@@ -14,26 +14,25 @@ CREATE TABLE `book` (
   KEY `FK_Book_member_no_Member_member_no` (`member_no`),
   CONSTRAINT `FK_Book_member_no_Member_member_no` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-insert into book(isbn, title) values('123', 'Java');
-insert into book(isbn, title) values('456', 'Spring');
 select * from book;
 
+-- 유저 테이블
+CREATE TABLE `user` (
+  `user_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `provider` varchar(100) DEFAULT NULL,
+  `phone_numer` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`user_no`),
+  UNIQUE KEY `UK_ob8kqyqqgmefl0aco34akdtpe` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+select * from user;
 
--- gucci.`member` definition
-CREATE TABLE `member` (
-  `member_no` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'member_no',
-  `email` varchar(255) DEFAULT NULL COMMENT 'email',
-  `password` varchar(255) DEFAULT NULL COMMENT 'password',
-  `name` varchar(255) DEFAULT NULL COMMENT 'name',
-  `phone_number` varchar(255) DEFAULT NULL COMMENT 'phone_number',
-  `access_token` varchar(255) DEFAULT NULL COMMENT 'access_token',
-  `oauth_id` varchar(255) DEFAULT NULL COMMENT 'oauth_id',
-  `provider_name` varchar(255) DEFAULT NULL COMMENT 'provider_name',
-  `role` varchar(255) DEFAULT NULL COMMENT 'role',
-  PRIMARY KEY (`member_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-insert into member(email, password, name, `role`) values('admin', 'admin', 'admin', 'admin');
-insert into member(email, password, name) values('test', 'test', 'test');
-select * from member;
+-- 유저 권한 테이블
+CREATE TABLE `user_roles` (
+  `user_user_no` bigint(20) NOT NULL,
+  `roles` varchar(255) DEFAULT NULL,
+  KEY `FKtds36jyyrx2r80sdn0v72uk18` (`user_user_no`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+select * from user_roles;

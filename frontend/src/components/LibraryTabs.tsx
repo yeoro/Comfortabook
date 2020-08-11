@@ -63,23 +63,25 @@ export default function SimpleTabs() {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab className={classes.tabs} label="MY BOOKS" {...a11yProps(0)} />
-          <Tab className={classes.tabs} label="FAVORITES" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <MyBooks />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Favorites />
-      </TabPanel>
+    <div className="library-tabs">
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab className={classes.tabs} label="MY BOOKS" {...a11yProps(0)} />
+            <Tab className={classes.tabs} label="FAVORITES" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <MyBooks />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Favorites />
+        </TabPanel>
+      </div>
     </div>
   );
 }

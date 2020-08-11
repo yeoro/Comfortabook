@@ -1,0 +1,16 @@
+.find-tabs .MuiTab-root {
+  max-width: 384px !important;
+}
+
+.find-tabs .MuiTab-textColorInherit {
+  color: #ce93d8 !important;
+}
+
+.find-tabs .Mui-selected {
+  color: #ab47bc !important;
+}
+
+.find-tabs .MuiAppBar-colorPrimary {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

@@ -12,6 +12,8 @@ import "./Footer.css";
 const useStyles = makeStyles({
   footer: {
     width: "768px",
+    position: "fixed",
+    bottom: 0,
   },
 });
 interface Props {
@@ -28,27 +30,29 @@ export default function Footer(Props: Props) {
   };
 
   return (
-    <BottomNavigation
-      value={value}
-      onChange={handleChange}
-      className={classes.footer}
-    >
-      <BottomNavigationAction label="홈" value="Home" icon={<HomeIcon />} />
-      <BottomNavigationAction
-        label="검색"
-        value="Search"
-        icon={<SearchIcon />}
-      />
-      <BottomNavigationAction
-        label="내 서재"
-        value="Library"
-        icon={<LibraryBooksIcon />}
-      />
-      <BottomNavigationAction
-        label="관리"
-        value="Mypage"
-        icon={<PersonIcon />}
-      />
-    </BottomNavigation>
+    <div className="footer">
+      <BottomNavigation
+        value={value}
+        onChange={handleChange}
+        className={classes.footer}
+      >
+        <BottomNavigationAction label="홈" value="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction
+          label="검색"
+          value="Search"
+          icon={<SearchIcon />}
+        />
+        <BottomNavigationAction
+          label="내 서재"
+          value="Library"
+          icon={<LibraryBooksIcon />}
+        />
+        <BottomNavigationAction
+          label="관리"
+          value="Mypage"
+          icon={<PersonIcon />}
+        />
+      </BottomNavigation>
+    </div>
   );
 }

@@ -158,14 +158,6 @@ class Mypage extends React.Component<Props, State> {
               로그아웃
             </Button>
           </Grid>
-          <Grid item>
-            <TextField
-              onChange={this.onChange}
-              name="pw"
-              label="비밀번호"
-              type="password"
-            />
-          </Grid>
         </Grid>
       </div>
     );
