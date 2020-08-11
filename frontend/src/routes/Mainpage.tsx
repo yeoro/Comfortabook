@@ -28,8 +28,18 @@ class Mainpage extends React.Component<Props, State> {
     user_detail: null,
   };
 
+  goMainpage = () => {
+    this.props.history.push("/mainpage");
+  };
+
   loadDetail = async () => {
-    const token = localStorage.getItem("token");
+    let token = null;
+    if (localStorage.getItem("token")) {
+      token = localStorage.getItem("token");
+    } else {
+      token = localStorage.getItem("kakao_53b33c1a41d97e9e4bff7c33e167295f");
+    }
+    console.log(token);
     let config = {
       headers: {
         "X-AUTH-TOKEN": token,
@@ -48,7 +58,7 @@ class Mainpage extends React.Component<Props, State> {
       })
       .catch((e) => {
         // API 호출이 실패한 경우
-        console.error(e); // 에러표시
+        console.error(e.response); // 에러표시
       });
   };
 
@@ -79,7 +89,13 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Library") {
       return <Library />;
     } else if (this.state.mode === "Mypage") {
-      return <Mypage logout={this.logout} detail={this.state.user_detail} />;
+      return (
+        <Mypage
+          goMainpage={this.goMainpage}
+          logout={this.logout}
+          detail={this.state.user_detail}
+        />
+      );
     }
   };
 
