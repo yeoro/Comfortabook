@@ -27,3 +27,11 @@ code {
 .MuiInputBase-root {
   font-family: "RIDIBatang" !important;
 }
+
+.MuiFormLabel-root {
+  font-family: "RIDIBatang" !important;
+}
+
+.MuiBottomNavigationAction-label {
+  font-family: "RIDIBatang" !important;
+}

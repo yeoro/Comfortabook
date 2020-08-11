@@ -7,15 +7,22 @@ import axios from "axios";
 const styles = () =>
   createStyles({
     root: {
-      padding: "5%",
+      padding: "20%",
     },
     editbtn: {
       color: "white",
       backgroundColor: "#f48fb1",
+      width: "100%",
+      marginTop: "40px",
+      "&:hover": { background: "#ec407a" },
     },
     logoutbtn: {
       color: "white",
       backgroundColor: "#f48fb1",
+      width: "100%",
+      "&:hover": { background: "#ec407a" },
+    },
+    tfield: {
       width: "100%",
     },
   });
@@ -98,34 +105,58 @@ class Mypage extends React.Component<Props, State> {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container className={classes.root} spacing={2}>
-        <Grid container item spacing={2} direction="column">
-          <Grid item>
-            <TextField
-              onChange={this.onChange}
-              name="email"
-              label="E-mail"
-              InputProps={{
-                readOnly: true,
-              }}
-              defaultValue={this.state.user_detail.email}
-            />
+      <div className="mypage">
+        <Grid container className={classes.root} spacing={2}>
+          <Grid container item spacing={2} direction="column">
+            <Grid item>
+              <TextField
+                onChange={this.onChange}
+                name="email"
+                label="E-mail"
+                InputProps={{
+                  readOnly: true,
+                }}
+                defaultValue={this.state.user_detail.email}
+                className={classes.tfield}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                onChange={this.onChange}
+                name="name"
+                label="이름"
+                defaultValue={this.state.user_detail.name}
+                className={classes.tfield}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                onChange={this.onChange}
+                name="phone_num"
+                label="전화번호"
+                defaultValue={this.state.user_detail.phone_num}
+                className={classes.tfield}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                onChange={this.onChange}
+                name="pw"
+                label="비밀번호"
+                type="password"
+                className={classes.tfield}
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <TextField
-              onChange={this.onChange}
-              name="name"
-              label="이름"
-              defaultValue={this.state.user_detail.name}
-            />
+          <Grid container item>
+            <Button className={classes.editbtn} onClick={this.doedit}>
+              수정
+            </Button>
           </Grid>
-          <Grid item>
-            <TextField
-              onChange={this.onChange}
-              name="phone_num"
-              label="전화번호"
-              defaultValue={this.state.user_detail.phone_num}
-            />
+          <Grid container item>
+            <Button className={classes.logoutbtn} onClick={this.props.logout}>
+              로그아웃
+            </Button>
           </Grid>
           <Grid item>
             <TextField
@@ -136,17 +167,7 @@ class Mypage extends React.Component<Props, State> {
             />
           </Grid>
         </Grid>
-        <Grid container item>
-          <Button className={classes.editbtn} onClick={this.doedit}>
-            수정
-          </Button>
-        </Grid>
-        <Grid container item>
-          <Button className={classes.logoutbtn} onClick={this.props.logout}>
-            로그아웃
-          </Button>
-        </Grid>
-      </Grid>
+      </div>
     );
   }
 }

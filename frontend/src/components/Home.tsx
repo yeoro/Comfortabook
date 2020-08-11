@@ -1,5 +1,6 @@
 import * as React from "react";
-import Hometabs from "./Hometabs";
+
+import Today from "./Today";
 import RecommendBook from "./RecommendBook";
 
 export interface Props {}
@@ -11,7 +12,7 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <Hometabs />;
+        <Today />
         <RecommendBook />
       </div>
     );

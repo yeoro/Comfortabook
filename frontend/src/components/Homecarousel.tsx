@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
   img: {
     opacity: "0.7",
-    width: "600px",
+    width: "768px",
   },
   s1p1: {
     margin: "0 0",
