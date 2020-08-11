@@ -1,11 +1,14 @@
 import * as React from "react";
 import axios from "axios";
+import KakaoLogin from "react-kakao-login";
+
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import Auth from "../components/Authservice";
 import { History } from "history";
-import KakaoLogin from "react-kakao-login";
+
+import Auth from "../components/Authservice";
+import Loginheader from "../components/Loginheader";
 import "./Login.css";
 
 const styles = () =>
@@ -85,107 +88,131 @@ class Login extends React.Component<Props, State> {
         console.log("success");
         this.props.history.push("/mainpage");
       })
-      .catch(() => {
+      .catch((e) => {
         // this.setState({showSuccessMessage:false})
         // this.setState({hasLoginFailed:true})
-        console.log("fail");
+        alert(e.response.data.message);
+      });
+  };
+
+  kakaosignin = async (token: string) => {
+    console.log(token);
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    await axios
+      .post(URL, token, undefined)
+      .then((res) => {
+        localStorage.setItem("token", res.data);
+        this.props.history.push("/mainpage");
+      })
+      .catch((error) => {
+        console.log("로그인 실패");
+        console.log(error.response);
       });
   };
 
   success = async (res: any) => {
-    console.log(res);
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    const URL = "http://i3d204.p.ssafy.io:9999/user/signup/kakao";
     await axios
       .post(
         URL,
         {
+          name: res.profile.properties.nickname,
           accessToken: res.response.access_token,
-          // name: res.profile.kakao_account.profile.nickname,
         },
         undefined
       )
-      .then((event) => {
-        console.log(event);
+      .then((res) => {
+        console.log(res);
+        this.kakaosignin(res.config.data.accessToken);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.data.message === "이미 연동 된 소셜 계정") {
+          this.kakaosignin(JSON.parse(error.response.config.data).accessToken);
+        } else {
+          console.log(error.response);
+        }
       });
   };
 
   failure = (err: any) => {
-    alert(err);
+    console.log("fail");
     console.log(JSON.stringify(err));
   };
 
   render() {
     const { classes } = this.props;
     return (
-      <Grid
-        className={classes.root}
-        container
-        justify="center"
-        alignItems="center"
-      >
-        <Box className={classes.login} borderRadius={10}>
-          <Grid
-            container
-            className={classes.formGrid}
-            direction="column"
-            spacing={7}
-          >
-            <Grid container item spacing={3}>
-              <Grid item className={classes.tfield}>
-                <TextField
-                  onChange={this.onChange}
-                  name="email"
-                  className={classes.tfield}
-                  label="ID"
-                ></TextField>
+      <React.Fragment>
+        <Loginheader />
+        <Grid
+          className={classes.root}
+          container
+          justify="center"
+          alignItems="center"
+        >
+          <Box className={classes.login} borderRadius={10}>
+            <Grid
+              container
+              className={classes.formGrid}
+              direction="column"
+              spacing={7}
+            >
+              <Grid container item spacing={3}>
+                <Grid item className={classes.tfield}>
+                  <TextField
+                    onChange={this.onChange}
+                    name="email"
+                    className={classes.tfield}
+                    label="ID"
+                  ></TextField>
+                </Grid>
+                <Grid item className={classes.tfield}>
+                  <TextField
+                    onChange={this.onChange}
+                    name="password"
+                    className={classes.tfield}
+                    label="PASSWORD"
+                    type="password"
+                  ></TextField>
+                </Grid>
               </Grid>
-              <Grid item className={classes.tfield}>
-                <TextField
-                  onChange={this.onChange}
-                  name="password"
-                  className={classes.tfield}
-                  label="PASSWORD"
-                  type="password"
-                ></TextField>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={this.dologin}
-                className={classes.button}
-                variant="contained"
-              >
-                로그인
-              </Button>
-              <KakaoLogin
-                jsKey={this.state.KAKAO_API_KEY}
-                onSuccess={this.success}
-                onFailure={this.failure}
-                getProfile={true}
-                className="kakao-login"
-              >
-                <span className="kakao-login_font">카카오 아이디로 로그인</span>
-              </KakaoLogin>
-            </Grid>
-            <Grid item container justify="center" spacing={1}>
               <Grid item>
-                <Link className={classes.alink} to="/signup">
-                  회원가입
-                </Link>
+                <Button
+                  onClick={this.dologin}
+                  className={classes.button}
+                  variant="contained"
+                >
+                  로그인
+                </Button>
+                <KakaoLogin
+                  jsKey={this.state.KAKAO_API_KEY}
+                  onSuccess={this.success}
+                  onFailure={this.failure}
+                  getProfile={true}
+                  className="kakao-login"
+                >
+                  <span className="kakao-login_font">
+                    카카오 아이디로 로그인
+                  </span>
+                </KakaoLogin>
               </Grid>
-              <Grid item>|</Grid>
-              <Grid item>
-                <Link className={classes.alink} to="/">
-                  아이디 / 비밀번호 찾기
-                </Link>
+              <Grid item container justify="center" spacing={1}>
+                <Grid item>
+                  <Link className={classes.alink} to="/signup">
+                    회원가입
+                  </Link>
+                </Grid>
+                <Grid item>|</Grid>
+                <Grid item>
+                  <Link className={classes.alink} to="/">
+                    아이디 / 비밀번호 찾기
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </Grid>
+          </Box>
+        </Grid>
+      </React.Fragment>
     );
   }
 }
