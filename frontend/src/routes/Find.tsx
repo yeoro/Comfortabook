@@ -1,11 +1,14 @@
 import * as React from "react";
 import axios from "axios";
+import KakaoLogin from "react-kakao-login";
+
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import Auth from "../components/Authservice";
 import { History } from "history";
-import KakaoLogin from "react-kakao-login";
+
+import Auth from "../components/Authservice";
+import FindTabs from "../components/FindTabs";
 import "./Login.css";
 
 const styles = () =>
@@ -133,6 +136,7 @@ class Login extends React.Component<Props, State> {
             direction="column"
             spacing={7}
           >
+            <FindTabs />
             <Grid container item spacing={3}>
               <Grid item className={classes.tfield}>
                 <TextField

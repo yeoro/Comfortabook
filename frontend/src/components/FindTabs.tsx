@@ -7,9 +7,9 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-import MyBooks from "./Favorites";
-import Favorites from "./Favorites";
-import "./LibraryTabs.css";
+import FindId from "./FindId";
+import FindPassword from "./FindPassword";
+import "./FindTabs.css";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,7 +47,6 @@ function a11yProps(index: any) {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
   },
   tabs: {
     width: "50%",
@@ -63,7 +62,7 @@ export default function SimpleTabs() {
   };
 
   return (
-    <div className="library-tabs">
+    <div className="find-tabs">
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs
@@ -71,15 +70,23 @@ export default function SimpleTabs() {
             onChange={handleChange}
             aria-label="simple tabs example"
           >
-            <Tab className={classes.tabs} label="MY BOOKS" {...a11yProps(0)} />
-            <Tab className={classes.tabs} label="FAVORITES" {...a11yProps(1)} />
+            <Tab
+              className={classes.tabs}
+              label="아이디 찾기"
+              {...a11yProps(0)}
+            />
+            <Tab
+              className={classes.tabs}
+              label="비밀번호 찾기"
+              {...a11yProps(1)}
+            />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <MyBooks />
+          <FindId />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Favorites />
+          <FindPassword />
         </TabPanel>
       </div>
     </div>

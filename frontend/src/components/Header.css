@@ -1,12 +1,12 @@
-.logo {
+.header .logo {
   width: 30px;
   margin-top: 3px;
 }
 
-.MuiAppBar-colorPrimary {
+.header .MuiAppBar-colorPrimary {
   background-color: #fce4ec !important;
 }
 
-.MuiPaper-elevation4 {
+.header .MuiPaper-elevation4 {
   box-shadow: 0 0 0 0 !important;
 }
