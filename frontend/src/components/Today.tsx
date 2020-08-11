@@ -9,8 +9,9 @@ class Today extends React.Component<Props, State> {
   state = {};
   render() {
     return (
-      <div>
+      <div className="today">
         <Homecarousel />
+        도레미??????????????/
       </div>
     );
   }

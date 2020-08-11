@@ -1,7 +1,11 @@
-.MuiFormLabel-root.Mui-focused {
-  color: #f48fb1;
+.mypage .MuiFormLabel-root.Mui-focused {
+  color: #f48fb1 !important;
 }
 
-.MuiInput-underline:after {
-  border-bottom: 2px solid #f48fb1;
+.mypage .MuiInput-underline:after {
+  border-bottom: 2px solid #f48fb1 !important;
+}
+
+.mypage .MuiFormControl-root {
+  width: "540px";
 }

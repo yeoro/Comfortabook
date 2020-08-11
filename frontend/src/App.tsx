@@ -13,7 +13,7 @@ import NotFound from "./routes/NotFound";
 const useStyles = makeStyles({
   root: {
     height: "1024px",
-    width: "600px",
+    width: "768px",
     margin: "0 auto 0 auto",
   },
 });
