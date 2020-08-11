@@ -10,11 +10,13 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,16 +28,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Entity
+@Table(name = "user")
 public class User implements UserDetails {
 
 	@Id // pk
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_no")
-	private long userNo;
+	private Long userNo;
 	
 //	@Column(nullable = false, unique = true, length = 50)
 	private String email;
@@ -51,14 +54,14 @@ public class User implements UserDetails {
 	
 //	@Column(length = 100)
 	private String provider;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "FK_user"))
+	private Collection<UserBooks> userBooks;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@Builder.Default
 	private List<String> roles = new ArrayList<>();
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_no")
-	private Collection<UserBooks> userBooks;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
