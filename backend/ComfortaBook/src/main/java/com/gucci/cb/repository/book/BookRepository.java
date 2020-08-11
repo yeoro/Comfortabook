@@ -9,5 +9,4 @@ import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.book.BookContents;
 
 public interface BookRepository extends JpaRepository<Book, Long>{
-	Optional<Book> findByIsbn(String isbn);
 }
