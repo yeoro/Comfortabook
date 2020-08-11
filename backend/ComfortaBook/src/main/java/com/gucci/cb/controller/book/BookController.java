@@ -56,9 +56,9 @@ public class BookController {
 	
 	// 도서 상세 조회
 	@ApiOperation(value = "도서 상세 조회", response = Book.class)
-	@GetMapping("/detail/{bookNo}")
-	public ResponseEntity<Book> detailBook(@PathVariable("bookNo") Long bookNo){
-		return new ResponseEntity<Book>(bookService.findByNo(bookNo), HttpStatus.OK);
+	@GetMapping("/detail/{isbn}")
+	public ResponseEntity<Book> detailBook(@PathVariable("isbn") String isbn){
+		return new ResponseEntity<Book>(bookService.findByIsbn(isbn), HttpStatus.OK);
 	}
 	
 	// 도서 정보 수정

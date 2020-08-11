@@ -1,12 +1,7 @@
-.MuiBottomNavigationAction-iconOnly {
+.footer .MuiBottomNavigationAction-iconOnly {
   color: #f8bbd0 !important;
 }
 
-.Mui-selected {
+.footer .Mui-selected {
   color: #ec407a !important;
-}
-
-.MuiBottomNavigation-root {
-  position: fixed;
-  bottom: 0;
 }

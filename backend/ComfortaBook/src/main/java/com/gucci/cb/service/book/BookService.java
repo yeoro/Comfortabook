@@ -1,5 +1,7 @@
 package com.gucci.cb.service.book;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +19,8 @@ public interface BookService {
 	Page<Book> findAll(Pageable pageable);
 	
 	// 도서 상세 조회
-	Book findByNo(Long bookNo);
+//	Book findByNo(Long bookNo);
+	Book findByIsbn(String isbn);
 	
 	// 도서 정보 수정
 	void updateByNo(Long bookNo, BookDTO bookDto);
