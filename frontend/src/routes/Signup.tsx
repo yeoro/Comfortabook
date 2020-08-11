@@ -106,6 +106,30 @@ function Signup(props: any) {
       });
   };
 
+  const checkId = async () => {
+    let summonerUrl = "/find/CheckId";
+    await axios
+      .post(
+        "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+        {
+          email: signup.email,
+        },
+        undefined
+      )
+      .then(() => {
+        console.log("성공", response);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        } else if (error.request) {
+          console.log(error.request);
+        } else if (error.message) {
+          console.log(error.message);
+        }
+      });
+  };
+
   // Kakao Login
   const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
 
@@ -168,7 +192,11 @@ function Signup(props: any) {
                   ></TextField>
                 </Grid>
                 <Grid item className={classes.divemailcheck}>
-                  <Button size="small" className={classes.emailcheck}>
+                  <Button
+                    size="small"
+                    className={classes.emailcheck}
+                    onClick={checkId}
+                  >
                     중복확인
                   </Button>
                 </Grid>
