@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   root: {
     background: "linear-gradient(45deg, #ce93d8 30%, #f8bbd0 90%)",
     height: "1024px",
-    width: "600px",
+    width: "768px",
   },
   signup: {
     backgroundColor: "rgba(238, 238, 238, 0.2)",
