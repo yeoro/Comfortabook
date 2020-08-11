@@ -38,55 +38,31 @@ public class BookServiceImpl implements BookService {
 		StringTokenizer st = new StringTokenizer(desc, ".");
 
 		int pageNo = 1;
-		int limit = 5;
+		int limit = 100;
 		int size = 0;
 
 		while(st.hasMoreElements()) {
 			String temp = st.nextToken();
-			size += temp.length();
+			size += temp.length() + 1;
 			
-			if(size >= limit) { // 다음 페이지 이동
+			if(size >= limit) {
+				System.out.println("pagNo : " + pageNo + ", size : " + curContent.length());
 				BookContents content = BookContents.builder()
-												   .content(curContent)
-												   .pageNo(String.valueOf(pageNo++))
-												   .bookIsbn(isbn)
-												   .build();
+						   .content(curContent)
+						   .pageNo(String.valueOf(pageNo++))
+						   .bookIsbn(isbn)
+						   .build();
 				
 				BookContentsRepository.save(content);
-				size = 0;
-				curContent = "";
-			}
-			curContent += temp + ".";
-			if(!st.hasMoreElements()) {
-				BookContents content = BookContents.builder()
-												   .content(curContent)
-												   .pageNo(String.valueOf(pageNo++))
-												   .bookIsbn(isbn)
-												   .build();
 				
-				BookContentsRepository.save(content);
+				curContent = temp + ".";
+				size = curContent.length();
+			} else {
+				curContent += temp + ".";
+				size = curContent.length();
 			}
-
 		}
 
-//		int contentSize = desc.length();
-//		int start = 0;
-//
-//		while(true) {
-//			int end = start + limit;
-//			if(end > contentSize) end = contentSize;
-//
-//			String curContent1 = desc.substring(start, end);
-//			BookContents content = BookContents.builder()
-//					.content(curContent1)
-//					.pageNo(String.valueOf(pageNo++))
-//					.bookIsbn(isbn)
-//					.build();
-//
-//			BookContentsRepository.save(content);
-//			start = end;
-//			if(start >= contentSize) break;
-//		}
 
 		return book;
 	}
