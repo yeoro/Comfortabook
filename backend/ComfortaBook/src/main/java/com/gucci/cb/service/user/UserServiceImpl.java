@@ -67,4 +67,8 @@ public class UserServiceImpl implements UserService {
 		userJpaRepository.deleteById(userNo);
 	}
 
+	@Override
+	public User findId(String name, String phoneNumber) {
+		return userJpaRepository.findByNameAndPhoneNumber(name, phoneNumber).orElseThrow(() -> new IllegalArgumentException("이름 혹은 전화번호를 확인해주세요."));
+	}
 }
