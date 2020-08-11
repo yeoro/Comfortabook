@@ -11,3 +11,10 @@
 .MuiPaper-root > div {
   height: 100% !important;
 }
+
+.large {
+  line-height: 200%;
+}
+.x-large {
+  line-height: 150%;
+}

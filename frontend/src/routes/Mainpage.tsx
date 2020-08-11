@@ -48,11 +48,13 @@ class Mainpage extends React.Component<Props, State> {
     axios
       .get("http://i3d204.p.ssafy.io:9999/user/detail", config)
       .then(({ data }) => {
+        console.log(data);
         this.setState({
           user_detail: {
             name: data.name,
             email: data.email,
             phone_num: data.phoneNumber,
+            role: data.roles[0],
           },
         });
       })
@@ -91,6 +93,7 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Mypage") {
       return (
         <Mypage
+          history={this.props.history}
           goMainpage={this.goMainpage}
           logout={this.logout}
           detail={this.state.user_detail}
