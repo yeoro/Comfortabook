@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,12 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.gucci.cb.domain.user.UserBooks;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -52,16 +53,16 @@ public class Book {
 	
 	private String cover;
 	
-	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_isbn")
-	@Builder.Default
 	private List<BookContents> bookContents = new ArrayList<>();
 	
-	public Book(String title, String author) {
-		this.author = author;
-		this.title = title;
-	}
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book"))
+	private Collection<UserBooks> userBooks;
+	
+//	@OneToMany(mappedBy = "bookNo")
+//	private List<UserBooks> userBooks;
 	
 	public void update(String title, String author) {
 		this.title = title;

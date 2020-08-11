@@ -1,6 +1,5 @@
 package com.gucci.cb.service.book;
 
-import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.transaction.Transactional;
@@ -11,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.book.BookContents;
+import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.repository.book.BookContentsRepository;
 import com.gucci.cb.repository.book.BookRepository;
+import com.gucci.cb.repository.user.UserBookRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,9 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class BookServiceImpl implements BookService {
 
 	private final BookRepository bookRepository; 
-
-	private final BookContentsRepository bookContentsRepository;
-	
+	private final UserBookRepository userBookRepository;
+	private final BookContentsRepository BookContentsRepository;
 
 	// 도서 정보 등록
 	@Override
@@ -102,11 +102,11 @@ public class BookServiceImpl implements BookService {
 	public void deleteByNo(Long bookNo) {
 		bookRepository.deleteById(bookNo);
 	}
-
-	// 도서 내용 보기
-//	@Override
-//	public List<BookContents> contentBookByIsbn(String bookIsbn) {
-//		System.out.println("bookIsbn : " + bookIsbn);
-//		return bookContentsRepository.contentBookByIsbn(bookIsbn).orElseThrow(() -> new IllegalArgumentException("isbn 확인 해주세요."));
-//	}
+	
+	// 내 도서 등록
+	@Override
+	public UserBooks insertByNo(UserBooks userBooks) {
+		userBookRepository.save(userBooks);
+		return userBooks;
+	}
 }

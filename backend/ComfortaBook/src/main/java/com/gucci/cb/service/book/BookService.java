@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.gucci.cb.domain.book.Book;
-import com.gucci.cb.domain.book.BookContents;
+import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 
 public interface BookService {
@@ -28,7 +28,6 @@ public interface BookService {
 	// 도서 삭제
 	void deleteByNo(Long bookNo);
 	
-	// 도서 내용보기
-//	List<BookContents> contentBookByIsbn(String bookIsbn);
-	
+	// 내 도서 등록
+	UserBooks insertByNo (UserBooks userBooks);
 }
