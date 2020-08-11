@@ -55,6 +55,8 @@ class Mainpage extends React.Component<Props, State> {
             email: data.email,
             phone_num: data.phoneNumber,
             role: data.roles[0],
+            no: data.userNo,
+            mybooks: data.userBooks,
           },
         });
       })
@@ -89,7 +91,7 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Search") {
       return <Search />;
     } else if (this.state.mode === "Library") {
-      return <Library />;
+      return <Library mybooks={this.state.user_detail} />;
     } else if (this.state.mode === "Mypage") {
       return (
         <Mypage

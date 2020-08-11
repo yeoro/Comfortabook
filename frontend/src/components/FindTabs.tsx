@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import FindId from "./FindId";
 import FindPassword from "./FindPassword";
 import "./FindTabs.css";
+import { History } from "history";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -53,7 +54,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+interface Props {
+  history: History;
+}
+
+export default function SimpleTabs(props: Props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -83,10 +88,10 @@ export default function SimpleTabs() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <FindId />
+          <FindId history={props.history} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <FindPassword />
+          <FindPassword history={props.history} />
         </TabPanel>
       </div>
     </div>

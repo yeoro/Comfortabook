@@ -117,8 +117,8 @@ function Signup(props: any) {
         },
         undefined
       )
-      .then(() => {
-        console.log("성공", response);
+      .then((res) => {
+        console.log(res);
       })
       .catch((error) => {
         if (error.response) {
