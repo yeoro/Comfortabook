@@ -53,7 +53,7 @@ public class Book {
 	private String cover;
 	
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_isbn")
 	private Collection<BookContents> bookContents;
 	

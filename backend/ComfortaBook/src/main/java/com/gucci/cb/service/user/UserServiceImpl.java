@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String signIn(String id, String password) {
-		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력 "));
-		if(!passwordEncoder.matches(null, user.getPassword())) {
-			throw new IllegalArgumentException("에러 메세지 입력 null...");
+		User user = userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("아이디를 확인 해주세요."));
+		if(!passwordEncoder.matches(password, user.getPassword())) {
+			throw new IllegalArgumentException("비밀번호를 확인 해주세요.");
 		}
 		System.out.println(jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles()));
 		return jwtTokenUtil.createToken(String.valueOf(user.getUserNo()), user.getRoles());
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUser(String id) {
-		return userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("에러 메세지 입력"));
+		return userJpaRepository.findByEmail(id).orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 회원입니다."));
 	}
 
 	@Override
@@ -67,4 +67,8 @@ public class UserServiceImpl implements UserService {
 		userJpaRepository.deleteById(userNo);
 	}
 
+	@Override
+	public User findId(String name, String phoneNumber) {
+		return userJpaRepository.findByNameAndPhoneNumber(name, phoneNumber).orElseThrow(() -> new IllegalArgumentException("이름 혹은 전화번호를 확인해주세요."));
+	}
 }
