@@ -2,6 +2,8 @@ import * as React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import "./AdminBooklist.css";
+
 export interface Props {}
 
 // interface book {
@@ -51,7 +53,7 @@ class AdminBooklist extends React.Component<Props, State> {
   }
   render() {
     return (
-      <div>
+      <div className="admin-booklist">
         <h1>책 목록</h1>
         {this.state.books.map((element: any) => {
           const url = `/read/${element.bookNo}`;

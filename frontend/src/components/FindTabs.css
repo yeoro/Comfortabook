@@ -18,3 +18,7 @@
 .find-tabs .MuiTab-wrapper {
   font-family: "RIDIBatang";
 }
+
+.find-tabs .MuiTabs-indicator {
+  background-color: #ab47bc;
+}

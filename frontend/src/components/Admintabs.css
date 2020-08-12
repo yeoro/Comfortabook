@@ -1,7 +1,3 @@
-.admin .PrivateTabIndicator-colorSecondary-7 {
-  background-color: black !important;
-}
-
 .admin .MuiTab-wrapper {
   color: black;
 }
@@ -16,4 +12,12 @@
 
 .MuiAppBar-colorPrimary {
   background-color: #e0e0e0 !important;
+}
+
+.admin .MuiTab-wrapper {
+  font-family: "RIDIBatang";
+}
+
+.admin .MuiTabs-indicator {
+  background-color: grey;
 }

@@ -91,7 +91,7 @@ class AddBook extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <div className="add-book">
         <label>제목</label>
         <br></br>
         <input onChange={this.onChange} name="title"></input>
