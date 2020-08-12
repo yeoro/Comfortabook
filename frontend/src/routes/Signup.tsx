@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import KakaoLogin from "react-kakao-login";
+import { Link } from "react-router-dom";
 
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -36,9 +37,7 @@ const useStyles = makeStyles({
     "&:hover": { background: "#ab47bc" },
   },
   divemailcheck: {
-    // display: "flex",
     width: "100%",
-    // flexDirection: "row-reverse",
   },
   emailcheck: {
     background: "#ba68c8",
@@ -49,12 +48,17 @@ const useStyles = makeStyles({
     marginLeft: "10px",
     "&:hover": { background: "#ab47bc" },
   },
-  tfield: {
-    width: "80%",
+  alink: {
+    textDecoration: "None",
+    color: "Black",
+    lineHeight: "19px",
+    textAlign: "center",
   },
 });
 
 function Signup(props: any) {
+  const classes = useStyles();
+
   const [signup, setSignup] = useState({
     password: "",
     password_confirm: "",
@@ -62,7 +66,6 @@ function Signup(props: any) {
     name: "",
     phone_num: "",
   });
-  const [pwError, setPwError] = useState(true);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,6 +74,9 @@ function Signup(props: any) {
       [name]: value,
     });
   };
+
+  // 비밀번호 일치 여부 확인
+  const [pwError, setPwError] = useState(true);
 
   const updateSignup = () => {
     if (signup.password === signup.password_confirm) {
@@ -82,8 +88,7 @@ function Signup(props: any) {
 
   useEffect(updateSignup, [signup]);
 
-  const classes = useStyles();
-
+  // 회원가입
   const doSignup = async () => {
     let summonerUrl = "/user/signup";
     await axios
@@ -115,45 +120,75 @@ function Signup(props: any) {
       });
   };
 
+  // 이메일 중복 확인
+  const [emailCheck, setEmailCheck] = useState(false);
+
   const checkId = async () => {
-    let summonerUrl = "/find/checkId";
-    await axios
-      .post(
-        "http://i3d204.p.ssafy.io:9999" + summonerUrl,
-        {
-          email: signup.email,
-        },
-        undefined
-      )
-      .then((res) => {
-        if (res.data === "사용 가능한 이메일입니다.") {
-          swal({
-            text: res.data,
-            icon: "success",
-          });
-        } else {
-          swal({
-            text: res.data,
-            icon: "warning",
-          });
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        } else if (error.request) {
-          console.log(error.request);
-        } else if (error.message) {
-          console.log(error.message);
-        }
+    if (signup.email.includes("@") && signup.email.includes(".")) {
+      let summonerUrl = "/find/checkId";
+      await axios
+        .post(
+          "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+          {
+            email: signup.email,
+          },
+          undefined
+        )
+        .then((res) => {
+          if (res.data === "사용 가능한 이메일입니다.") {
+            swal({
+              text: res.data,
+              icon: "success",
+            });
+            setEmailCheck(true);
+          } else {
+            swal({
+              text: res.data,
+              icon: "error",
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+          } else if (error.request) {
+            console.log(error.request);
+          } else if (error.message) {
+            console.log(error.message);
+          }
+        });
+    } else {
+      swal({
+        text: "잘못된 이메일 형태입니다. 다시 한 번 확인해주세요.",
+        icon: "warning",
       });
+    }
   };
 
-  // Kakao Login
+  // 회원가입 버튼 활성화
+  const [signupError, setSignupError] = useState(false);
+
+  const checkSignup = () => {
+    if (
+      signup.email &&
+      signup.password &&
+      signup.name &&
+      signup.phone_num &&
+      pwError &&
+      emailCheck
+    ) {
+      setSignupError(true);
+    } else {
+      setSignupError(false);
+    }
+  };
+
+  useEffect(checkSignup, [signup, pwError, emailCheck]);
+
+  // 카카오 로그인
   const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
 
   const goMainpage = () => {
-    console.log("redirect");
     const { history } = props;
     history.push("/mainpage");
   };
@@ -202,12 +237,22 @@ function Signup(props: any) {
               direction="column"
             >
               <Grid container spacing={1}>
-                <TextField
-                  name="email"
-                  onChange={onChange}
-                  className={classes.tfield}
-                  label="E-MAIL"
-                ></TextField>
+                {emailCheck ? (
+                  <TextField
+                    name="email"
+                    onChange={onChange}
+                    className="emailcheck"
+                    label="E-MAIL"
+                  ></TextField>
+                ) : (
+                  <TextField
+                    name="email"
+                    onChange={onChange}
+                    className="emailcheck"
+                    label="E-MAIL"
+                    helperText="이메일 중복확인을 해주세요."
+                  ></TextField>
+                )}
                 <Button
                   size="small"
                   className={classes.emailcheck}
@@ -251,13 +296,24 @@ function Signup(props: any) {
               ></TextField>
               <div className="hidden-div"></div>
               <div>
-                <Button
-                  onClick={doSignup}
-                  className={classes.Button}
-                  variant="contained"
-                >
-                  회원가입
-                </Button>
+                {signupError ? (
+                  <Button
+                    onClick={doSignup}
+                    className={classes.Button}
+                    variant="contained"
+                  >
+                    회원가입
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={doSignup}
+                    className={classes.Button}
+                    variant="contained"
+                    disabled
+                  >
+                    회원가입
+                  </Button>
+                )}
                 <KakaoLogin
                   jsKey={KAKAO_API_KEY}
                   onSuccess={success}
@@ -270,6 +326,11 @@ function Signup(props: any) {
                   </span>
                 </KakaoLogin>
               </div>
+              <Grid item className="alinkDiv">
+                <Link className={classes.alink} to="/">
+                  이미 회원이신가요? 로그인
+                </Link>
+              </Grid>
             </Grid>
           </form>
         </Box>

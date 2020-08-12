@@ -92,7 +92,7 @@ class FindId extends React.Component<Props, State> {
             icon: "error",
           });
         } else if (error.request) {
-          console.log("request");
+          console.log(error.request);
         } else if (error.message) {
           console.log("message");
         }
@@ -115,7 +115,7 @@ class FindId extends React.Component<Props, State> {
                 onChange={this.onChange}
                 name="email"
                 className={classes.tfield}
-                label="ID"
+                label="E-MAIL"
               ></TextField>
             </Grid>
             <Grid item className={classes.tfield}>
