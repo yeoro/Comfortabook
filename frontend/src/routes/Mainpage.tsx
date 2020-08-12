@@ -42,7 +42,7 @@ class Mainpage extends React.Component<Props, State> {
     await axios
       .get(URL)
       .then((res: any) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({
           books: this.state.books.concat({
             title: res.data.title,
