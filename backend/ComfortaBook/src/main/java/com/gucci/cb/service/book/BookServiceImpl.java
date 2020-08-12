@@ -114,9 +114,9 @@ public class BookServiceImpl implements BookService {
 
 	// 내 도서 삭제
 	@Override
-	public void deleteByNo(UserBooks userBooks) {
+	public void deleteByNo(Long userNo, Long bookNo) {
 
-		List<UserBooks> userBook = userBookRepository.findAllByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo());
+		List<UserBooks> userBook = userBookRepository.findAllByUserNoAndBookNo(userNo, bookNo);
 
 		userBookRepository.deleteAll(userBook);
 	}

@@ -29,5 +29,5 @@ public interface BookService {
 	UserBooks insertByNo (UserBooks userBooks);
 
 	// 내 도서 삭제
-	void deleteByNo(UserBooks userBooks);
+	void deleteByNo(Long UserNo, Long BookNo);
 }
