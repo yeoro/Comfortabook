@@ -7,7 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-import MyBooks from "./Favorites";
+import MyBooks from "./BookILike";
 import Favorites from "./Favorites";
 import "./LibraryTabs.css";
 
@@ -79,10 +79,10 @@ export default function SimpleTabs(props: bProps) {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <MyBooks mybooks={props.mybooks} />
+          <Favorites mybooks={props.mybooks} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Favorites mybooks={props.mybooks} />
+          <MyBooks />
         </TabPanel>
       </div>
     </div>
