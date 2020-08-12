@@ -38,14 +38,15 @@ public class BookServiceImpl implements BookService {
 		StringTokenizer st = new StringTokenizer(desc, ".");
 
 		int pageNo = 1;
-		int limit = 100;
+		int limit = 300;
 		int size = 0;
 
 		while(st.hasMoreElements()) {
-			String temp = st.nextToken();
-			size += temp.length() + 1;
+			String temp = st.nextToken() + ".";
+			size = curContent.length() + temp.length();
 			
 			if(size >= limit) {
+				System.out.println("page : " + pageNo + ", size : " + curContent.length());
 				BookContents content = BookContents.builder()
 						   .content(curContent)
 						   .pageNo(String.valueOf(pageNo++))
@@ -54,14 +55,11 @@ public class BookServiceImpl implements BookService {
 				
 				bookContentsRepository.save(content);
 				
-				curContent = temp + ".";
-				size = curContent.length();
+				curContent = temp;
 			} else {
-				curContent += temp + ".";
-				size = curContent.length();
+				curContent = curContent + temp;
 			}
 		}
-
 
 		return book;
 	}
@@ -100,6 +98,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void deleteByNo(Long bookNo) {
 		bookRepository.deleteById(bookNo);
+		bookContentsRepository.deleteById(bookNo);
 	}
 	
 	// 내 도서 등록

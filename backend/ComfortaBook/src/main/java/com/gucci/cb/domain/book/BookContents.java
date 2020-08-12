@@ -28,6 +28,7 @@ public class BookContents {
 	@Column(name = "page_no", nullable = false)
 	private String pageNo;
 	
+	@Column(columnDefinition = "longtext")
 	private String content;
 	
 	public BookContents(Book book) {
