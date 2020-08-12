@@ -45,6 +45,7 @@ class Mainpage extends React.Component<Props, State> {
         console.log(res.data);
         this.setState({
           books: this.state.books.concat({
+            bookNo: res.data.bookNo,
             title: res.data.title,
             cover: res.data.cover,
             description: res.data.description,
@@ -117,7 +118,9 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Search") {
       return <Search />;
     } else if (this.state.mode === "Library") {
-      return <Library mybooks={this.state.books} />;
+      return (
+        <Library mybooks={this.state.books} no={this.state.user_detail.no} />
+      );
     } else if (this.state.mode === "Mypage") {
       return (
         <Mypage

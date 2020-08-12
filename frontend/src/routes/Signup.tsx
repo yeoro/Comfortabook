@@ -126,7 +126,7 @@ function Signup(props: any) {
         undefined
       )
       .then((res) => {
-        if (res.data == "사용 가능한 이메일입니다.") {
+        if (res.data === "사용 가능한 이메일입니다.") {
           swal({
             text: res.data,
             icon: "success",
