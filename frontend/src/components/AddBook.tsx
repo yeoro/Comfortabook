@@ -147,7 +147,6 @@ class AddBook extends React.Component<Props, State> {
             onChange={this.onChange}
           />
         </form>
-        <br></br>
         <div className="button-container">
           <div>
             <input
@@ -168,8 +167,6 @@ class AddBook extends React.Component<Props, State> {
             </label>
             {this.setCoverCheck()}
           </div>
-          <br></br>
-          <br></br>
           <Button variant="contained" onClick={this.sendData}>
             등록
           </Button>
