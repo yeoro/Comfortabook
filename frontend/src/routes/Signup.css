@@ -45,3 +45,15 @@
 .pw-confirm-word .MuiFormHelperText-root {
   color: #c62828;
 }
+
+.emailcheck {
+  width: 80%;
+}
+
+.emailcheck .MuiFormHelperText-root {
+  color: #c62828;
+}
+
+.alinkDiv {
+  text-align: center;
+}

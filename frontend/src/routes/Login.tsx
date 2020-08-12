@@ -1,11 +1,12 @@
 import * as React from "react";
 import { History } from "history";
 import axios from "axios";
+import swal from "sweetalert";
+import { Link } from "react-router-dom";
 import KakaoLogin from "react-kakao-login";
 
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 
 import Auth from "../components/Authservice";
 import Loginheader from "../components/Loginheader";
@@ -92,7 +93,10 @@ class Login extends React.Component<Props, State> {
       .catch((e) => {
         // this.setState({showSuccessMessage:false})
         // this.setState({hasLoginFailed:true})
-        alert(e.response.data.message);
+        swal({
+          text: e.response.data.message,
+          icon: "warning",
+        });
       });
   };
 
@@ -163,7 +167,7 @@ class Login extends React.Component<Props, State> {
                     onChange={this.onChange}
                     name="email"
                     className={classes.tfield}
-                    label="ID"
+                    label="E-MAIL"
                   ></TextField>
                 </Grid>
                 <Grid item className={classes.tfield}>
