@@ -35,3 +35,7 @@ code {
 .MuiBottomNavigationAction-label {
   font-family: "RIDIBatang" !important;
 }
+
+.MuiFormHelperText-root {
+  font-family: "RIDIBatang" !important;
+}

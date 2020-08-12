@@ -37,20 +37,6 @@ function BookList({ title, author, image, publisher }: any) {
         console.log(error.response);
       });
   };
-  const getbook = async () => {
-    const url = "http://i3d204.p.ssafy.io:9999/book/detail";
-    await axios
-      .post(url, {
-        bookNo: "11",
-        userNo: "12",
-      })
-      .then((res) => {
-        console.log("성공");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
 
   return (
     <div className="books">

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { History } from "history";
 import axios from "axios";
+import swal from "sweetalert";
 
 import { Grid, TextField, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
@@ -14,7 +15,7 @@ const styles = () =>
     },
     formGrid: {
       height: "100%",
-      marginTop: "10%",
+      marginTop: "20%",
       padding: "0 10%",
     },
     alink: {
@@ -77,11 +78,19 @@ class FindId extends React.Component<Props, State> {
         undefined
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data.email);
+        swal({
+          text: `${this.state.name}님의 ID는 ${response.data.email}입니다.`,
+          icon: "success",
+        });
+        this.props.history.push("/");
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
+          swal({
+            text: error.response.data.message,
+            icon: "error",
+          });
         } else if (error.request) {
           console.log(error.request);
         } else if (error.message) {

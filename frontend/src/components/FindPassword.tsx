@@ -1,6 +1,7 @@
 import * as React from "react";
 import { History } from "history";
 import axios from "axios";
+import swal from "sweetalert";
 
 import { Grid, TextField, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
@@ -14,7 +15,7 @@ const styles = () =>
     },
     formGrid: {
       height: "100%",
-      marginTop: "10%",
+      marginTop: "20%",
       padding: "0 10%",
     },
     alink: {
@@ -37,6 +38,7 @@ const styles = () =>
 
 export interface State {
   email: string;
+  name: string;
 }
 export interface Props extends WithStyles<typeof styles> {
   history: History;
@@ -66,7 +68,6 @@ class FindId extends React.Component<Props, State> {
   };
 
   findPassword = async () => {
-    alert("이메일로 비밀번호 재설정 페이지를 전송했습니다.");
     let summonerUrl = "/find/findPw";
     await axios
       .post(
@@ -77,16 +78,23 @@ class FindId extends React.Component<Props, State> {
         },
         undefined
       )
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        swal({
+          text: "이메일로 임시 비밀번호를 전송했습니다.",
+          icon: "success",
+        });
+        this.props.history.push("/");
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
+          swal({
+            text: error.response.data.message,
+            icon: "error",
+          });
         } else if (error.request) {
-          console.log(error.request);
+          console.log("request");
         } else if (error.message) {
-          console.log(error.message);
+          console.log("message");
         }
       });
   };
