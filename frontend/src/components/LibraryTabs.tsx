@@ -18,6 +18,7 @@ interface TabPanelProps {
 }
 interface bProps {
   mybooks: any;
+  no: any;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -79,7 +80,7 @@ export default function SimpleTabs(props: bProps) {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <Favorites mybooks={props.mybooks} />
+          <Favorites mybooks={props.mybooks} no={props.no} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <MyBooks />

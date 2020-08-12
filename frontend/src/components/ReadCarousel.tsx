@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "nuka-carousel";
-import thumbnail from "../img/thumbnail.jpg";
+// import thumbnail from "../img/thumbnail.jpg";
 import "./ReadCarousel.css";
 
 interface Props {
@@ -32,9 +32,9 @@ function Readcarousel(props: Props) {
       >
         <div>
           <h1 id="book">{props.book.title}</h1>
-          <img src={thumbnail} alt="thumbnail"></img>
+          {/* <img src={thumbnail} alt="thumbnail"></img> */}
         </div>
-        {props.book.description.map((body: any, i: number) => {
+        {props.book.bookbody.map((body: any, i: number) => {
           return (
             <div>
               <p className={props.className} id={`${i}`} style={fontstyle}>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export interface Props {}
 
@@ -23,6 +24,7 @@ class AdminBooklist extends React.Component<Props, State> {
     await axios
       .get(URL)
       .then((res: any) => {
+        console.log(res);
         this.setState({
           books: res.data.content,
         });
@@ -40,7 +42,7 @@ class AdminBooklist extends React.Component<Props, State> {
         alert("삭제 완료");
       })
       .catch((error: any) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
@@ -52,10 +54,13 @@ class AdminBooklist extends React.Component<Props, State> {
       <div>
         <h1>책 목록</h1>
         {this.state.books.map((element: any) => {
+          const url = `/read/${element.bookNo}`;
           return (
             <div>
               <p>{element.title}</p>
-              <button>책보기</button>
+              <button>
+                <Link to={url}>책보기</Link>
+              </button>
               <button onClick={this.onDelete} data-id={element.bookNo}>
                 삭제
               </button>
