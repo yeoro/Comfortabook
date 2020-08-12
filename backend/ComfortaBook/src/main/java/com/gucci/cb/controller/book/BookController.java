@@ -73,7 +73,7 @@ public class BookController {
 	@ApiOperation(value = "도서 삭제")
 	@DeleteMapping("/delete/{bookNo}")
 	public ResponseEntity<Void> deleteBook(@PathVariable("bookNo") Long bookNo){
-		bookService.deleteByNo(bookNo);
+		bookService.delete(bookNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -83,4 +83,13 @@ public class BookController {
 	public ResponseEntity<UserBooks> insertMyBook(@RequestBody UserBooks userBooks) {
 		return new ResponseEntity<UserBooks>(bookService.insertByNo(userBooks), HttpStatus.OK);
 	}
+	
+	// 내 도서 삭제
+	@ApiOperation(value = "내 도서 삭제")
+	@DeleteMapping("/deleteMyBook/u={userNo}&b={bookNo}")
+	public ResponseEntity<Void> deleteMyBook(@PathVariable("userNo") Long userNo, @PathVariable("bookNo") Long bookNo){
+		bookService.deleteByNo(userNo, bookNo);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
 }

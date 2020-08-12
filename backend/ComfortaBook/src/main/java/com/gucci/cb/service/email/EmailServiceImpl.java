@@ -26,6 +26,7 @@ public class EmailServiceImpl implements EmailService{
 	
 	private final PasswordEncoder passwordEncoder;
 	
+	// 임시 비밀번호 생성 후 메일 보내기
 	@Override
 	@Transactional
 	public void sendTempPassword(String email, String name) {

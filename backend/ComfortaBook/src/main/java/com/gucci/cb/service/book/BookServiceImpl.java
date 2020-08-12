@@ -1,6 +1,7 @@
 package com.gucci.cb.service.book;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
 
 import javax.transaction.Transactional;
@@ -45,17 +46,17 @@ public class BookServiceImpl implements BookService {
 		while(st.hasMoreElements()) {
 			String temp = st.nextToken() + ".";
 			size = curContent.length() + temp.length();
-			
+
 			if(size >= limit) {
 				System.out.println("page : " + pageNo + ", size : " + curContent.length());
 				BookContents content = BookContents.builder()
-						   .content(curContent)
-						   .pageNo(String.valueOf(pageNo++))
-						   .bookNo(bookNo)
-						   .build();
-				
+						.content(curContent)
+						.pageNo(String.valueOf(pageNo++))
+						.bookNo(bookNo)
+						.build();
+
 				bookContentsRepository.save(content);
-				
+
 				curContent = temp;
 			} else {
 				curContent = curContent + temp;
@@ -68,9 +69,9 @@ public class BookServiceImpl implements BookService {
 	// 전체 도서 조회
 	@Override
 	public Page<Book> findAll(Pageable pageable) {
-//		Page<Book> books = bookRepository.findAll();
-//		List<Book> books = new ArrayList<Book>();
-//		bookRepository.findAll(pageable).forEach(e -> books.add(e));
+		//		Page<Book> books = bookRepository.findAll();
+		//		List<Book> books = new ArrayList<Book>();
+		//		bookRepository.findAll(pageable).forEach(e -> books.add(e));
 
 		return bookRepository.findAll(pageable);
 	}
@@ -97,18 +98,36 @@ public class BookServiceImpl implements BookService {
 
 	// 도서 삭제
 	@Override
-	public void deleteByNo(Long bookNo) {
-		
-		List<BookContents> bookContent = bookContentsRepository.findAllByBookNo(bookNo);
-		
-		bookContentsRepository.deleteAll(bookContent);
+	public void delete(Long bookNo) {
+
+		List<BookContents> bookContents = bookContentsRepository.findAllByBookNo(bookNo);
+
+		bookContentsRepository.deleteAll(bookContents);
 		bookRepository.deleteById(bookNo);
 	}
-	
+
 	// 내 도서 등록
 	@Override
 	public UserBooks insertByNo(UserBooks userBooks) {
+		
+		Optional<UserBooks> userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo());
+		
+		// 존재한다면
+		if(userBook.isPresent()) {
+			UserBooks exist = new UserBooks();
+			return exist;
+		}
+		
 		userBookRepository.save(userBooks);
 		return userBooks;
+	}
+
+	// 내 도서 삭제
+	@Override
+	public void deleteByNo(Long userNo, Long bookNo) {
+
+		List<UserBooks> userBook = userBookRepository.findAllByUserNoAndBookNo(userNo, bookNo);
+
+		userBookRepository.deleteAll(userBook);
 	}
 }
