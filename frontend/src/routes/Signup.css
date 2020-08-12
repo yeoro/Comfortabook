@@ -37,3 +37,11 @@
   height: 24px;
   width: 256px;
 }
+
+.hidden-div {
+  height: 10px;
+}
+
+.pw-confirm-word .MuiFormHelperText-root {
+  color: #c62828;
+}
