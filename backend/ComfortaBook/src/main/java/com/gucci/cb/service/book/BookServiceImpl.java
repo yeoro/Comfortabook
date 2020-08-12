@@ -1,6 +1,7 @@
 package com.gucci.cb.service.book;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
 
 import javax.transaction.Transactional;
@@ -108,6 +109,15 @@ public class BookServiceImpl implements BookService {
 	// 내 도서 등록
 	@Override
 	public UserBooks insertByNo(UserBooks userBooks) {
+		
+		Optional<UserBooks> userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo());
+		
+		// 존재한다면
+		if(userBook.isPresent()) {
+			UserBooks exist = new UserBooks();
+			return exist;
+		}
+		
 		userBookRepository.save(userBooks);
 		return userBooks;
 	}
