@@ -1,5 +1,6 @@
 package com.gucci.cb.service.book;
 
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.transaction.Transactional;
@@ -38,14 +39,15 @@ public class BookServiceImpl implements BookService {
 		StringTokenizer st = new StringTokenizer(desc, ".");
 
 		int pageNo = 1;
-		int limit = 100;
+		int limit = 500;
 		int size = 0;
 
 		while(st.hasMoreElements()) {
-			String temp = st.nextToken();
-			size += temp.length() + 1;
+			String temp = st.nextToken() + ".";
+			size = curContent.length() + temp.length();
 			
 			if(size >= limit) {
+				System.out.println("page : " + pageNo + ", size : " + curContent.length());
 				BookContents content = BookContents.builder()
 						   .content(curContent)
 						   .pageNo(String.valueOf(pageNo++))
@@ -54,14 +56,11 @@ public class BookServiceImpl implements BookService {
 				
 				bookContentsRepository.save(content);
 				
-				curContent = temp + ".";
-				size = curContent.length();
+				curContent = temp;
 			} else {
-				curContent += temp + ".";
-				size = curContent.length();
+				curContent = curContent + temp;
 			}
 		}
-
 
 		return book;
 	}
@@ -99,6 +98,10 @@ public class BookServiceImpl implements BookService {
 	// 도서 삭제
 	@Override
 	public void deleteByNo(Long bookNo) {
+		
+		List<BookContents> bookContent = bookContentsRepository.findAllByBookNo(bookNo);
+		
+		bookContentsRepository.deleteAll(bookContent);
 		bookRepository.deleteById(bookNo);
 	}
 	
