@@ -1,8 +1,52 @@
-.textarea {
-  width: 90%;
-  height: 400px;
+.add-book {
+  margin-top: 3%;
 }
 
 .add-book label {
   font-family: "RIDIBatang";
+}
+
+.add-book .MuiFormLabel-root.Mui-focused {
+  color: black !important;
+}
+
+.add-book .MuiInput-underline:after {
+  border-bottom: 2px solid black !important;
+}
+
+.add-book .tfield {
+  width: 49% !important;
+}
+
+.add-book .t-margin {
+  margin-left: 2%;
+}
+
+.add-book .MuiFormControl-root {
+  margin-bottom: 2%;
+}
+
+.add-book .image-input {
+  display: none;
+}
+
+.add-book .MuiButtonBase-root {
+  background-color: grey;
+  color: white;
+  width: 100px;
+}
+
+.add-book button {
+  width: 250px !important;
+}
+
+.add-book .cover-check {
+  font-family: "RIDIBatang";
+  margin-left: 10px;
+}
+
+.add-book .button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

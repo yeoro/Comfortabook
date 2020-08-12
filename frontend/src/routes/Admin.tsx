@@ -19,6 +19,11 @@ const useStyles = makeStyles(() =>
       width: "100%",
       height: "100%",
     },
+    h1: {
+      textAlign: "center",
+      marginTop: "50px",
+      marginBottom: "30px",
+    },
   })
 );
 function Admin(props: Props) {
@@ -27,7 +32,7 @@ function Admin(props: Props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h1>관리자페이지</h1>
+      <h1 className={classes.h1}>관리자페이지</h1>
       <Admintab history={props.history} />
     </div>
   );
