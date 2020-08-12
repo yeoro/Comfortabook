@@ -5,6 +5,7 @@ import Bookcard from "./Card";
 
 interface Props extends WithStyles<typeof styles> {
   mybooks: any;
+  no: any;
 }
 
 const styles = () =>
@@ -13,7 +14,7 @@ const styles = () =>
     list: {
       background: "#fce4ec",
       height: "100%",
-      padding: "5% 5%",
+      padding: "5% 6%",
     },
   });
 
@@ -23,30 +24,6 @@ class Favorites extends React.Component<Props> {
     this.state = {};
   }
 
-  // getBook = async (num: any) => {
-  //   const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${num}`;
-  //   await axios
-  //     .get(URL)
-  //     .then((res: any) => {
-  //       console.log(res.data);
-  //       this.setState({
-  //         books: this.state.books.concat({
-  //           title: res.data.title,
-  //           cover: res.data.title,
-  //           description: res.data.description,
-  //           author: res.data.author,
-  //         }),
-  //       });
-  //     })
-  //     .catch((error: any) => {
-  //       console.log(error);
-  //     });
-  // };
-  // layBook = () => {
-  //   this.props.mybooks.mybooks.map((element: any) =>
-  //     this.getBook(element.bookNo)
-  //   );
-  // };
   componentDidMount() {
     // this.layBook();
   }
@@ -54,16 +31,16 @@ class Favorites extends React.Component<Props> {
     const { classes } = this.props;
     return (
       <Grid container className={classes.root}>
-        <Grid container item className={classes.list} justify="space-around">
-          {this.props.mybooks.map((element: any) => {
-            return (
-              <Grid container item xs={5} spacing={2}>
-                <Grid item>
-                  <Bookcard book={element} />
+        <Grid container item className={classes.list}>
+          <Grid container item spacing={2} justify="space-between">
+            {this.props.mybooks.map((element: any) => {
+              return (
+                <Grid item xs={5}>
+                  <Bookcard book={element} no={this.props.no} />
                 </Grid>
-              </Grid>
-            );
-          })}
+              );
+            })}
+          </Grid>
         </Grid>
       </Grid>
     );

@@ -12,7 +12,7 @@ import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
 import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/ReadCarousel";
-import { Route, BrowserRouter as Router, Link, match } from "react-router-dom";
+import { match } from "react-router-dom";
 import axios from "axios";
 
 const styles = (theme: Theme) =>
