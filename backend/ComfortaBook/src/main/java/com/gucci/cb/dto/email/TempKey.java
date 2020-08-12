@@ -28,7 +28,7 @@ public class TempKey {
 		if(lowerCheck) {
 			return sb.toString().toLowerCase();
 		}
-		System.out.println(sb.toString());
+//		System.out.println(sb.toString());
 		return sb.toString();
 	}
 }
