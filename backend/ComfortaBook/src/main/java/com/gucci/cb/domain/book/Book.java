@@ -7,9 +7,9 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,12 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
+import com.gucci.cb.domain.user.UserBooks;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,24 +50,18 @@ public class Book {
 	
 	private Date pubdate;
 	
+	@Column(columnDefinition = "longtext")
 	private String description;
 	
-	private String cover;
-	
+	private String cover; 
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "book_isbn")
-	private Collection<BookContents> bookContents;
+	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book_no"))
+	private List<BookContents> bookContents;
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "member_no") // 양방향 연관관계의 주인만이 JoinCloumn, 외래키가 있는 곳을 주인으로
-//	private Member member;
-	
-//	@Builder
-	public Book(String title, String author) {
-		this.author = author;
-		this.title = title;
-	}
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book"))
+	private Collection<UserBooks> userBooks;
 	
 	public void update(String title, String author) {
 		this.title = title;

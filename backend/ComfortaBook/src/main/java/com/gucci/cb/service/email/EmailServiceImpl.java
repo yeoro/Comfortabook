@@ -34,8 +34,8 @@ public class EmailServiceImpl implements EmailService{
 		String userEmail = email;
 		String tempPassword = new TempKey().getKey(10, false);
 		
-		User user = userJpaRepository.findByEmail(email).orElseThrow(() -> 
-			new IllegalArgumentException("이메일을 다시 확인 해주세요."));
+		User user = userJpaRepository.findByEmailAndName(email, name).orElseThrow(() -> 
+			new IllegalArgumentException("이메일을 혹은 이름을 확인해주세요."));
 		
 		
 		try {

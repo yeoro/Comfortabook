@@ -23,13 +23,7 @@ public class BookDTO {
 	private String description;
 	private String cover;
 	
-//	public Book toEntity() {
-//		return Book.builder()
-//				.author(author)
-//				.title(title)
-//				.build();
-//	}
-//	
+	
 	@Builder
 	public BookDTO(Book book) {
 		this.author = book.getAuthor();
