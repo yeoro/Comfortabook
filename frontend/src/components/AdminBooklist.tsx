@@ -1,8 +1,11 @@
 import * as React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { History } from "history";
 
-export interface Props {}
+export interface Props {
+  history: History;
+}
 
 // interface book {
 //   title: string;
@@ -40,6 +43,7 @@ class AdminBooklist extends React.Component<Props, State> {
       .delete(URL)
       .then((res: any) => {
         alert("삭제 완료");
+        this.props.history.push("/admin");
       })
       .catch((error: any) => {
         console.log(error.response);
