@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	private final UserJpaRepository userJpaRepository;
