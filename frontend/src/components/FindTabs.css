@@ -11,7 +11,7 @@
 }
 
 .find-tabs .MuiAppBar-colorPrimary {
-  background-color: transparent;
+  background-color: transparent !important;
   box-shadow: none;
 }
 

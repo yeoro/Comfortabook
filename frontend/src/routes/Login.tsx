@@ -28,7 +28,7 @@ const styles = () =>
     },
     formGrid: {
       height: "100%",
-      marginTop: "10%",
+      marginTop: "20%",
       padding: "0 10%",
     },
     alink: {
@@ -53,6 +53,7 @@ export interface State {
   password: string;
   KAKAO_API_KEY: string;
 }
+
 export interface Props extends WithStyles<typeof styles> {
   history: History;
 }
@@ -203,7 +204,7 @@ class Login extends React.Component<Props, State> {
                 </Grid>
                 <Grid item>|</Grid>
                 <Grid item>
-                  <Link className={classes.alink} to="/">
+                  <Link className={classes.alink} to="/find">
                     아이디 / 비밀번호 찾기
                   </Link>
                 </Grid>

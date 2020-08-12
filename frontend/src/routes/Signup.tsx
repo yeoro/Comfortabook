@@ -1,9 +1,11 @@
 import * as React from "react";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import swal from "sweetalert";
+import KakaoLogin from "react-kakao-login";
+
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import KakaoLogin from "react-kakao-login";
 
 import Loginheader from "../components/Loginheader";
 import "./Signup.css";
@@ -34,18 +36,21 @@ const useStyles = makeStyles({
     "&:hover": { background: "#ab47bc" },
   },
   divemailcheck: {
-    display: "flex",
+    // display: "flex",
     width: "100%",
-    flexDirection: "row-reverse",
+    // flexDirection: "row-reverse",
   },
   emailcheck: {
     background: "#ba68c8",
     color: "white",
     fontWeight: 200,
+    height: "34px",
+    marginTop: "12px",
+    marginLeft: "10px",
     "&:hover": { background: "#ab47bc" },
   },
   tfield: {
-    width: "100%",
+    width: "80%",
   },
 });
 
@@ -93,6 +98,10 @@ function Signup(props: any) {
         undefined
       )
       .then(() => {
+        swal({
+          text: "회원가입을 축하합니다.",
+          icon: "success",
+        });
         props.history.push("/");
       })
       .catch((error) => {
@@ -107,7 +116,7 @@ function Signup(props: any) {
   };
 
   const checkId = async () => {
-    let summonerUrl = "/find/CheckId";
+    let summonerUrl = "/find/checkId";
     await axios
       .post(
         "http://i3d204.p.ssafy.io:9999" + summonerUrl,
@@ -117,7 +126,17 @@ function Signup(props: any) {
         undefined
       )
       .then((res) => {
-        console.log(res);
+        if (res.data == "사용 가능한 이메일입니다.") {
+          swal({
+            text: res.data,
+            icon: "success",
+          });
+        } else {
+          swal({
+            text: res.data,
+            icon: "warning",
+          });
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -182,24 +201,20 @@ function Signup(props: any) {
               justify="space-evenly"
               direction="column"
             >
-              <Grid container justify="flex-start" spacing={1}>
-                <Grid item className={classes.tfield}>
-                  <TextField
-                    name="email"
-                    onChange={onChange}
-                    className={classes.tfield}
-                    label="E-MAIL"
-                  ></TextField>
-                </Grid>
-                <Grid item className={classes.divemailcheck}>
-                  <Button
-                    size="small"
-                    className={classes.emailcheck}
-                    onClick={checkId}
-                  >
-                    중복확인
-                  </Button>
-                </Grid>
+              <Grid container spacing={1}>
+                <TextField
+                  name="email"
+                  onChange={onChange}
+                  className={classes.tfield}
+                  label="E-MAIL"
+                ></TextField>
+                <Button
+                  size="small"
+                  className={classes.emailcheck}
+                  onClick={checkId}
+                >
+                  중복확인
+                </Button>
               </Grid>
               <TextField
                 onChange={onChange}
@@ -221,6 +236,7 @@ function Signup(props: any) {
                   label="PASSWORD_CONFIRM"
                   type="password"
                   helperText="비밀번호가 다릅니다."
+                  className="pw-confirm-word"
                 ></TextField>
               )}
               <TextField
@@ -233,6 +249,7 @@ function Signup(props: any) {
                 name="phone_num"
                 label="전화번호"
               ></TextField>
+              <div className="hidden-div"></div>
               <div>
                 <Button
                   onClick={doSignup}
