@@ -18,14 +18,16 @@ const styles = () =>
     },
   });
 
+interface State {
+  booklen: number;
+}
+
 class Favorites extends React.Component<Props> {
   constructor(props: any) {
     super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    // this.layBook();
+    this.state = {
+      booklen: props.mybooks.length,
+    };
   }
   render() {
     const { classes } = this.props;

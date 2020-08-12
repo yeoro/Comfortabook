@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import axios from "axios";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -31,6 +30,20 @@ interface Props {
 export default function SimpleCard(props: Props) {
   const classes = useStyles();
   const bookURL = `/read/${props.book.bookNo}`;
+  const delMybook = async () => {
+    await axios
+      .delete(
+        `http://i3d204.p.ssafy.io:9999/book/deleteMyBook/u=${props.no}&b=${props.book.bookNo}`
+      )
+      .then(() => {
+        console.log("삭제 완료");
+        window.location.reload(false);
+      })
+      .catch((e) => {
+        // API 호출이 실패한 경우
+        console.error(e.response); // 에러표시
+      });
+  };
   return (
     <Card className={classes.root}>
       <Link className={classes.link} to={bookURL}>
@@ -54,6 +67,7 @@ export default function SimpleCard(props: Props) {
           </Typography>
         </CardContent>
       </Link>
+      <Button onClick={delMybook}>삭제</Button>
     </Card>
   );
 }

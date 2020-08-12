@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
+import { Button, ButtonGroup, makeStyles, Grid } from "@material-ui/core";
 
 interface Props {
   changeSize: (sizevalue: StatusTypes) => void;
@@ -46,10 +46,17 @@ export default function ReadPageHeader(props: Props) {
   }
   return (
     <div className={classes.root}>
-      <ButtonGroup disableElevation variant="contained">
-        <Button onClick={sizeDown}>가 -</Button>
-        <Button onClick={sizeUp}>가 +</Button>
-      </ButtonGroup>
+      <Grid container direction="row" justify="space-between">
+        <Grid item>
+          <ButtonGroup disableElevation variant="contained">
+            <Button onClick={sizeDown}>가 -</Button>
+            <Button onClick={sizeUp}>가 +</Button>
+          </ButtonGroup>
+        </Grid>
+        <Grid item>
+          <Button>뒤로가기</Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }

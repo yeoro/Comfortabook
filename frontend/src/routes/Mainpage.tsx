@@ -116,7 +116,6 @@ class Mainpage extends React.Component<Props, State> {
     this.loadDetail();
     this.islogin();
   }
-
   getPage = () => {
     if (this.state.mode === "Home") {
       return <Home />;
