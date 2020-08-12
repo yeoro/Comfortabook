@@ -1,7 +1,5 @@
 package com.gucci.cb.service.book;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

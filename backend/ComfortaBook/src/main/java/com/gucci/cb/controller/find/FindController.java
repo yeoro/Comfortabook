@@ -37,7 +37,7 @@ public class FindController {
 
 
 	// 임시 비밀번호 전송
-	@ApiOperation(value = "임시 비밀번호 전송", response = String.class)
+	@ApiOperation(value = "비밀번호 찾기(임시 비밀번호 전송)", response = String.class)
 	@PostMapping("/findPw")
 	public ResponseEntity<Void> findPassword (@RequestBody UserDTO userDto){
 

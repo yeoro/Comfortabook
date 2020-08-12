@@ -20,17 +20,22 @@ public class BookContents {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long seq;
+	private Long seq;
 	
-	@Column(name = "book_isbn")
-	private String bookIsbn;
+	@Column(name = "book_no", nullable = false)
+	private Long bookNo;
 	
-	@Column(name = "page_no")
+	@Column(name = "page_no", nullable = false)
 	private String pageNo;
 	
 	private String content;
 	
-	public BookContents(String pageNo) {
-		this.pageNo = pageNo;
+	public BookContents(Book book) {
+		this.bookNo = book.getBookNo();
 	}
+	
+//	public BookContents(String pageNo) {
+//		
+//		this.pageNo = pageNo;
+//	}
 }

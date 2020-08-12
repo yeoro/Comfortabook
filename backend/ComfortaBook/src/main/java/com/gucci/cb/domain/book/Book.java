@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.gucci.cb.domain.user.UserBooks;
 
@@ -49,20 +50,18 @@ public class Book {
 	
 	private Date pubdate;
 	
+	@Column(columnDefinition = "longtext")
 	private String description;
 	
-	private String cover;
+	private String cover; 
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "book_isbn")
-	private List<BookContents> bookContents = new ArrayList<>();
+	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book_no"))
+	private List<BookContents> bookContents;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book"))
 	private Collection<UserBooks> userBooks;
-	
-//	@OneToMany(mappedBy = "bookNo")
-//	private List<UserBooks> userBooks;
 	
 	public void update(String title, String author) {
 		this.title = title;
