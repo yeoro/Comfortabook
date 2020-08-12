@@ -29,6 +29,7 @@ public class UserBooks {
 	@Column(name = "book_no", nullable = false)
 	private Long bookNo;
 	
+	
 	@Builder
 	public UserBooks(User user, Book book) {
 		this.userNo = user.getUserNo();
