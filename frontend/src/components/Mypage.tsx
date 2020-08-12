@@ -106,7 +106,7 @@ class Mypage extends React.Component<Props, State> {
       })
       .catch((e) => {
         // API 호출이 실패한 경우
-        // alert(e.response.data.message); // 에러표시
+        console.log(e.response); // 에러표시
       });
   };
   render() {

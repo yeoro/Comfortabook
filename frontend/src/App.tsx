@@ -34,7 +34,7 @@ function App() {
         <Route path="/signup" component={Signup} />
         <Route path="/find" component={Find} />
         <Route path="/mainpage" component={Mainpage} />
-        <Route path="/read" component={ReadPage} />
+        <Route path="/read/:bookNo" component={ReadPage} />
         <Route path="/notfound" component={NotFound} />
         <Route path="/admin" component={Admin} />
       </Grid>

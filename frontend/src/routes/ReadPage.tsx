@@ -12,18 +12,20 @@ import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
 import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/ReadCarousel";
+import { Route, BrowserRouter as Router, Link, match } from "react-router-dom";
+import axios from "axios";
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      width: "600px",
+      width: "768px",
       height: "1024px",
       backgroundColor: "#9e9e9e",
     },
     book: {
-      height: "auto",
+      height: "90%",
       width: "90%",
-      padding: "5vh 5vw",
+      padding: "5% 5%",
       overflow: "scroll",
       fontSize: "10px | 20px | 30px",
     },
@@ -33,15 +35,19 @@ const styles = (theme: Theme) =>
     },
   });
 
-export interface sProps extends WithStyles<typeof styles> {
+interface sProps extends WithStyles<typeof styles> {
   sizevalue: StatusTypes;
+  match?: match<DetailParams>;
+}
+
+interface DetailParams {
+  bookNo: string;
 }
 
 interface State {
   size?: StatusTypes;
   className: string;
-  title: string;
-  bookbody: any;
+  book: any;
   page: number;
   p: number;
 }
@@ -54,8 +60,10 @@ class Read extends React.Component<sProps, State> {
     this.state = {
       size: "20",
       className: "large",
-      title: book1.title,
-      bookbody: book1.description,
+      book: {
+        title: book1.title,
+        bookbody: book1.description,
+      },
       page: 0,
       p: 1,
     };
@@ -90,6 +98,28 @@ class Read extends React.Component<sProps, State> {
       page: value,
     });
   };
+  getRead = async () => {
+    const match = this.props.match;
+    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${match?.params.bookNo}`;
+    await axios
+      .get(URL)
+      .then((res: any) => {
+        console.log(res);
+        this.setState({
+          book: {
+            title: res.data.title,
+            bookbody: res.data.bookContents,
+          },
+        });
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
+  componentDidMount() {
+    this.getRead();
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -101,7 +131,7 @@ class Read extends React.Component<sProps, State> {
         <Paper className={classes.book}>
           <ReadCarousel
             page={this.state.page}
-            book={book1}
+            book={this.state.book}
             movePage={this.movePage}
             className={this.state.className}
           />
@@ -109,7 +139,7 @@ class Read extends React.Component<sProps, State> {
         <ReadPageFooter
           pagenum={this.state.page}
           movePage={this.movePage}
-          page={book1.description.length}
+          page={this.state.book.bookbody.length}
         />
       </div>
     );
