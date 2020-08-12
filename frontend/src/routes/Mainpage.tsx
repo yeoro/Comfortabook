@@ -18,18 +18,43 @@ interface Props {
 interface State {
   mode: StatusTypes;
   user_detail: any;
+  books: any;
 }
 
 type StatusTypes = "Home" | "Search" | "Library" | "Mypage";
 
 class Mainpage extends React.Component<Props, State> {
-  state = {
-    mode: this.props.modevalue,
-    user_detail: null,
-  };
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      mode: this.props.modevalue,
+      user_detail: null,
+      books: [],
+    };
+  }
 
   goMainpage = () => {
     this.props.history.push("/mainpage");
+  };
+
+  getBook = async (num: any) => {
+    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${num}`;
+    await axios
+      .get(URL)
+      .then((res: any) => {
+        // console.log(res.data);
+        this.setState({
+          books: this.state.books.concat({
+            title: res.data.title,
+            cover: res.data.cover,
+            description: res.data.description,
+            author: res.data.author,
+          }),
+        });
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
   loadDetail = async () => {
@@ -48,7 +73,7 @@ class Mainpage extends React.Component<Props, State> {
     axios
       .get("http://i3d204.p.ssafy.io:9999/user/detail", config)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         this.setState({
           user_detail: {
             name: data.name,
@@ -59,6 +84,7 @@ class Mainpage extends React.Component<Props, State> {
             mybooks: data.userBooks,
           },
         });
+        data.userBooks.map((element: any) => this.getBook(element.bookNo));
       })
       .catch((e) => {
         // API 호출이 실패한 경우
@@ -91,7 +117,7 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Search") {
       return <Search />;
     } else if (this.state.mode === "Library") {
-      return <Library mybooks={this.state.user_detail} />;
+      return <Library mybooks={this.state.books} />;
     } else if (this.state.mode === "Mypage") {
       return (
         <Mypage

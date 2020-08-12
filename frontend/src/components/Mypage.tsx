@@ -184,7 +184,6 @@ class Mypage extends React.Component<Props, State> {
           </Grid>
           {admingrid}
         </Grid>
-        {admingrid}
       </div>
     );
   }
