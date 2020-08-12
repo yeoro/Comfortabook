@@ -1,4 +1,7 @@
 import React from "react";
+import { History } from "history";
+import axios from "axios";
+import swal from "sweetalert";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,9 +10,7 @@ import Home from "../components/Home";
 import Mypage from "../components/Mypage";
 import Library from "../components/Library";
 import "./Mainpage.css";
-import axios from "axios";
 import Auth from "../components/Authservice";
-import { History } from "history";
 
 interface Props {
   modevalue: StatusTypes;
@@ -100,6 +101,10 @@ class Mainpage extends React.Component<Props, State> {
 
   islogin = () => {
     if (!Auth.isUserLoggedIn()) {
+      swal({
+        text: "해당 페이지는 로그인이 필요합니다.",
+        icon: "warning",
+      });
       this.props.history.push("/");
     }
   };

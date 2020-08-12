@@ -2,3 +2,7 @@
   width: 90%;
   height: 400px;
 }
+
+.add-book label {
+  font-family: "RIDIBatang";
+}
