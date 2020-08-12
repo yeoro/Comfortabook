@@ -57,7 +57,7 @@ public class Book {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book_no"))
-	private List<BookContents> bookContents;
+	private Collection<BookContents> bookContents;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book"))
