@@ -86,9 +86,9 @@ public class BookController {
 	
 	// 내 도서 삭제
 	@ApiOperation(value = "내 도서 삭제")
-	@DeleteMapping("/deleteMyBook")
-	public ResponseEntity<Void> deleteMyBook(@RequestBody UserBooks userBooks){
-		bookService.deleteByNo(userBooks);
+	@DeleteMapping("/deleteMyBook/u={userNo}&b={bookNo}")
+	public ResponseEntity<Void> deleteMyBook(@PathVariable("userNo") Long userNo, @PathVariable("bookNo") Long bookNo){
+		bookService.deleteByNo(userNo, bookNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
