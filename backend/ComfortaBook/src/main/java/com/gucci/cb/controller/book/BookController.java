@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gucci.cb.domain.book.BestSeller;
@@ -44,11 +45,13 @@ public class BookController {
 	
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
-	@GetMapping("/list/{type}&{keyword}")
-	public ResponseEntity<Page<Book>> retrieveBook(@PathVariable("type") String type, @PathVariable("keyword") String keyword, final Pageable pageable) {
+	@GetMapping("/list")
+	public ResponseEntity<Page<Book>> retrieveBook(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "keyword",  required = false) String keyword, final Pageable pageable) {
 //		Page<Book> books = bookRepository.findAll(pageable);
 //		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
-		
+		if(type == null || keyword == null) {
+			return new ResponseEntity<Page<Book>>(bookService.findAll("all", "all", pageable), HttpStatus.OK);
+		}
 		return new ResponseEntity<Page<Book>>(bookService.findAll(type, keyword, pageable), HttpStatus.OK);
 		
 //		List<Book> books = bookService.findAll();
