@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import com.gucci.cb.domain.book.Book;
 
 import lombok.AllArgsConstructor;
@@ -29,11 +32,17 @@ public class UserBooks {
 	@Column(name = "book_no", nullable = false)
 	private Long bookNo;
 	
+	@Column(name = "page_no")
+	private Long pageNo;
 	
 	@Builder
 	public UserBooks(User user, Book book) {
 		this.userNo = user.getUserNo();
 		this.bookNo = book.getBookNo();
+	}
+	
+	public void updateBookMark(Long pageNo) {
+		this.pageNo = pageNo;
 	}
 	
 }
