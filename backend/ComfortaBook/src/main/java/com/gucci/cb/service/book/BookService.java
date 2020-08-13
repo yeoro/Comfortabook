@@ -3,7 +3,7 @@ package com.gucci.cb.service.book;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
@@ -37,4 +37,7 @@ public interface BookService {
 	
 	// 알라딘 베스트 셀러
 	List<BestSeller> findBSAll();
+	
+	// 책갈피 기능
+	void updateBookMark(UserBooks userBooks);
 }
