@@ -101,8 +101,11 @@ public class BookServiceImpl implements BookService {
 	public void delete(Long bookNo) {
 
 		List<BookContents> bookContents = bookContentsRepository.findAllByBookNo(bookNo);
-
 		bookContentsRepository.deleteAll(bookContents);
+		
+		List<UserBooks> userBooks = userBookRepository.findAllByBookNo(bookNo);
+		userBookRepository.deleteAll(userBooks);
+		
 		bookRepository.deleteById(bookNo);
 	}
 
