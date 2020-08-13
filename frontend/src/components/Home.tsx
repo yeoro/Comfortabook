@@ -8,7 +8,11 @@ export interface Props {}
 export interface State {}
 
 class Home extends React.Component<Props, State> {
-  state = {};
+  constructor(props: Props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <div>

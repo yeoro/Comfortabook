@@ -144,6 +144,7 @@ class Mypage extends React.Component<Props, State> {
                 onChange={this.onChange}
                 name="email"
                 label="E-mail"
+                disabled
                 InputProps={{
                   readOnly: true,
                 }}

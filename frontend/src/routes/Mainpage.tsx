@@ -9,8 +9,9 @@ import Search from "../components/Search";
 import Home from "../components/Home";
 import Mypage from "../components/Mypage";
 import Library from "../components/Library";
-import "./Mainpage.css";
 import Auth from "../components/Authservice";
+
+import "./Mainpage.css";
 
 interface Props {
   modevalue: StatusTypes;
@@ -20,6 +21,7 @@ interface State {
   mode: StatusTypes;
   user_detail: any;
   books: any;
+  bestSeller: any;
 }
 
 type StatusTypes = "Home" | "Search" | "Library" | "Mypage";
@@ -31,6 +33,7 @@ class Mainpage extends React.Component<Props, State> {
       mode: this.props.modevalue,
       user_detail: null,
       books: [],
+      bestSeller: [],
     };
   }
 
