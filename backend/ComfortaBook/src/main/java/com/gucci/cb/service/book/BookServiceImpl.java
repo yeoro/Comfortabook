@@ -78,6 +78,7 @@ public class BookServiceImpl implements BookService {
 		//		bookRepository.findAll(pageable).forEach(e -> books.add(e));
 
 		if(type.equals("title")) {
+			
 			return bookRepository.findByTitleContaining(keyword, pageable);
 
 		} else if(type.equals("author")) {
