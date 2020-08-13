@@ -186,4 +186,17 @@ public class BookServiceImpl implements BookService {
 		}
 		return bsList;
 	}
+
+	@Override
+	@Transactional
+	public void updateBookMark(UserBooks userBooks) {
+		UserBooks userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo())
+				.orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
+		
+		System.out.println(userBook);
+		System.out.println(userBooks.getPageNo());
+		
+		
+		userBook.updateBookMark(userBooks.getPageNo());
+	}
 }

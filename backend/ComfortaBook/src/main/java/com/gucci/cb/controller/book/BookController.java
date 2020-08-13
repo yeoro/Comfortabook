@@ -102,4 +102,13 @@ public class BookController {
 	public ResponseEntity<List<BestSeller>> retrieveBS(){
 		return new ResponseEntity<List<BestSeller>>(bookService.findBSAll(), HttpStatus.OK);
 	}
+	
+	// 책갈피 기능
+	@ApiOperation(value = "책갈피 기능", response = UserBooks.class)
+	@PutMapping("/bookmark")
+    public ResponseEntity<UserBooks> updateBookMark(@RequestBody UserBooks userBooks) {
+        bookService.updateBookMark(userBooks);
+        return new ResponseEntity<UserBooks>(userBooks, HttpStatus.OK);
+    }
+	
 }
