@@ -100,6 +100,12 @@ class Login extends React.Component<Props, State> {
       });
   };
 
+  handleKeyPress = (event: any) => {
+    if (event.key === 'Enter') {
+      this.dologin();
+    }
+  }
+
   kakaosignin = async (token: string) => {
     const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
     await axios
@@ -173,6 +179,7 @@ class Login extends React.Component<Props, State> {
                 <Grid item className={classes.tfield}>
                   <TextField
                     onChange={this.onChange}
+                    onKeyPress={this.handleKeyPress}
                     name="password"
                     className={classes.tfield}
                     label="PASSWORD"

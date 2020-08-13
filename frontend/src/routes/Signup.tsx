@@ -120,6 +120,12 @@ function Signup(props: any) {
       });
   };
 
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      doSignup();
+    }
+  };
+
   // 이메일 중복 확인
   const [emailCheck, setEmailCheck] = useState(false);
 
@@ -291,6 +297,7 @@ function Signup(props: any) {
               ></TextField>
               <TextField
                 onChange={onChange}
+                onKeyPress={handleKeyPress}
                 name="phone_num"
                 label="전화번호"
               ></TextField>
@@ -306,7 +313,6 @@ function Signup(props: any) {
                   </Button>
                 ) : (
                   <Button
-                    onClick={doSignup}
                     className={classes.Button}
                     variant="contained"
                     disabled
