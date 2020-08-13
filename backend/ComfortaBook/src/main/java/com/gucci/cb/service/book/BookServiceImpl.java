@@ -69,12 +69,22 @@ public class BookServiceImpl implements BookService {
 
 	// 전체 도서 조회
 	@Override
-	public Page<Book> findAll(Pageable pageable) {
+	public Page<Book> findAll(String type, String keyword, Pageable pageable) {
 		//		Page<Book> books = bookRepository.findAll();
 		//		List<Book> books = new ArrayList<Book>();
 		//		bookRepository.findAll(pageable).forEach(e -> books.add(e));
 
-		return bookRepository.findAll(pageable);
+		if(type.equals("title")) {
+			return bookRepository.findByTitleContaining(keyword, pageable);
+
+		} else if(type.equals("author")) {
+
+			return bookRepository.findByAuthorContaining(keyword, pageable);
+
+		} else {
+
+			return bookRepository.findAll(pageable);
+		}
 	}
 
 	// 도서 상세 조회
@@ -103,25 +113,25 @@ public class BookServiceImpl implements BookService {
 
 		List<BookContents> bookContents = bookContentsRepository.findAllByBookNo(bookNo);
 		bookContentsRepository.deleteAll(bookContents);
-		
+
 		List<UserBooks> userBooks = userBookRepository.findAllByBookNo(bookNo);
 		userBookRepository.deleteAll(userBooks);
-		
+
 		bookRepository.deleteById(bookNo);
 	}
 
 	// 내 도서 등록
 	@Override
 	public UserBooks insertByNo(UserBooks userBooks) {
-		
+
 		Optional<UserBooks> userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo());
-		
+
 		// 존재한다면
 		if(userBook.isPresent()) {
 			UserBooks exist = new UserBooks();
 			return exist;
 		}
-		
+
 		userBookRepository.save(userBooks);
 		return userBooks;
 	}

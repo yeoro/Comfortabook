@@ -44,12 +44,12 @@ public class BookController {
 	
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
-	@GetMapping("/list")
-	public ResponseEntity<Page<Book>> retrieveBook(final Pageable pageable) {
+	@GetMapping("/list/{type}&{keyword}")
+	public ResponseEntity<Page<Book>> retrieveBook(@PathVariable("type") String type, @PathVariable("keyword") String keyword, final Pageable pageable) {
 //		Page<Book> books = bookRepository.findAll(pageable);
 //		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
 		
-		return new ResponseEntity<Page<Book>>(bookService.findAll(pageable), HttpStatus.OK);
+		return new ResponseEntity<Page<Book>>(bookService.findAll(type, keyword, pageable), HttpStatus.OK);
 		
 //		List<Book> books = bookService.findAll();
 //		return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
