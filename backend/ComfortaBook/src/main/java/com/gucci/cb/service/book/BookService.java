@@ -1,8 +1,11 @@
 package com.gucci.cb.service.book;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
@@ -14,7 +17,7 @@ public interface BookService {
 
 	// 전체 도서 조회
 	//	List<Book> findAll();
-	Page<Book> findAll(Pageable pageable);
+	Page<Book> findAll(String type, String keyword, Pageable pageable);
 
 	// 도서 상세 조회
 	Book findByNo(Long bookNo);
@@ -30,4 +33,7 @@ public interface BookService {
 
 	// 내 도서 삭제
 	void deleteByNo(Long UserNo, Long BookNo);
+	
+	// 알라딘 베스트 셀러
+	List<BestSeller> findBSAll();
 }

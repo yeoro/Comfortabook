@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.book.BookContents;
 import com.gucci.cb.domain.user.UserBooks;
@@ -68,12 +69,22 @@ public class BookServiceImpl implements BookService {
 
 	// 전체 도서 조회
 	@Override
-	public Page<Book> findAll(Pageable pageable) {
+	public Page<Book> findAll(String type, String keyword, Pageable pageable) {
 		//		Page<Book> books = bookRepository.findAll();
 		//		List<Book> books = new ArrayList<Book>();
 		//		bookRepository.findAll(pageable).forEach(e -> books.add(e));
 
-		return bookRepository.findAll(pageable);
+		if(type.equals("title")) {
+			return bookRepository.findByTitleContaining(keyword, pageable);
+
+		} else if(type.equals("author")) {
+
+			return bookRepository.findByAuthorContaining(keyword, pageable);
+
+		} else {
+
+			return bookRepository.findAll(pageable);
+		}
 	}
 
 	// 도서 상세 조회
@@ -102,25 +113,25 @@ public class BookServiceImpl implements BookService {
 
 		List<BookContents> bookContents = bookContentsRepository.findAllByBookNo(bookNo);
 		bookContentsRepository.deleteAll(bookContents);
-		
+
 		List<UserBooks> userBooks = userBookRepository.findAllByBookNo(bookNo);
 		userBookRepository.deleteAll(userBooks);
-		
+
 		bookRepository.deleteById(bookNo);
 	}
 
 	// 내 도서 등록
 	@Override
 	public UserBooks insertByNo(UserBooks userBooks) {
-		
+
 		Optional<UserBooks> userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo());
-		
+
 		// 존재한다면
 		if(userBook.isPresent()) {
 			UserBooks exist = new UserBooks();
 			return exist;
 		}
-		
+
 		userBookRepository.save(userBooks);
 		return userBooks;
 	}
@@ -133,4 +144,32 @@ public class BookServiceImpl implements BookService {
 
 		userBookRepository.deleteAll(userBook);
 	}
+
+	// 알라딘 베스트 셀러
+	@Override
+	public List<BestSeller> findBSAll() {
+		
+		try {
+			String url = AladdinOpenAPI.GetUrl();
+			
+			AladdinOpenAPIHandler api = new AladdinOpenAPIHandler();
+			
+			api.parseXml(url);
+			System.out.println(url);
+			for(Item item : api.Items){
+				System.out.println("제목 : " + item.title + 
+								   "\n저자 : " + item.author +
+								   "\n출판사 : " + item.publisher +
+								   "\n설명 : " + item.description + 
+								   "\n이미지 : " + item.cover);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
 }

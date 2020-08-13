@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
@@ -43,12 +44,12 @@ public class BookController {
 	
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
-	@GetMapping("/list")
-	public ResponseEntity<Page<Book>> retrieveBook(final Pageable pageable) {
+	@GetMapping("/list/{type}&{keyword}")
+	public ResponseEntity<Page<Book>> retrieveBook(@PathVariable("type") String type, @PathVariable("keyword") String keyword, final Pageable pageable) {
 //		Page<Book> books = bookRepository.findAll(pageable);
 //		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
 		
-		return new ResponseEntity<Page<Book>>(bookService.findAll(pageable), HttpStatus.OK);
+		return new ResponseEntity<Page<Book>>(bookService.findAll(type, keyword, pageable), HttpStatus.OK);
 		
 //		List<Book> books = bookService.findAll();
 //		return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
@@ -92,4 +93,10 @@ public class BookController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	// 알라딘 베스트 셀러
+	@ApiOperation(value = "알라딘 베스트 셀러")
+	@GetMapping("/bestSeller")
+	public ResponseEntity<List<BestSeller>> retrieveBS(){
+		return new ResponseEntity<List<BestSeller>>(bookService.findBSAll(), HttpStatus.OK);
+	}
 }
