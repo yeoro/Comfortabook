@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
@@ -95,4 +96,10 @@ public class BookController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	// 알라딘 베스트 셀러
+	@ApiOperation(value = "알라딘 베스트 셀러")
+	@GetMapping("/bestSeller")
+	public ResponseEntity<List<BestSeller>> retrieveBS(){
+		return new ResponseEntity<List<BestSeller>>(bookService.findBSAll(), HttpStatus.OK);
+	}
 }
