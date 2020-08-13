@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.book.BookContents;
 import com.gucci.cb.domain.user.UserBooks;
@@ -143,4 +144,32 @@ public class BookServiceImpl implements BookService {
 
 		userBookRepository.deleteAll(userBook);
 	}
+
+	// 알라딘 베스트 셀러
+	@Override
+	public List<BestSeller> findBSAll() {
+		
+		try {
+			String url = AladdinOpenAPI.GetUrl();
+			
+			AladdinOpenAPIHandler api = new AladdinOpenAPIHandler();
+			
+			api.parseXml(url);
+			System.out.println(url);
+			for(Item item : api.Items){
+				System.out.println("제목 : " + item.title + 
+								   "\n저자 : " + item.author +
+								   "\n출판사 : " + item.publisher +
+								   "\n설명 : " + item.description + 
+								   "\n이미지 : " + item.cover);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
 }
