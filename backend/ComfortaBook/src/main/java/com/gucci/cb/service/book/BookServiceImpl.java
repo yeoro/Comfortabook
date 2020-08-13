@@ -1,5 +1,6 @@
 package com.gucci.cb.service.book;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
@@ -15,6 +16,7 @@ import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.book.BookContents;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
+import com.gucci.cb.repository.book.BestSellerRepository;
 import com.gucci.cb.repository.book.BookContentsRepository;
 import com.gucci.cb.repository.book.BookRepository;
 import com.gucci.cb.repository.user.UserBookRepository;
@@ -28,6 +30,7 @@ public class BookServiceImpl implements BookService {
 	private final BookRepository bookRepository; 
 	private final UserBookRepository userBookRepository;
 	private final BookContentsRepository bookContentsRepository;
+	private final BestSellerRepository bestSellerRepository;
 
 	// 도서 정보 등록
 	@Override
@@ -149,6 +152,9 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BestSeller> findBSAll() {
 		
+		BestSeller bestSeller;
+		List<BestSeller> bsList = new ArrayList<>();
+		
 		try {
 			String url = AladdinOpenAPI.GetUrl();
 			
@@ -162,14 +168,21 @@ public class BookServiceImpl implements BookService {
 								   "\n출판사 : " + item.publisher +
 								   "\n설명 : " + item.description + 
 								   "\n이미지 : " + item.cover);
+				
+				bestSeller = BestSeller.builder()
+						.title(item.title)
+						.author(item.author)
+						.publisher(item.publisher)
+						.description(item.description)
+						.cover(item.cover)
+						.build();
+				
+				bsList.add(bestSeller);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return null;
+		return bsList;
 	}
-	
-	
 }
