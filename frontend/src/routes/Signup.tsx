@@ -249,6 +249,7 @@ function Signup(props: any) {
                     onChange={onChange}
                     className="emailcheck"
                     label="E-MAIL"
+                    helperText="이메일은 비밀번호 찾는데 사용됩니다. 본인의 정확한 메일 주소를 작성해주세요"
                   ></TextField>
                 ) : (
                   <TextField
@@ -256,7 +257,7 @@ function Signup(props: any) {
                     onChange={onChange}
                     className="emailcheck"
                     label="E-MAIL"
-                    helperText="이메일 중복확인을 해주세요."
+                    helperText="중복확인은 필수입니다."
                   ></TextField>
                 )}
                 <Button
@@ -300,6 +301,7 @@ function Signup(props: any) {
                 onKeyPress={handleKeyPress}
                 name="phone_num"
                 label="전화번호"
+                helperText="숫자만 입력해주세요."
               ></TextField>
               <div className="hidden-div"></div>
               <div>
