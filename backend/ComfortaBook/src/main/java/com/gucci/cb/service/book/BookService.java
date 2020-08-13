@@ -14,7 +14,7 @@ public interface BookService {
 
 	// 전체 도서 조회
 	//	List<Book> findAll();
-	Page<Book> findAll(Pageable pageable);
+	Page<Book> findAll(String type, String keyword, Pageable pageable);
 
 	// 도서 상세 조회
 	Book findByNo(Long bookNo);
