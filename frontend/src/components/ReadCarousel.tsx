@@ -18,7 +18,7 @@ function Readcarousel(props: Props) {
     props.movePage(e);
   };
   return (
-    <div>
+    <div className="read-carousel">
       <Carousel
         afterSlide={nextPage}
         defaultControlsConfig={{

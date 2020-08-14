@@ -2,6 +2,7 @@ import React from "react";
 import axios, { AxiosResponse } from "axios";
 
 import BookList from "./BookList";
+import "./RecommendBook.css";
 
 export interface Props {
   bestSeller: any;
@@ -24,7 +25,6 @@ class RecommendBook extends React.Component {
         this.setState({
           bestSeller: res.data,
         });
-        console.log(this.state.bestSeller);
       })
       .catch((error: AxiosResponse) => {
         console.log(error);
@@ -38,7 +38,8 @@ class RecommendBook extends React.Component {
   render() {
     const { bestSeller } = this.state;
     return (
-      <div>
+      <div className="recommend-book">
+        <br />
         {bestSeller.map((i: any, index: any) => (
           <BookList
             key={index}
@@ -49,6 +50,9 @@ class RecommendBook extends React.Component {
             description={i.description}
           />
         ))}
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
