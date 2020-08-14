@@ -1,6 +1,6 @@
 import React from "react";
 import { History } from "history";
-import axios from "axios";
+// import axios from "axios";
 import swal from "sweetalert";
 
 import Header from "../components/Header";
@@ -10,12 +10,18 @@ import Home from "../components/Home";
 import Mypage from "../components/Mypage";
 import Library from "../components/Library";
 import Auth from "../components/Authservice";
+import { match } from "react-router-dom";
 
 import "./Mainpage.css";
 
 interface Props {
   modevalue: StatusTypes;
+  match?: match<DetailParams>;
   history: History;
+  gotoread: (bookNo: string, page: number) => void;
+  main_mode: StatusTypes;
+  user_detail: any;
+  books: Array<any>;
 }
 interface State {
   mode: StatusTypes;
@@ -38,63 +44,7 @@ class Mainpage extends React.Component<Props, State> {
   }
 
   goMainpage = () => {
-    this.props.history.push("/mainpage");
-  };
-
-  getBook = async (num: any) => {
-    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${num}`;
-    await axios
-      .get(URL)
-      .then((res: any) => {
-        console.log(res.data);
-        this.setState({
-          books: this.state.books.concat({
-            bookNo: res.data.bookNo,
-            title: res.data.title,
-            cover: res.data.cover,
-            description: res.data.description,
-            author: res.data.author,
-          }),
-        });
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
-  };
-
-  loadDetail = async () => {
-    let token = null;
-    if (localStorage.getItem("token")) {
-      token = localStorage.getItem("token");
-    } else {
-      token = localStorage.getItem("kakao_53b33c1a41d97e9e4bff7c33e167295f");
-    }
-    console.log(token);
-    let config = {
-      headers: {
-        "X-AUTH-TOKEN": token,
-      },
-    };
-    axios
-      .get("http://i3d204.p.ssafy.io:9999/user/detail", config)
-      .then(({ data }) => {
-        // console.log(data);
-        this.setState({
-          user_detail: {
-            name: data.name,
-            email: data.email,
-            phone_num: data.phoneNumber,
-            role: data.roles[0],
-            no: data.userNo,
-            mybooks: data.userBooks,
-          },
-        });
-        data.userBooks.map((element: any) => this.getBook(element.bookNo));
-      })
-      .catch((e) => {
-        // API 호출이 실패한 경우
-        console.error(e.response); // 에러표시
-      });
+    this.props.history.push("/mainpage/");
   };
 
   logout = () => {
@@ -113,11 +63,10 @@ class Mainpage extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.setState({
-      mode: "Home",
-    });
-    this.loadDetail();
     this.islogin();
+    this.setState({
+      mode: this.props.main_mode,
+    });
   }
   getPage = () => {
     if (this.state.mode === "Home") {
@@ -126,7 +75,11 @@ class Mainpage extends React.Component<Props, State> {
       return <Search />;
     } else if (this.state.mode === "Library") {
       return (
-        <Library mybooks={this.state.books} no={this.state.user_detail.no} />
+        <Library
+          mybooks={this.props.books}
+          no={this.props.user_detail.no}
+          gotoread={this.props.gotoread}
+        />
       );
     } else if (this.state.mode === "Mypage") {
       return (
@@ -134,7 +87,7 @@ class Mainpage extends React.Component<Props, State> {
           history={this.props.history}
           goMainpage={this.goMainpage}
           logout={this.logout}
-          detail={this.state.user_detail}
+          detail={this.props.user_detail}
         />
       );
     }

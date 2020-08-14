@@ -15,6 +15,7 @@ function Readcarousel(props: Props) {
     fontSize: props.className,
   };
   const nextPage = (e: any) => {
+    console.log(e);
     props.movePage(e);
   };
   return (
