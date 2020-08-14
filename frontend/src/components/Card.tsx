@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -25,11 +24,11 @@ const useStyles = makeStyles({
 interface Props {
   book: any;
   no: any;
+  gotoread: (bookNo: string, page: number) => void;
 }
 
 export default function SimpleCard(props: Props) {
   const classes = useStyles();
-  const bookURL = `/read/${props.book.bookNo}`;
   const delMybook = async () => {
     await axios
       .delete(
@@ -44,9 +43,13 @@ export default function SimpleCard(props: Props) {
         console.error(e.response); // 에러표시
       });
   };
+  const read = () => {
+    props.gotoread(props.book.bookNo, props.book.page);
+  };
+
   return (
     <Card className={classes.root}>
-      <Link className={classes.link} to={bookURL}>
+      <Button onClick={read}>
         <CardContent>
           <Typography
             className={classes.title}
@@ -66,7 +69,7 @@ export default function SimpleCard(props: Props) {
             <br />
           </Typography>
         </CardContent>
-      </Link>
+      </Button>
       <Button onClick={delMybook}>삭제</Button>
     </Card>
   );

@@ -1,0 +1,110 @@
+import React from "react";
+import { History } from "history";
+// import axios from "axios";
+import swal from "sweetalert";
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Search from "../components/Search";
+import Home from "../components/Home";
+import Mypage from "../components/Mypage";
+import Library from "../components/Library";
+import "./Mainpage.css";
+import Auth from "../components/Authservice";
+import { match } from "react-router-dom";
+
+interface Props {
+  modevalue: StatusTypes;
+  match?: match<DetailParams>;
+  history: History;
+  gotoread: (bookNo: string, page: number) => void;
+  main_mode: StatusTypes;
+  user_detail: any;
+  books: Array<any>;
+}
+interface State {
+  mode: StatusTypes;
+}
+
+interface DetailParams {
+  status: string;
+}
+
+type StatusTypes = "Home" | "Search" | "Library" | "Mypage";
+
+class Mainpage extends React.Component<Props, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      mode: "Home",
+    };
+  }
+
+  goMainpage = () => {
+    this.props.history.push("/mainpage/");
+  };
+
+  logout = () => {
+    Auth.logout();
+    this.props.history.push("/");
+  };
+
+  islogin = () => {
+    if (!Auth.isUserLoggedIn()) {
+      swal({
+        text: "해당 페이지는 로그인이 필요합니다.",
+        icon: "warning",
+      });
+      this.props.history.push("/");
+    }
+  };
+
+  componentDidMount() {
+    this.islogin();
+    this.setState({
+      mode: this.props.main_mode,
+    });
+  }
+  getPage = () => {
+    if (this.state.mode === "Home") {
+      return <Home />;
+    } else if (this.state.mode === "Search") {
+      return <Search />;
+    } else if (this.state.mode === "Library") {
+      return (
+        <Library
+          mybooks={this.props.books}
+          no={this.props.user_detail.no}
+          gotoread={this.props.gotoread}
+        />
+      );
+    } else if (this.state.mode === "Mypage") {
+      return (
+        <Mypage
+          history={this.props.history}
+          goMainpage={this.goMainpage}
+          logout={this.logout}
+          detail={this.props.user_detail}
+        />
+      );
+    }
+  };
+
+  changePage = (value: StatusTypes) => {
+    this.setState({
+      mode: value,
+    });
+  };
+
+  render() {
+    return (
+      <div className="mainpage">
+        <Header />
+        {this.getPage()}
+        <Footer changePage={this.changePage} />
+      </div>
+    );
+  }
+}
+
+export default Mainpage;

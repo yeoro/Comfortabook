@@ -6,6 +6,7 @@ import Bookcard from "./Card";
 interface Props extends WithStyles<typeof styles> {
   mybooks: any;
   no: any;
+  gotoread: (bookNo: string, page: number) => void;
 }
 
 const styles = () =>
@@ -38,7 +39,11 @@ class Favorites extends React.Component<Props> {
             {this.props.mybooks.map((element: any) => {
               return (
                 <Grid item xs={5}>
-                  <Bookcard book={element} no={this.props.no} />
+                  <Bookcard
+                    book={element}
+                    no={this.props.no}
+                    gotoread={this.props.gotoread}
+                  />
                 </Grid>
               );
             })}

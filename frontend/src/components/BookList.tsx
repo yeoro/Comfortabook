@@ -27,11 +27,15 @@ function BookList({ title, author, image, publisher }: any) {
     const url = "http://i3d204.p.ssafy.io:9999/book/insertMyBook";
     await axios
       .post(url, {
-        bookNo: "14",
+        bookNo: "18",
         userNo: "12",
       })
       .then((res) => {
-        console.log("성공");
+        if (!!res.data.userNo === true) {
+          window.location.reload(false);
+        } else {
+          alert("이미 등록된 책입니다.");
+        }
       })
       .catch((error) => {
         console.log(error.response);

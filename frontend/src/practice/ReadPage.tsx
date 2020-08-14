@@ -10,10 +10,10 @@ import {
 import book1 from "../books/book1.json";
 import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
-import scrollIntoView from "scroll-into-view-if-needed";
+// import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/ReadCarousel";
-import { match } from "react-router-dom";
 import axios from "axios";
+import { History } from "history";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -37,11 +37,12 @@ const styles = (theme: Theme) =>
 
 interface sProps extends WithStyles<typeof styles> {
   sizevalue: StatusTypes;
-  match?: match<DetailParams>;
-}
-
-interface DetailParams {
+  history: History;
   bookNo: string;
+  readbook: (obj: any) => void;
+  gobacklist: () => void;
+  page: number;
+  userno: number;
 }
 
 interface State {
@@ -89,18 +90,23 @@ class Read extends React.Component<sProps, State> {
   movePage = (value: number) => {
     if (value === 0) {
       let node = document.getElementsByTagName("h1")[0];
-      scrollIntoView(node, { behavior: "auto", scrollMode: "if-needed" });
+      node.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
     } else {
       let node = document.getElementsByTagName("p")[value - 1];
-      scrollIntoView(node, { behavior: "auto", scrollMode: "if-needed" });
+      node.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
     }
     this.setState({
       page: value,
     });
   };
   getRead = async () => {
-    const match = this.props.match;
-    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${match?.params.bookNo}`;
+    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${this.props.bookNo}`;
     await axios
       .get(URL)
       .then((res: any) => {
@@ -118,13 +124,25 @@ class Read extends React.Component<sProps, State> {
   };
 
   componentDidMount() {
+    this.setState({
+      page: this.props.page,
+    });
     this.getRead();
+  }
+  componentWillUnmount() {
+    this.props.readbook({
+      bookNo: this.props.bookNo,
+      pageNo: this.state.page,
+      userNo: this.props.userno,
+    });
   }
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <ReadPageHeader
+          gobacklist={this.props.gobacklist}
+          history={this.props.history}
           changeSize={this.changeSize}
           value={this.props.sizevalue}
         />
