@@ -10,13 +10,11 @@ import Home from "../components/Home";
 import Mypage from "../components/Mypage";
 import Library from "../components/Library";
 import Auth from "../components/Authservice";
-import { match } from "react-router-dom";
 
 import "./Mainpage.css";
 
 interface Props {
   modevalue: StatusTypes;
-  match?: match<DetailParams>;
   history: History;
   gotoread: (bookNo: string, page: number) => void;
   main_mode: StatusTypes;
