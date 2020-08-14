@@ -88,7 +88,7 @@ class Login extends React.Component<Props, State> {
       .then((response: any) => {
         Auth.registerSuccessfulLoginForJwt(this.state.email, response.data);
         console.log("success");
-        this.props.history.push("/mainpage");
+        this.props.history.push("/playground");
       })
       .catch((e) => {
         // this.setState({showSuccessMessage:false})
@@ -112,7 +112,7 @@ class Login extends React.Component<Props, State> {
       .post(URL, token, undefined)
       .then((res) => {
         localStorage.setItem("token", res.data);
-        this.props.history.push("/mainpage");
+        this.props.history.push("/playground/");
       })
       .catch((error) => {
         console.log("로그인 실패");
