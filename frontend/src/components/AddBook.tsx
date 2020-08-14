@@ -3,6 +3,8 @@ import "./AddBook.css";
 import axios from "axios";
 import { History } from "history";
 
+import { TextField, Button } from "@material-ui/core";
+
 export interface Props {
   history: History;
 }
@@ -15,6 +17,7 @@ export interface State {
   isbn: string;
   publisher: string;
   title: string;
+  checkCover: Boolean;
 }
 
 class AddBook extends React.Component<Props, State> {
@@ -28,6 +31,7 @@ class AddBook extends React.Component<Props, State> {
       isbn: "",
       publisher: "",
       title: "",
+      checkCover: false,
     };
   }
 
@@ -81,7 +85,10 @@ class AddBook extends React.Component<Props, State> {
     } else if (name === "cover") {
       this.setState({
         cover: value,
+        checkCover: true,
       });
+      this.setCoverCheck();
+      console.log(this.setCoverCheck);
     } else if (name === "publisher") {
       this.setState({
         publisher: value,
@@ -89,44 +96,81 @@ class AddBook extends React.Component<Props, State> {
     }
   };
 
+  setCoverCheck = () => {
+    if (this.state.checkCover === false) {
+      return <span className="cover-check">등록 된 이미지가 없습니다.</span>;
+    } else {
+      return <span className="cover-check">이미지를 등록 했습니다.</span>;
+    }
+  };
+
   render() {
     return (
-      <div>
-        <label>제목</label>
-        <br></br>
-        <input onChange={this.onChange} name="title"></input>
-        <br></br>
-        <br></br>
-        <label>작가</label>
-        <br></br>
-        <input onChange={this.onChange} name="author"></input>
-        <br></br>
-        <br></br>
-        <label>카테고리</label>
-        <br></br>
-        <input onChange={this.onChange} name="categoryName"></input>
-        <br></br>
-        <br></br>
-        <label>ISBN</label>
-        <br></br>
-        <input onChange={this.onChange} name="isbn"></input>
-        <br></br>
-        <br></br>
-        <label>출판사</label>
-        <br></br>
-        <input onChange={this.onChange} name="publisher"></input>
-        <br></br>
-        <br></br>
-        <textarea
-          className="textarea"
-          onChange={this.onChange}
-          name="content"
-        ></textarea>
-        <br></br>
-        <input onChange={this.onChange} type="file" name="cover"></input>
-        <br></br>
-        <br></br>
-        <button onClick={this.sendData}>등록</button>
+      <div className="add-book">
+        <form noValidate autoComplete="off">
+          <TextField
+            name="title"
+            fullWidth
+            label="제목"
+            onChange={this.onChange}
+          />
+          <TextField
+            className="tfield"
+            name="author"
+            label="작가"
+            onChange={this.onChange}
+          />
+          <TextField
+            className="tfield t-margin"
+            name="categoryName"
+            label="카테고리"
+            onChange={this.onChange}
+          />
+          <TextField
+            className="tfield"
+            name="isbn"
+            label="ISBN"
+            onChange={this.onChange}
+          />
+          <TextField
+            className="tfield t-margin"
+            name="publisher"
+            label="출판사"
+            onChange={this.onChange}
+          />
+          <TextField
+            name="content"
+            fullWidth
+            multiline
+            rows={20}
+            label="내용"
+            onChange={this.onChange}
+          />
+        </form>
+        <div className="button-container">
+          <div>
+            <input
+              accept="image/*"
+              className="image-input"
+              id="contained-button-file"
+              multiple
+              type="file"
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="contained"
+                onChange={this.onChange}
+                component="span"
+              >
+                파일 선택
+              </Button>
+            </label>
+            {this.setCoverCheck()}
+          </div>
+          <Button variant="contained" onClick={this.sendData}>
+            등록
+          </Button>
+        </div>
       </div>
     );
   }

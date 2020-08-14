@@ -1,11 +1,12 @@
 import * as React from "react";
 import { History } from "history";
 import axios from "axios";
+import swal from "sweetalert";
+import { Link } from "react-router-dom";
 import KakaoLogin from "react-kakao-login";
 
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 
 import Auth from "../components/Authservice";
 import Loginheader from "../components/Loginheader";
@@ -87,14 +88,23 @@ class Login extends React.Component<Props, State> {
       .then((response: any) => {
         Auth.registerSuccessfulLoginForJwt(this.state.email, response.data);
         console.log("success");
-        this.props.history.push("/mainpage");
+        this.props.history.push("/playground");
       })
       .catch((e) => {
         // this.setState({showSuccessMessage:false})
         // this.setState({hasLoginFailed:true})
-        alert(e.response.data.message);
+        swal({
+          text: e.response.data.message,
+          icon: "warning",
+        });
       });
   };
+
+  handleKeyPress = (event: any) => {
+    if (event.key === 'Enter') {
+      this.dologin();
+    }
+  }
 
   kakaosignin = async (token: string) => {
     const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
@@ -102,7 +112,7 @@ class Login extends React.Component<Props, State> {
       .post(URL, token, undefined)
       .then((res) => {
         localStorage.setItem("token", res.data);
-        this.props.history.push("/mainpage");
+        this.props.history.push("/playground/");
       })
       .catch((error) => {
         console.log("로그인 실패");
@@ -163,12 +173,13 @@ class Login extends React.Component<Props, State> {
                     onChange={this.onChange}
                     name="email"
                     className={classes.tfield}
-                    label="ID"
+                    label="E-MAIL"
                   ></TextField>
                 </Grid>
                 <Grid item className={classes.tfield}>
                   <TextField
                     onChange={this.onChange}
+                    onKeyPress={this.handleKeyPress}
                     name="password"
                     className={classes.tfield}
                     label="PASSWORD"

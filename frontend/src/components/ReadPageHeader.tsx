@@ -1,9 +1,12 @@
 import * as React from "react";
-import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
+import { Button, ButtonGroup, makeStyles, Grid } from "@material-ui/core";
+import { History } from "history";
 
 interface Props {
   changeSize: (sizevalue: StatusTypes) => void;
   value: StatusTypes;
+  history: History;
+  gobacklist: () => void;
 }
 
 type StatusTypes = "20" | "30" | "40";
@@ -15,6 +18,9 @@ const useStyles = makeStyles({
     position: "fixed",
     top: "0",
     padding: "2",
+  },
+  btn: {
+    width: "100%",
   },
 });
 
@@ -46,10 +52,22 @@ export default function ReadPageHeader(props: Props) {
   }
   return (
     <div className={classes.root}>
-      <ButtonGroup disableElevation variant="contained">
-        <Button onClick={sizeDown}>가 -</Button>
-        <Button onClick={sizeUp}>가 +</Button>
-      </ButtonGroup>
+      <Grid
+        className={classes.btn}
+        container
+        direction="row"
+        justify="space-between"
+      >
+        <Grid item>
+          <ButtonGroup disableElevation variant="contained">
+            <Button onClick={sizeDown}>가 -</Button>
+            <Button onClick={sizeUp}>가 +</Button>
+          </ButtonGroup>
+        </Grid>
+        <Grid item>
+          <Button onClick={props.gobacklist}>뒤로가기</Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }

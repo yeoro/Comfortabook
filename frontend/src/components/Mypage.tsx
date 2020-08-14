@@ -1,9 +1,12 @@
 import React from "react";
+import { History } from "history";
+import axios from "axios";
+import swal from "sweetalert";
+
 import { Button, Grid, TextField } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
+
 import "./Mypage.css";
-import axios from "axios";
-import { History } from "history";
 
 const styles = () =>
   createStyles({
@@ -101,12 +104,16 @@ class Mypage extends React.Component<Props, State> {
         config
       )
       .then(() => {
-        alert("수정이 완료되었습니다.");
+        swal({
+          text: "수정이 완료되었습니다.",
+          icon: "success",
+        });
         this.props.goMainpage();
       })
       .catch((e) => {
         // API 호출이 실패한 경우
-        // alert(e.response.data.message); // 에러표시
+        console.log(e.response); // 에러표시
+        console.log(this.state.user_detail.password);
       });
   };
   render() {
@@ -137,6 +144,7 @@ class Mypage extends React.Component<Props, State> {
                 onChange={this.onChange}
                 name="email"
                 label="E-mail"
+                disabled
                 InputProps={{
                   readOnly: true,
                 }}
@@ -165,7 +173,7 @@ class Mypage extends React.Component<Props, State> {
             <Grid item>
               <TextField
                 onChange={this.onChange}
-                name="pw"
+                name="password"
                 label="비밀번호"
                 type="password"
                 className={classes.tfield}

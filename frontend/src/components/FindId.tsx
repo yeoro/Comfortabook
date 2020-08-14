@@ -2,6 +2,7 @@ import * as React from "react";
 import { History } from "history";
 import axios from "axios";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
 
 import { Grid, TextField, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
@@ -22,6 +23,7 @@ const styles = () =>
       textDecoration: "None",
       color: "Black",
       lineHeight: "19px",
+      fontFamily: "RIDIBatang",
     },
     tfield: {
       width: "100%",
@@ -135,6 +137,19 @@ class FindId extends React.Component<Props, State> {
             >
               아이디 찾기
             </Button>
+          </Grid>
+          <Grid item container justify="center" spacing={1}>
+            <Grid item>
+              <Link className={classes.alink} to="/">
+                로그인
+              </Link>
+            </Grid>
+            <Grid item>|</Grid>
+            <Grid item>
+              <Link className={classes.alink} to="/signup">
+                회원가입
+              </Link>
+            </Grid>
           </Grid>
         </Grid>
       </div>

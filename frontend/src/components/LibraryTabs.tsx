@@ -7,7 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-import MyBooks from "./BookILike";
+// import MyBooks from "./BookILike";
 import Favorites from "./Favorites";
 import "./LibraryTabs.css";
 
@@ -18,6 +18,8 @@ interface TabPanelProps {
 }
 interface bProps {
   mybooks: any;
+  no: any;
+  gotoread: (bookNo: string, page: number) => void;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -79,10 +81,14 @@ export default function SimpleTabs(props: bProps) {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <Favorites mybooks={props.mybooks} />
+          <Favorites
+            mybooks={props.mybooks}
+            no={props.no}
+            gotoread={props.gotoread}
+          />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <MyBooks />
+          {/* <MyBooks /> */}
         </TabPanel>
       </div>
     </div>

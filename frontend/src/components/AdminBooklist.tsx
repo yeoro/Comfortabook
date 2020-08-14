@@ -1,7 +1,11 @@
 import * as React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { History } from "history";
 
-export interface Props {}
+export interface Props {
+  history: History;
+}
 
 // interface book {
 //   title: string;
@@ -23,6 +27,7 @@ class AdminBooklist extends React.Component<Props, State> {
     await axios
       .get(URL)
       .then((res: any) => {
+        console.log(res);
         this.setState({
           books: res.data.content,
         });
@@ -38,9 +43,10 @@ class AdminBooklist extends React.Component<Props, State> {
       .delete(URL)
       .then((res: any) => {
         alert("삭제 완료");
+        this.props.history.push("/admin");
       })
       .catch((error: any) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
@@ -49,13 +55,16 @@ class AdminBooklist extends React.Component<Props, State> {
   }
   render() {
     return (
-      <div>
+      <div className="admin-booklist">
         <h1>책 목록</h1>
         {this.state.books.map((element: any) => {
+          const url = `/read/${element.bookNo}`;
           return (
             <div>
               <p>{element.title}</p>
-              <button>책보기</button>
+              <button>
+                <Link to={url}>책보기</Link>
+              </button>
               <button onClick={this.onDelete} data-id={element.bookNo}>
                 삭제
               </button>

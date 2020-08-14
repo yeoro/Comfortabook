@@ -81,7 +81,7 @@ export default function SimpleTabs(props: hProps) {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <AdminBooklist />
+          <AdminBooklist history={props.history} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <AddBook history={props.history} />

@@ -1,53 +1,75 @@
 import React from "react";
 
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
 
 import "./BookList.css";
-import axios from "axios";
 
-function BookList({ title, author, image, publisher }: any) {
-  // const books = [
-  //   {
-  //     title: "이동해",
-  //     image:
-  //       "https://i.pinimg.com/236x/c5/5c/c2/c55cc29c6f14a438865baec2516959e8.jpg",
-  //   },
-  //   {
-  //     title: "김선호",
-  //     image:
-  //       "https://cdn.joongboo.com/news/photo/201911/363372953_2091416_1914.jpg",
-  //   },
-  //   {
-  //     title: "수지",
-  //     image:
-  //       "https://www.gotit.co.kr/wp-content/uploads/2019/03/origin_%EC%88%98%EC%A7%80%EB%AA%85%EB%B6%88%ED%97%88%EC%A0%84%EC%B2%AD%EC%88%9C%EC%97%AC%EC%8B%A0.jpg",
-  //   },
-  // ];
-  const addbook = async () => {
-    const url = "http://i3d204.p.ssafy.io:9999/book/insertMyBook";
-    await axios
-      .post(url, {
-        bookNo: "12",
-        userNo: "12",
-      })
-      .then((res) => {
-        console.log("성공");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+    },
+    details: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    content: {
+      flex: "1 0 auto",
+    },
+    cover: {
+      width: "100%",
+      backgroundSize: "contain !important",
+      backgroundPosition: "right !important",
+    },
+  })
+);
+
+function BookList({ title, author, image, publisher, description }: any) {
+  // const addbook = async () => {
+  //   const url = "http://i3d204.p.ssafy.io:9999/book/insertMyBook";
+  //   await axios
+  //     .post(url, {
+  //       bookNo: "14",
+  //       userNo: "12",
+  //     })
+  //     .then((res) => {
+  //       console.log("성공");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // };
+
+  const classes = useStyles();
 
   return (
-    <div className="books">
-      <div className="book">
-        <button onClick={addbook}>추가</button>
-        <AddCircleIcon className="book__icon" />
-        <img src={image} alt={title} title={title} className="book__img" />
-        <h3 className="book__title">{title}</h3>
-        <p>{author}</p>
-        <p>{publisher}</p>
-      </div>
+    <div className="bestseller">
+      <br />
+      <Card className={classes.root}>
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography component="h5" variant="h5">
+              {title}
+            </Typography>
+            <Typography variant="subtitle2" color="textSecondary">
+              {author} | {publisher}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              {description}
+            </Typography>
+          </CardContent>
+        </div>
+        <CardMedia
+          className={classes.cover}
+          image={image}
+          title={title}
+        ></CardMedia>
+      </Card>
+      <br />
     </div>
   );
 }

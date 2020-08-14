@@ -1,37 +1,58 @@
 import React from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-// import BookList from "./BookList";
+import BookList from "./BookList";
+import "./RecommendBook.css";
+
+export interface Props {
+  bestSeller: any;
+}
+
+export interface State {
+  bestSeller: any;
+}
 
 class RecommendBook extends React.Component {
   state = {
-    // data: [],
+    bestSeller: [],
   };
 
   getBestseller = async () => {
-    const URL = "http://i3d204.p.ssafy.io:9999/book/list";
-    const { data } = await axios.get(URL);
-    this.setState({ data });
-    console.log({ data });
+    let summonerUrl = "/book/bestSeller";
+    await axios
+      .get("http://i3d204.p.ssafy.io:9999" + summonerUrl, undefined)
+      .then((res: AxiosResponse) => {
+        this.setState({
+          bestSeller: res.data,
+        });
+      })
+      .catch((error: AxiosResponse) => {
+        console.log(error);
+      });
   };
 
-  // componentDidMount() {
-  //   this.getBestseller();
-  // }
+  componentDidMount() {
+    this.getBestseller();
+  }
 
   render() {
-    // const { data } = this.state;
+    const { bestSeller } = this.state;
     return (
-      <div>
-        {/* {data.map((i: any) => (
+      <div className="recommend-book">
+        <br />
+        {bestSeller.map((i: any, index: any) => (
           <BookList
-            key={i.bookNo}
+            key={index}
             title={i.title}
             author={i.author}
             image={i.cover}
             publisher={i.publisher}
+            description={i.description}
           />
-        ))} */}
+        ))}
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
