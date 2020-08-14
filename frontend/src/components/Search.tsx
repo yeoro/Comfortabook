@@ -34,7 +34,19 @@ function Search() {
   return (
     <div className="search">
       <SearchBar setSelectData={setSelectData} setValueData={setValueData} />
-      <BookList />
+      {books.map((i: any, index: any) => (
+        <BookList
+          key={index}
+          title={i.title}
+          author={i.author}
+          image={i.cover}
+          publisher={i.publisher}
+          description={i.description.substr(0, 100)}
+        />
+      ))}
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

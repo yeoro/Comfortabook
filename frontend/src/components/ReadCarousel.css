@@ -1,20 +1,21 @@
-.Read-book-2 > div {
+.read-carousel .Read-book-2 > div {
   height: 100% !important;
 }
-.Read-book-2 {
-  height: 100% !important;
-}
-
-.MuiPaper-root {
-  height: 100% !important;
-}
-.MuiPaper-root > div {
+.read-carousel .Read-book-2 {
   height: 100% !important;
 }
 
-.large {
+.read-carousel .MuiPaper-root {
+  height: 100% !important;
+}
+
+.read-carousel .MuiPaper-root > div {
+  height: 100% !important;
+}
+
+.read-carousel .large {
   line-height: 200%;
 }
-.x-large {
+.read-carousel .x-large {
   line-height: 150%;
 }

@@ -21,13 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: "1 0 auto",
     },
     cover: {
-      width: 151,
-    },
-    controls: {
-      display: "flex",
-      alignItems: "center",
-      paddingLeft: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
+      width: "100%",
+      backgroundSize: "contain !important",
+      backgroundPosition: "right !important",
     },
   })
 );
@@ -51,7 +47,8 @@ function BookList({ title, author, image, publisher, description }: any) {
   const classes = useStyles();
 
   return (
-    <div className="book">
+    <div className="bestseller">
+      <br />
       <Card className={classes.root}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
@@ -59,15 +56,20 @@ function BookList({ title, author, image, publisher, description }: any) {
               {title}
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
-              {author}
+              {author} | {publisher}
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
               {description}
             </Typography>
           </CardContent>
         </div>
-        <CardMedia className={classes.cover} image={image} title={title} />
+        <CardMedia
+          className={classes.cover}
+          image={image}
+          title={title}
+        ></CardMedia>
       </Card>
+      <br />
     </div>
   );
 }
