@@ -1,6 +1,5 @@
 package com.gucci.cb.service.book;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

@@ -153,7 +153,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BestSeller> findBSAll() {
 		
-		BestSeller bestSeller;
 		List<BestSeller> bsList = new ArrayList<>();
 		
 		try {
@@ -170,7 +169,7 @@ public class BookServiceImpl implements BookService {
 								   "\n설명 : " + item.description + 
 								   "\n이미지 : " + item.cover);
 				
-				bestSeller = BestSeller.builder()
+				BestSeller bestSeller = BestSeller.builder()
 						.title(item.title)
 						.author(item.author)
 						.publisher(item.publisher)
@@ -185,6 +184,7 @@ public class BookServiceImpl implements BookService {
 			e.printStackTrace();
 		}
 		return bsList;
+		
 	}
 
 	@Override
