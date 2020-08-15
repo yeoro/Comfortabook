@@ -107,7 +107,7 @@ class Login extends React.Component<Props, State> {
   }
 
   kakaosignin = async (token: string) => {
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
+    const URL = "https://i3d204.p.ssafy.io:9999/user/signin/kakao";
     await axios
       .post(URL, token, undefined)
       .then((res) => {
