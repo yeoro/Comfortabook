@@ -22,7 +22,7 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.gucci.cb.controller"))
-				.paths(PathSelectors.ant("/**"))
+				.paths(PathSelectors.ant("/api/**"))
 				.build();
 	}
 
