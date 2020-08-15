@@ -58,5 +58,5 @@
     "http-proxy-middleware": "^1.0.5",
     "ts-node": "^8.10.2"
   },
-  "proxy": "http://i3d204.p.ssafy.io:9999"
+  "proxy": "https://i3d204.p.ssafy.io:9999"
 }
