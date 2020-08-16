@@ -7,7 +7,7 @@ class AuthenticationService {
     password: string
   ) => {
     return await axios.post(
-      "https://i3d204.p.ssafy.io:9999/user/signin",
+      "http://i3d204.p.ssafy.io:9999/user/signin",
       {
         email: username,
         password: password,
