@@ -62,7 +62,7 @@ function BookList({
   const classes = useStyles();
 
   return (
-    <div className="bestseller">
+    <div className="book">
       <br />
       <Card className={classes.root}>
         <div className={classes.details}>
