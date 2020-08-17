@@ -14,3 +14,7 @@
   background-color: #fce4ec !important;
   box-shadow: none;
 }
+
+.library-tabs .MuiTab-wrapper {
+  font-family: "RIDIBatang";
+}

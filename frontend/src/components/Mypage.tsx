@@ -1,8 +1,12 @@
 import React from "react";
+import { History } from "history";
+import axios from "axios";
+import swal from "sweetalert";
+
 import { Button, Grid, TextField } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
+
 import "./Mypage.css";
-import axios from "axios";
 
 const styles = () =>
   createStyles({
@@ -31,6 +35,7 @@ export interface Props extends WithStyles<typeof styles> {
   detail: any;
   logout: () => void;
   goMainpage: () => void;
+  history: History;
 }
 
 export interface State {
@@ -52,6 +57,8 @@ class Mypage extends React.Component<Props, State> {
           password: value,
           name: this.state.user_detail.name,
           phone_num: this.state.user_detail.phone_num,
+          role: this.state.user_detail.role,
+          no: this.state.user_detail.no,
         },
       });
     } else if (name === "name") {
@@ -61,6 +68,8 @@ class Mypage extends React.Component<Props, State> {
           password: this.state.user_detail.password,
           name: value,
           phone_num: this.state.user_detail.phone_num,
+          role: this.state.user_detail.role,
+          no: this.state.user_detail.no,
         },
       });
     } else {
@@ -70,6 +79,8 @@ class Mypage extends React.Component<Props, State> {
           password: this.state.user_detail.password,
           name: this.state.user_detail.name,
           phone_num: value,
+          role: this.state.user_detail.role,
+          no: this.state.user_detail.no,
         },
       });
     }
@@ -93,17 +104,37 @@ class Mypage extends React.Component<Props, State> {
         config
       )
       .then(() => {
-        alert("수정이 완료되었습니다.");
+        swal({
+          text: "수정이 완료되었습니다.",
+          icon: "success",
+        });
         this.props.goMainpage();
       })
       .catch((e) => {
         // API 호출이 실패한 경우
-        // alert(e.response.data.message); // 에러표시
+        console.log(e.response); // 에러표시
+        console.log(this.state.user_detail.password);
       });
   };
-
   render() {
     const { classes } = this.props;
+    let admingrid;
+    if (this.state.user_detail.role === "ROLE_ADMIN") {
+      admingrid = (
+        <Grid container item>
+          <Button
+            className={classes.logoutbtn}
+            onClick={() => {
+              this.props.history.push("/admin");
+            }}
+          >
+            관리자 페이지
+          </Button>
+        </Grid>
+      );
+    } else {
+      admingrid = null;
+    }
     return (
       <div className="mypage">
         <Grid container className={classes.root} spacing={2}>
@@ -113,6 +144,7 @@ class Mypage extends React.Component<Props, State> {
                 onChange={this.onChange}
                 name="email"
                 label="E-mail"
+                disabled
                 InputProps={{
                   readOnly: true,
                 }}
@@ -141,7 +173,7 @@ class Mypage extends React.Component<Props, State> {
             <Grid item>
               <TextField
                 onChange={this.onChange}
-                name="pw"
+                name="password"
                 label="비밀번호"
                 type="password"
                 className={classes.tfield}
@@ -158,6 +190,7 @@ class Mypage extends React.Component<Props, State> {
               로그아웃
             </Button>
           </Grid>
+          {admingrid}
         </Grid>
       </div>
     );

@@ -10,20 +10,22 @@ import {
 import book1 from "../books/book1.json";
 import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
-import scrollIntoView from "scroll-into-view-if-needed";
+// import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/ReadCarousel";
+import axios from "axios";
+import { History } from "history";
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      width: "600px",
+      width: "768px",
       height: "1024px",
       backgroundColor: "#9e9e9e",
     },
     book: {
-      height: "auto",
+      height: "90%",
       width: "90%",
-      padding: "5vh 5vw",
+      padding: "5% 5%",
       overflow: "scroll",
       fontSize: "10px | 20px | 30px",
     },
@@ -33,29 +35,36 @@ const styles = (theme: Theme) =>
     },
   });
 
-export interface sProps extends WithStyles<typeof styles> {
+interface sProps extends WithStyles<typeof styles> {
   sizevalue: StatusTypes;
+  history: History;
+  bookNo: string;
+  readbook: (obj: any) => void;
+  gobacklist: () => void;
+  page: number;
+  userno: number;
 }
 
 interface State {
   size?: StatusTypes;
   className: string;
-  title: string;
-  bookbody: any;
+  book: any;
   page: number;
   p: number;
 }
 
-type StatusTypes = "10" | "20" | "30" | "40";
+type StatusTypes = "20" | "30" | "40";
 
 class Read extends React.Component<sProps, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      size: "10",
-      className: "x-large",
-      title: book1.title,
-      bookbody: book1.description,
+      size: "20",
+      className: "large",
+      book: {
+        title: book1.title,
+        bookbody: book1.description,
+      },
       page: 0,
       p: 1,
     };
@@ -64,70 +73,91 @@ class Read extends React.Component<sProps, State> {
     this.setState({
       size: value,
     });
-    if (value === "10") {
+    if (value === "20") {
       this.setState({
         className: "large",
       });
-    } else if (value === "20") {
+    } else if (value === "30") {
       this.setState({
         className: "x-large",
       });
-    } else if (value === "30") {
-      this.setState({
-        className: "xx-large",
-      });
     } else if (value === "40") {
       this.setState({
-        className: "xxx-large",
+        className: "xx-large",
       });
     }
   };
   movePage = (value: number) => {
     if (value === 0) {
       let node = document.getElementsByTagName("h1")[0];
-      scrollIntoView(node, { behavior: "auto", scrollMode: "if-needed" });
+      node.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
     } else {
       let node = document.getElementsByTagName("p")[value - 1];
-      scrollIntoView(node, { behavior: "auto", scrollMode: "if-needed" });
+      node.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
     }
     this.setState({
       page: value,
     });
   };
+  getRead = async () => {
+    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${this.props.bookNo}`;
+    await axios
+      .get(URL)
+      .then((res: any) => {
+        console.log(res);
+        this.setState({
+          book: {
+            title: res.data.title,
+            bookbody: res.data.bookContents,
+          },
+        });
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
+  componentDidMount() {
+    this.setState({
+      page: this.props.page,
+    });
+    this.getRead();
+  }
+  componentWillUnmount() {
+    this.props.readbook({
+      bookNo: this.props.bookNo,
+      pageNo: this.state.page,
+      userNo: this.props.userno,
+    });
+  }
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <ReadPageHeader
+          gobacklist={this.props.gobacklist}
+          history={this.props.history}
           changeSize={this.changeSize}
           value={this.props.sizevalue}
         />
         <Paper className={classes.book}>
           <ReadCarousel
             page={this.state.page}
-            book={book1}
+            book={this.state.book}
             movePage={this.movePage}
             className={this.state.className}
           />
-          {/* <h1 id="book">{book1.title}</h1>
-          <img src={thumbnail} alt="thumbnail"></img>
-          {this.state.bookbody.map((body: any, i: number) => {
-            return (
-              <div>
-                <p id={`${i}`} style={fontstyle}>
-                  {body.content}
-                </p>
-                <br></br>
-                <hr></hr>
-                <br></br>
-              </div>
-            );
-          })} */}
         </Paper>
         <ReadPageFooter
           pagenum={this.state.page}
           movePage={this.movePage}
-          page={book1.description.length}
+          page={this.state.book.bookbody.length}
         />
       </div>
     );

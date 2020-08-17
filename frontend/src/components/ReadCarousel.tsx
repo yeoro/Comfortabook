@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "nuka-carousel";
-import thumbnail from "../img/thumbnail.jpg";
+// import thumbnail from "../img/thumbnail.jpg";
 import "./ReadCarousel.css";
 
 interface Props {
@@ -15,10 +15,11 @@ function Readcarousel(props: Props) {
     fontSize: props.className,
   };
   const nextPage = (e: any) => {
+    console.log(e);
     props.movePage(e);
   };
   return (
-    <div>
+    <div className="read-carousel">
       <Carousel
         afterSlide={nextPage}
         defaultControlsConfig={{
@@ -32,12 +33,12 @@ function Readcarousel(props: Props) {
       >
         <div>
           <h1 id="book">{props.book.title}</h1>
-          <img src={thumbnail} alt="thumbnail"></img>
+          {/* <img src={thumbnail} alt="thumbnail"></img> */}
         </div>
-        {props.book.description.map((body: any, i: number) => {
+        {props.book.bookbody.map((body: any, i: number) => {
           return (
             <div>
-              <p id={`${i}`} style={fontstyle}>
+              <p className={props.className} id={`${i}`} style={fontstyle}>
                 {body.content}
               </p>
             </div>

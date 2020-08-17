@@ -1,10 +1,8 @@
 import * as React from "react";
 import axios from "axios";
-import KakaoLogin from "react-kakao-login";
 
-import { Grid, TextField, Box, Button } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 import { History } from "history";
 
 import Auth from "../components/Authservice";
@@ -28,7 +26,7 @@ const styles = () =>
     },
     formGrid: {
       height: "100%",
-      marginTop: "10%",
+      marginTop: "3%",
       padding: "0 10%",
     },
     alink: {
@@ -136,57 +134,7 @@ class Login extends React.Component<Props, State> {
             direction="column"
             spacing={7}
           >
-            <FindTabs />
-            <Grid container item spacing={3}>
-              <Grid item className={classes.tfield}>
-                <TextField
-                  onChange={this.onChange}
-                  name="email"
-                  className={classes.tfield}
-                  label="ID"
-                ></TextField>
-              </Grid>
-              <Grid item className={classes.tfield}>
-                <TextField
-                  onChange={this.onChange}
-                  name="password"
-                  className={classes.tfield}
-                  label="PASSWORD"
-                  type="password"
-                ></TextField>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={this.dologin}
-                className={classes.button}
-                variant="contained"
-              >
-                로그인
-              </Button>
-              <KakaoLogin
-                jsKey={this.state.KAKAO_API_KEY}
-                onSuccess={this.success}
-                onFailure={this.failure}
-                getProfile={true}
-                className="kakao-login"
-              >
-                <span className="kakao-login_font">카카오 아이디로 로그인</span>
-              </KakaoLogin>
-            </Grid>
-            <Grid item container justify="center" spacing={1}>
-              <Grid item>
-                <Link className={classes.alink} to="/signup">
-                  회원가입
-                </Link>
-              </Grid>
-              <Grid item>|</Grid>
-              <Grid item>
-                <Link className={classes.alink} to="/">
-                  아이디 / 비밀번호 찾기
-                </Link>
-              </Grid>
-            </Grid>
+            <FindTabs history={this.props.history} />
           </Grid>
         </Box>
       </Grid>

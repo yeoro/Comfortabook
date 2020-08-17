@@ -11,7 +11,6 @@ class Today extends React.Component<Props, State> {
     return (
       <div className="today">
         <Homecarousel />
-        도레미??????????????/
       </div>
     );
   }

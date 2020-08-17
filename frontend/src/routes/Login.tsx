@@ -1,11 +1,12 @@
 import * as React from "react";
+import { History } from "history";
 import axios from "axios";
+import swal from "sweetalert";
+import { Link } from "react-router-dom";
 import KakaoLogin from "react-kakao-login";
 
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import { History } from "history";
 
 import Auth from "../components/Authservice";
 import Loginheader from "../components/Loginheader";
@@ -28,7 +29,7 @@ const styles = () =>
     },
     formGrid: {
       height: "100%",
-      marginTop: "10%",
+      marginTop: "20%",
       padding: "0 10%",
     },
     alink: {
@@ -53,6 +54,7 @@ export interface State {
   password: string;
   KAKAO_API_KEY: string;
 }
+
 export interface Props extends WithStyles<typeof styles> {
   history: History;
 }
@@ -85,24 +87,31 @@ class Login extends React.Component<Props, State> {
     Auth.executeJwtAuthenticationService(this.state.email, this.state.password)
       .then((response: any) => {
         Auth.registerSuccessfulLoginForJwt(this.state.email, response.data);
-        console.log("success");
-        this.props.history.push("/mainpage");
+        this.props.history.push("/playground");
       })
       .catch((e) => {
         // this.setState({showSuccessMessage:false})
         // this.setState({hasLoginFailed:true})
-        alert(e.response.data.message);
+        swal({
+          text: e.response.data.message,
+          icon: "warning",
+        });
       });
   };
 
+  handleKeyPress = (event: any) => {
+    if (event.key === 'Enter') {
+      this.dologin();
+    }
+  }
+
   kakaosignin = async (token: string) => {
-    console.log(token);
     const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
     await axios
       .post(URL, token, undefined)
       .then((res) => {
         localStorage.setItem("token", res.data);
-        this.props.history.push("/mainpage");
+        this.props.history.push("/playground/");
       })
       .catch((error) => {
         console.log("로그인 실패");
@@ -163,12 +172,13 @@ class Login extends React.Component<Props, State> {
                     onChange={this.onChange}
                     name="email"
                     className={classes.tfield}
-                    label="ID"
+                    label="E-MAIL"
                   ></TextField>
                 </Grid>
                 <Grid item className={classes.tfield}>
                   <TextField
                     onChange={this.onChange}
+                    onKeyPress={this.handleKeyPress}
                     name="password"
                     className={classes.tfield}
                     label="PASSWORD"
@@ -204,7 +214,7 @@ class Login extends React.Component<Props, State> {
                 </Grid>
                 <Grid item>|</Grid>
                 <Grid item>
-                  <Link className={classes.alink} to="/">
+                  <Link className={classes.alink} to="/find">
                     아이디 / 비밀번호 찾기
                   </Link>
                 </Grid>
