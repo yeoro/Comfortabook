@@ -20,6 +20,7 @@ interface Props {
   main_mode: StatusTypes;
   user_detail: any;
   books: Array<any>;
+  recentBook: number;
 }
 interface State {
   mode: StatusTypes;
@@ -74,6 +75,7 @@ class Mainpage extends React.Component<Props, State> {
     } else if (this.state.mode === "Library") {
       return (
         <Library
+          recentBook={this.props.recentBook}
           mybooks={this.props.books}
           no={this.props.user_detail.no}
           gotoread={this.props.gotoread}
