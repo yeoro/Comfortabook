@@ -37,12 +37,15 @@ class RecommendBook extends React.Component {
 
   render() {
     const { bestSeller } = this.state;
+    const bookNo = 0;
     return (
       <div className="recommend-book">
         <br />
         {bestSeller.map((i: any, index: any) => (
           <BookList
             key={index}
+            bookNo={bookNo}
+            userNo={bookNo}
             title={i.title}
             author={i.author}
             image={i.cover}
