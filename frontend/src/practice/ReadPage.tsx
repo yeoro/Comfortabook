@@ -7,7 +7,6 @@ import {
   Paper,
 } from "@material-ui/core";
 // import thumbnail from "../img/thumbnail.jpg";
-import book1 from "../books/book1.json";
 import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
 // import scrollIntoView from "scroll-into-view-if-needed";
@@ -62,8 +61,8 @@ class Read extends React.Component<sProps, State> {
       size: "20",
       className: "large",
       book: {
-        title: book1.title,
-        bookbody: book1.description,
+        title: "",
+        bookbody: [],
       },
       page: 0,
       p: 1,
@@ -141,10 +140,10 @@ class Read extends React.Component<sProps, State> {
       });
   };
   componentDidMount() {
+    this.getRead();
     this.setState({
       page: this.props.page,
     });
-    this.getRead();
   }
 
   componentWillUnmount() {

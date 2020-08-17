@@ -37,10 +37,14 @@ class Playground extends React.Component<Props, State> {
   }
 
   getBook = async (bookNo: any, pageNo: any) => {
+    if (pageNo === null) {
+      pageNo = 0;
+    }
     const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${bookNo}`;
     await axios
       .get(URL)
       .then((res: any) => {
+        console.log(res);
         this.setState({
           books: this.state.books.concat({
             bookNo: res.data.bookNo,
@@ -49,6 +53,7 @@ class Playground extends React.Component<Props, State> {
             description: res.data.description,
             author: res.data.author,
             page: pageNo,
+            contents: res.data.bookContents,
           }),
         });
       })
