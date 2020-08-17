@@ -56,7 +56,7 @@ public class User implements UserDetails {
 //	@Column(length = 100)
 	private String provider;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "FK_user"))
 	private Set<UserBooks> userBooks;
 	
