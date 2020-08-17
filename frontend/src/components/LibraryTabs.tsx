@@ -7,7 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-// import MyBooks from "./BookILike";
+import MyBooks from "./BookILike";
 import Favorites from "./Favorites";
 import "./LibraryTabs.css";
 
@@ -20,6 +20,7 @@ interface bProps {
   mybooks: any;
   no: any;
   gotoread: (bookNo: string, page: number) => void;
+  recentBook: number;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -77,7 +78,7 @@ export default function SimpleTabs(props: bProps) {
             aria-label="simple tabs example"
           >
             <Tab className={classes.tabs} label="MY BOOKS" {...a11yProps(0)} />
-            <Tab className={classes.tabs} label="FAVORITES" {...a11yProps(1)} />
+            <Tab className={classes.tabs} label="RESCENT" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -88,7 +89,11 @@ export default function SimpleTabs(props: bProps) {
           />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {/* <MyBooks /> */}
+          <MyBooks
+            mybooks={props.mybooks}
+            recentBook={props.recentBook}
+            gotoread={props.gotoread}
+          />
         </TabPanel>
       </div>
     </div>

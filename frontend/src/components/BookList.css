@@ -1,15 +1,15 @@
-.bestseller {
+.book {
   width: 700px;
   margin: 0 auto;
   position: relative;
 }
 
 .book h5 {
-  font-family: "RIDIBatang";
+  font-family: "RIDIBatang" !important;
 }
 
 .book h6 {
-  font-family: "RIDIBatang";
+  font-family: "RIDIBatang" !important;
 }
 
 .add-button {

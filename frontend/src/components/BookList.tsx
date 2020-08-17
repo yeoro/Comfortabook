@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-// import swal from "sweetalert";
+import swal from "sweetalert";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -47,12 +47,25 @@ function BookList({
         bookNo: bookNo,
         userNo: userNo,
       })
-      .then(() => {
-        // swal({
-        //   text: `${title}을 MY BOOKS에 저장했습니다.`,
-        //   icon: "success",
-        // });
-        window.location.reload(false);
+      .then((res: any) => {
+        if (res.data.userNo === -1) {
+          swal({
+            text: "더 많은 책을 저장 할 수 없습니다.",
+            icon: "warning",
+          });
+        } else if (res.data.userNo === null) {
+          swal({
+            text: "이미 등록된 책입니다.",
+            icon: "warning",
+          });
+        } else {
+          swal({
+            text: `${title}을 MY BOOKS에 저장했습니다.`,
+            icon: "success",
+          }).then(() => {
+            window.location.reload(false);
+          });
+        }
       })
       .catch((error) => {
         console.log(error.response);
@@ -62,7 +75,7 @@ function BookList({
   const classes = useStyles();
 
   return (
-    <div className="bestseller">
+    <div className="book">
       <br />
       <Card className={classes.root}>
         <div className={classes.details}>

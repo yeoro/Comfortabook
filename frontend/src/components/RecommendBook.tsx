@@ -41,6 +41,7 @@ class RecommendBook extends React.Component {
     return (
       <div className="recommend-book">
         <br />
+        <h1>오늘의 추천 책</h1>
         {bestSeller.map((i: any, index: any) => (
           <BookList
             key={index}

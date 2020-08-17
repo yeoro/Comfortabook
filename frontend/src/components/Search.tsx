@@ -6,16 +6,16 @@ import BookList from "./BookList";
 import "./Search.css";
 
 interface Props {
-  userNo: any;
+  userNo: number;
 }
 
 function Search(props: Props) {
   const [selectData, setSelectData] = useState("");
   const [valueData, setValueData] = useState("");
   const [books, setbooks] = useState([]);
+  const [bookCheck, setBookCheck] = useState(true);
 
   const consoleLog = () => {
-    console.log(selectData, valueData);
     let summonerUrl = "/book/list";
     axios
       .get(
@@ -25,8 +25,13 @@ function Search(props: Props) {
         undefined
       )
       .then((res: AxiosResponse) => {
-        console.log(res.data);
-        setbooks(res.data.content);
+        if (res.data.content.length === 0) {
+          setbooks(res.data.content);
+          setBookCheck(false);
+        } else {
+          setbooks(res.data.content);
+          setBookCheck(true);
+        }
       })
       .catch((error: AxiosResponse) => {
         console.log(error);
@@ -38,18 +43,44 @@ function Search(props: Props) {
   return (
     <div className="search">
       <SearchBar setSelectData={setSelectData} setValueData={setValueData} />
-      {books.map((i: any, index: any) => (
-        <BookList
-          key={index}
-          userNo={props.userNo}
-          bookNo={i.bookNo}
-          title={i.title}
-          author={i.author}
-          image={i.cover}
-          publisher={i.publisher}
-          description={i.description.substr(0, 100)}
-        />
-      ))}
+      {valueData ? (
+        bookCheck ? (
+          <div>
+            <h2>검색어 : "{valueData}"</h2>
+            {books.map((i: any, index: any) => (
+              <BookList
+                key={index}
+                userNo={props.userNo}
+                bookNo={i.bookNo}
+                title={i.title}
+                author={i.author}
+                image={i.cover}
+                publisher={i.publisher}
+                description={i.description.substr(0, 130) + ". . ."}
+              />
+            ))}
+          </div>
+        ) : (
+          <h2>해당 검색어 "{valueData}"로 검색 한 결과가 없습니다.</h2>
+        )
+      ) : (
+        <div>
+          <h1>전체 책 목록</h1>
+          {books.map((i: any, index: any) => (
+            <BookList
+              key={index}
+              userNo={props.userNo}
+              bookNo={i.bookNo}
+              title={i.title}
+              author={i.author}
+              image={i.cover}
+              publisher={i.publisher}
+              description={i.description.substr(0, 130) + ". . ."}
+            />
+          ))}
+        </div>
+      )}
+
       <br />
       <br />
       <br />

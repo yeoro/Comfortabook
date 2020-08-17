@@ -7,7 +7,6 @@ import {
   Paper,
 } from "@material-ui/core";
 // import thumbnail from "../img/thumbnail.jpg";
-import book1 from "../books/book1.json";
 import ReadPageFooter from "../components/ReadPageFooter";
 import ReadPageHeader from "../components/ReadPageHeader";
 // import scrollIntoView from "scroll-into-view-if-needed";
@@ -62,8 +61,8 @@ class Read extends React.Component<sProps, State> {
       size: "20",
       className: "large",
       book: {
-        title: book1.title,
-        bookbody: book1.description,
+        title: "",
+        bookbody: [],
       },
       page: 0,
       p: 1,
@@ -123,18 +122,37 @@ class Read extends React.Component<sProps, State> {
       });
   };
 
+  getRecentBook = async () => {
+    await axios
+      .put(
+        "http://i3d204.p.ssafy.io:9999/book/recent",
+        {
+          bookNo: this.props.bookNo,
+          userNo: this.props.userno,
+        },
+        undefined
+      )
+      .then(() => {
+        console.log("최근 성공");
+      })
+      .catch((err: any) => {
+        console.log(err.response);
+      });
+  };
   componentDidMount() {
+    this.getRead();
     this.setState({
       page: this.props.page,
     });
-    this.getRead();
   }
+
   componentWillUnmount() {
     this.props.readbook({
       bookNo: this.props.bookNo,
       pageNo: this.state.page,
       userNo: this.props.userno,
     });
+    this.getRecentBook();
   }
   render() {
     const { classes } = this.props;

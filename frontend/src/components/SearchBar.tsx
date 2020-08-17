@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1),
       },
       display: "flex",
-      marginBottom: "7vh",
+      marginBottom: "20px",
       marginLeft: "30px",
       width: "650px",
     },
@@ -98,7 +98,6 @@ function SearchBar(props: any) {
           >
             <MenuItem value={"title"}>제목</MenuItem>
             <MenuItem value={"author"}>저자</MenuItem>
-            <MenuItem value={"publisher"}>출판사</MenuItem>
           </Select>
         </FormControl>
         <TextField

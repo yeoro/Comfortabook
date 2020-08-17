@@ -16,6 +16,7 @@ interface State {
   bookNo: string;
   main_mode: StatusTypes;
   page: number;
+  recentBook: number;
 }
 
 type StatusTypes = "Home" | "Search" | "Library" | "Mypage";
@@ -31,14 +32,19 @@ class Playground extends React.Component<Props, State> {
       bookNo: "12",
       main_mode: "Home",
       page: 0,
+      recentBook: 0,
     };
   }
 
   getBook = async (bookNo: any, pageNo: any) => {
+    if (pageNo === null) {
+      pageNo = 0;
+    }
     const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${bookNo}`;
     await axios
       .get(URL)
       .then((res: any) => {
+        console.log(res);
         this.setState({
           books: this.state.books.concat({
             bookNo: res.data.bookNo,
@@ -47,6 +53,7 @@ class Playground extends React.Component<Props, State> {
             description: res.data.description,
             author: res.data.author,
             page: pageNo,
+            contents: res.data.bookContents,
           }),
         });
       })
@@ -89,9 +96,14 @@ class Playground extends React.Component<Props, State> {
             mybooks: data.userBooks,
           },
         });
-        data.userBooks.map((element: any) =>
-          this.getBook(element.bookNo, element.pageNo)
-        );
+        data.userBooks.map((element: any) => {
+          if (element.recentBook !== 0) {
+            this.setState({
+              recentBook: element.bookNo,
+            });
+          }
+          this.getBook(element.bookNo, element.pageNo);
+        });
       })
       .catch((e) => {
         // API 호출이 실패한 경우
@@ -132,6 +144,7 @@ class Playground extends React.Component<Props, State> {
     if (this.state.mode === "Main") {
       return (
         <Mainpage
+          recentBook={this.state.recentBook}
           books={this.state.books}
           user_detail={this.state.user_detail}
           main_mode={this.state.main_mode}
