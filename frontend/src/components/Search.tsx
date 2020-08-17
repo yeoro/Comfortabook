@@ -5,7 +5,11 @@ import SearchBar from "./SearchBar";
 import BookList from "./BookList";
 import "./Search.css";
 
-function Search() {
+interface Props {
+  userNo: any;
+}
+
+function Search(props: Props) {
   const [selectData, setSelectData] = useState("");
   const [valueData, setValueData] = useState("");
   const [books, setbooks] = useState([]);
@@ -21,7 +25,7 @@ function Search() {
         undefined
       )
       .then((res: AxiosResponse) => {
-        console.log(res.data.content);
+        console.log(res.data);
         setbooks(res.data.content);
       })
       .catch((error: AxiosResponse) => {
@@ -37,6 +41,8 @@ function Search() {
       {books.map((i: any, index: any) => (
         <BookList
           key={index}
+          userNo={props.userNo}
+          bookNo={i.bookNo}
           title={i.title}
           author={i.author}
           image={i.cover}

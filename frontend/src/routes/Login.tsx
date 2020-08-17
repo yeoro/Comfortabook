@@ -87,7 +87,6 @@ class Login extends React.Component<Props, State> {
     Auth.executeJwtAuthenticationService(this.state.email, this.state.password)
       .then((response: any) => {
         Auth.registerSuccessfulLoginForJwt(this.state.email, response.data);
-        console.log("success");
         this.props.history.push("/playground");
       })
       .catch((e) => {

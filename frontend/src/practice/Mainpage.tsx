@@ -70,7 +70,7 @@ class Mainpage extends React.Component<Props, State> {
     if (this.state.mode === "Home") {
       return <Home />;
     } else if (this.state.mode === "Search") {
-      return <Search />;
+      return <Search userNo={this.props.user_detail.no} />;
     } else if (this.state.mode === "Library") {
       return (
         <Library
