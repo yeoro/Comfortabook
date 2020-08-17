@@ -1,12 +1,43 @@
-// import React from "react";
+import React, { useState } from "react";
 
-interface Props {}
+interface Props {
+  mybooks: any;
+  recentBook: number;
+}
 
-function BookILike(props: Props) {
-  // let RecentBook = null;
-  // if (!!props.recentbook === false) {
-  //   RecentBook = <h1>최근에 읽은 책이 없습니다.</h1>;
-  // }
+interface State {
+  book: any;
+}
+
+class BookILike extends React.Component<Props, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      book: null,
+    };
+  }
+  readRecentBook = () => {
+    this.props.mybooks.map((element: any) => {
+      if (element.bookNo === this.props.recentBook) {
+        this.setState({
+          book: element,
+        });
+      }
+    });
+  };
+  getRecentBook = () => {
+    if (!!this.state.book === true) {
+      return <h1>{this.state.book.title}</h1>;
+    } else {
+      return <h1>저장된 최근 도서가 없습니다.</h1>;
+    }
+  };
+  componentWillMount() {
+    this.readRecentBook();
+  }
+  render() {
+    return this.getRecentBook();
+  }
 }
 
 export default BookILike;
