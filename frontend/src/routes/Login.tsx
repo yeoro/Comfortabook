@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { createRef } from "react";
 import { History } from "history";
 import axios from "axios";
 import swal from "sweetalert";
@@ -11,6 +11,10 @@ import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import Auth from "../components/Authservice";
 import Loginheader from "../components/Loginheader";
 import "./Login.css";
+
+//touch keyboard
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 
 const styles = () =>
   createStyles({
@@ -50,9 +54,16 @@ const styles = () =>
   });
 
 export interface State {
-  email: string;
-  password: string;
+  inputs: {
+    default: string;
+    email: string;
+    password: string;
+  };
   KAKAO_API_KEY: string;
+  inputName: string;
+  keyboard: any;
+  layoutName: string;
+  keyboardOpen: boolean;
 }
 
 export interface Props extends WithStyles<typeof styles> {
@@ -63,30 +74,47 @@ class Login extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      inputs: {
+        default: "",
+        email: "",
+        password: "",
+      },
+      keyboardOpen: false,
       KAKAO_API_KEY: "b4ce80d71e93a45b7b93c728c8193fa1",
+      inputName: "",
+      keyboard: createRef(),
+      layoutName: "default",
     };
   }
 
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    if (name === "email") {
-      this.setState({
-        email: value,
-      });
-    } else {
-      this.setState({
-        password: value,
-      });
-    }
+  onChangeInput = (event: any) => {
+    const inputVal = event.target.value;
+
+    this.setState({
+      inputs: {
+        ...this.state.inputs,
+        [this.state.inputName]: inputVal,
+      },
+    });
+
+    this.state.keyboard.current.setInput(inputVal);
+  };
+
+  onChangeAll = (e: any) => {
+    this.setState({ inputs: { ...e } });
+    console.log("Inputs changed", this.state.inputs);
   };
 
   dologin = () => {
-    Auth.executeJwtAuthenticationService(this.state.email, this.state.password)
+    Auth.executeJwtAuthenticationService(
+      this.state.inputs.email,
+      this.state.inputs.password
+    )
       .then((response: any) => {
-        Auth.registerSuccessfulLoginForJwt(this.state.email, response.data);
+        Auth.registerSuccessfulLoginForJwt(
+          this.state.inputs.email,
+          response.data
+        );
         console.log("success");
         this.props.history.push("/playground");
       })
@@ -101,10 +129,10 @@ class Login extends React.Component<Props, State> {
   };
 
   handleKeyPress = (event: any) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.dologin();
     }
-  }
+  };
 
   kakaosignin = async (token: string) => {
     const URL = "http://i3d204.p.ssafy.io:9999/user/signin/kakao";
@@ -149,10 +177,31 @@ class Login extends React.Component<Props, State> {
     console.log(JSON.stringify(err));
   };
 
+  handleShift = () => {
+    const newLayoutName =
+      this.state.layoutName === "default" ? "shift" : "default";
+    this.setState({
+      layoutName: newLayoutName,
+    });
+  };
+
+  onKeyPress = (button: any) => {
+    if (button === "{shift}" || button === "{lock}") this.handleShift();
+    if (button === "{close}") this.setState({ keyboardOpen: false });
+  };
+
+  getInputValue = (inputName: string) => {
+    if (inputName === "email") {
+      return this.state.inputs.email || "";
+    } else {
+      return this.state.inputs.password || "";
+    }
+  };
+
   render() {
     const { classes } = this.props;
     return (
-      <React.Fragment>
+      <div className="Login">
         <Loginheader />
         <Grid
           className={classes.root}
@@ -170,20 +219,31 @@ class Login extends React.Component<Props, State> {
               <Grid container item spacing={3}>
                 <Grid item className={classes.tfield}>
                   <TextField
-                    onChange={this.onChange}
+                    onChange={this.onChangeInput}
+                    value={this.getInputValue("email")}
                     name="email"
                     className={classes.tfield}
                     label="E-MAIL"
+                    onFocus={() =>
+                      this.setState({ inputName: "email", keyboardOpen: true })
+                    }
                   ></TextField>
                 </Grid>
                 <Grid item className={classes.tfield}>
                   <TextField
-                    onChange={this.onChange}
+                    value={this.getInputValue("password")}
+                    onChange={this.onChangeInput}
                     onKeyPress={this.handleKeyPress}
                     name="password"
                     className={classes.tfield}
                     label="PASSWORD"
                     type="password"
+                    onFocus={() =>
+                      this.setState({
+                        inputName: "password",
+                        keyboardOpen: true,
+                      })
+                    }
                   ></TextField>
                 </Grid>
               </Grid>
@@ -223,7 +283,32 @@ class Login extends React.Component<Props, State> {
             </Grid>
           </Box>
         </Grid>
-      </React.Fragment>
+        <div className={`${!this.state.keyboardOpen ? "hidden" : ""}`}>
+          <Keyboard
+            keyboardRef={(r) => (this.state.keyboard.current = r)}
+            inputName={this.state.inputName}
+            layoutName={this.state.layoutName}
+            onChangeAll={this.onChangeAll}
+            onKeyPress={this.onKeyPress}
+            layout={{
+              default: [
+                "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+                "{tab} q w e r t y u i o p [ ] \\",
+                "{lock} a s d f g h j k l ; ' {enter}",
+                "{shift} z x c v b n m , . / {shift}",
+                ".com @ {space} {close}",
+              ],
+              shift: [
+                "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+                "{tab} Q W E R T Y U I O P { } |",
+                '{lock} A S D F G H J K L : " {enter}',
+                "{shift} Z X C V B N M < > ? {shift}",
+                ".com @ {space} {close}",
+              ],
+            }}
+          />
+        </div>
+      </div>
     );
   }
 }
