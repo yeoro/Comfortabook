@@ -3,6 +3,7 @@ package com.gucci.cb.domain.user;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -55,11 +56,11 @@ public class User implements UserDetails {
 //	@Column(length = 100)
 	private String provider;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "FK_user"))
-	private Collection<UserBooks> userBooks;
+	private Set<UserBooks> userBooks;
 	
-	@ElementCollection(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Builder.Default
 	private List<String> roles = new ArrayList<>();
 	

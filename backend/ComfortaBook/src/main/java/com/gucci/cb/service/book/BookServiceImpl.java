@@ -129,6 +129,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public UserBooks insertByNo(UserBooks userBooks) {
 
+		// 등록 여부 판단
 		Optional<UserBooks> userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo());
 
 		// 존재한다면
@@ -136,6 +137,17 @@ public class BookServiceImpl implements BookService {
 			UserBooks exist = new UserBooks();
 			return exist;
 		}
+		
+		// 등록한 책 리스트 조회, 최대 6개 까지 등록 가능
+		List<UserBooks> maxUserBooks = userBookRepository.findAllyByUserNo(userBooks.getUserNo());
+		
+		// 6개 이상이라면
+		if(maxUserBooks.size() >= 6) {
+			UserBooks maxUserBook = new UserBooks();
+			maxUserBook.setUserNo(-1L);
+			return maxUserBook;
+		}
+		
 
 		userBookRepository.save(userBooks);
 		return userBooks;
