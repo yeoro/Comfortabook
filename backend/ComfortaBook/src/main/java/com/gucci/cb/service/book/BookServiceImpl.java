@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
 import com.gucci.cb.domain.book.BookContents;
+import com.gucci.cb.domain.user.User;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.repository.book.BestSellerRepository;
@@ -187,16 +188,33 @@ public class BookServiceImpl implements BookService {
 		
 	}
 
+	
+	// 책갈피 기능 
 	@Override
 	@Transactional
 	public void updateBookMark(UserBooks userBooks) {
 		UserBooks userBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo())
 				.orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
 		
-		System.out.println(userBook);
-		System.out.println(userBooks.getPageNo());
-		
-		
 		userBook.updateBookMark(userBooks.getPageNo());
+	}
+
+	// 최근 본 책 저장
+	@Override
+	@Transactional
+	public void updateRecentBook(UserBooks userBooks) {
+		Optional<UserBooks> exist = userBookRepository.findByUserNoAndRecentBook(userBooks.getUserNo(), 1);
+		
+		if(exist.isPresent()) {
+			UserBooks originRecentBook = userBookRepository.findByUserNoAndRecentBook(userBooks.getUserNo(), 1)
+					.orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다!"));
+			
+			originRecentBook.initRecentBook();
+		}
+		
+		UserBooks newRecentBook = userBookRepository.findByUserNoAndBookNo(userBooks.getUserNo(), userBooks.getBookNo())
+				.orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
+		
+		newRecentBook.updateRecentBook();
 	}
 }
