@@ -1,10 +1,13 @@
 import React from "react";
+import axios from "axios";
+// import swal from "sweetalert";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import "./BookList.css";
 
@@ -28,21 +31,33 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function BookList({ title, author, image, publisher, description }: any) {
-  // const addbook = async () => {
-  //   const url = "http://i3d204.p.ssafy.io:9999/book/insertMyBook";
-  //   await axios
-  //     .post(url, {
-  //       bookNo: "14",
-  //       userNo: "12",
-  //     })
-  //     .then((res) => {
-  //       console.log("성공");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //     });
-  // };
+function BookList({
+  bookNo,
+  userNo,
+  title,
+  author,
+  image,
+  publisher,
+  description,
+}: any) {
+  const addbook = async () => {
+    const url = "http://i3d204.p.ssafy.io:9999/book/insertMyBook";
+    await axios
+      .post(url, {
+        bookNo: bookNo,
+        userNo: userNo,
+      })
+      .then(() => {
+        // swal({
+        //   text: `${title}을 MY BOOKS에 저장했습니다.`,
+        //   icon: "success",
+        // });
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
 
   const classes = useStyles();
 
@@ -69,6 +84,15 @@ function BookList({ title, author, image, publisher, description }: any) {
           title={title}
         ></CardMedia>
       </Card>
+      {bookNo ? (
+        <AddCircleIcon
+          style={{ fontSize: 50 }}
+          className="add-button"
+          onClick={addbook}
+        />
+      ) : (
+        <div></div>
+      )}
       <br />
     </div>
   );

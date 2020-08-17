@@ -1,6 +1,7 @@
 .bestseller {
   width: 700px;
   margin: 0 auto;
+  position: relative;
 }
 
 .book h5 {
@@ -9,4 +10,21 @@
 
 .book h6 {
   font-family: "RIDIBatang";
+}
+
+.add-button {
+  position: absolute;
+  top: 5px;
+  right: -15px;
+  color: rgb(240, 98, 146);
+}
+
+.add-button:hover {
+  color: #f8bbd0;
+  cursor: pointer;
+}
+
+.add-button:active {
+  color: #f8bbd0;
+  cursor: pointer;
 }
