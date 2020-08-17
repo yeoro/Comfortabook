@@ -14,5 +14,6 @@ public interface UserBookRepository extends JpaRepository<UserBooks, Long> {
 	
 	Optional<UserBooks> findByUserNoAndBookNo(Long userNo, Long bookNo);
 	
+	Optional<UserBooks> findByUserNoAndRecentBook(Long userNo, int recentBook);
 	
 }

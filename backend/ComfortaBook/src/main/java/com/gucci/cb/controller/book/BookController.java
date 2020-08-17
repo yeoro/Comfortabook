@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.domain.user.User;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.service.book.BookService;
@@ -110,5 +111,13 @@ public class BookController {
         bookService.updateBookMark(userBooks);
         return new ResponseEntity<UserBooks>(userBooks, HttpStatus.OK);
     }
+	
+	// 최근 본 책 저장
+	@ApiOperation(value = "최근 본 책 저장", response = UserBooks.class)
+	@PutMapping("/recent")
+	public ResponseEntity<UserBooks> updateRecentBook(@RequestBody UserBooks userBooks) {
+		bookService.updateRecentBook(userBooks);
+		return new ResponseEntity<UserBooks>(userBooks, HttpStatus.OK);
+	}
 	
 }

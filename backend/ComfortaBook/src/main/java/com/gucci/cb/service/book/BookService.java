@@ -3,10 +3,11 @@ package com.gucci.cb.service.book;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.data.domain.Pageable;
 
 import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.domain.user.User;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 
@@ -40,4 +41,7 @@ public interface BookService {
 	
 	// 책갈피 기능
 	void updateBookMark(UserBooks userBooks);
+	
+	// 최근 본 책 저장
+	void updateRecentBook(UserBooks userBooks);
 }
