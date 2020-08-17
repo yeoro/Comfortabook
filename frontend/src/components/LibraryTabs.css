@@ -18,3 +18,7 @@
 .library-tabs .MuiTab-wrapper {
   font-family: "RIDIBatang";
 }
+
+.library-tabs .MuiBox-root {
+  background-color: #fce4ec;
+}

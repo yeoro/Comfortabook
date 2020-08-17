@@ -3,7 +3,9 @@ import "./Loginheader.css";
 
 class Loginheader extends React.Component {
   render() {
-    return <img src="/index_logo.png" alt="logo"></img>;
+    return (
+      <img className="login-header" src="/index_logo.png" alt="logo"></img>
+    );
   }
 }
 
