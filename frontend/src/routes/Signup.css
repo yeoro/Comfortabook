@@ -57,3 +57,12 @@
 .alinkDiv {
   text-align: center;
 }
+
+.Signup .react-simple-keyboard {
+  position: fixed;
+  bottom: 0;
+}
+
+.Signup .hidden {
+  display: none;
+}
