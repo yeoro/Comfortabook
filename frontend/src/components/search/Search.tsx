@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
 
 import SearchBar from "./SearchBar";
-import BookList from "./BookList";
+import BookList from "../home/BookList";
 import "./Search.css";
 
 interface Props {
