@@ -36,7 +36,7 @@ class AddBook extends React.Component<Props, State> {
   }
 
   sendData = async () => {
-    const URL = "http://i3d204.p.ssafy.io:9999/book/insert";
+    const URL = "https://i3d204.p.ssafy.io/api/book/insert";
     await axios
       .post(
         URL,

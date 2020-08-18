@@ -41,7 +41,7 @@ function BookList({
   description,
 }: any) {
   const addbook = async () => {
-    const url = "http://i3d204.p.ssafy.io:9999/book/insertMyBook";
+    const url = "https://i3d204.p.ssafy.io/api/book/insertMyBook";
     await axios
       .post(url, {
         bookNo: bookNo,

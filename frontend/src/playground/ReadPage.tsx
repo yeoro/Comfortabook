@@ -105,7 +105,7 @@ class Read extends React.Component<sProps, State> {
     });
   };
   getRead = async () => {
-    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${this.props.bookNo}`;
+    const URL = `https://i3d204.p.ssafy.io/api/book/detail/${this.props.bookNo}`;
     await axios
       .get(URL)
       .then((res: any) => {
@@ -125,7 +125,7 @@ class Read extends React.Component<sProps, State> {
   getRecentBook = async () => {
     await axios
       .put(
-        "http://i3d204.p.ssafy.io:9999/book/recent",
+        "https://i3d204.p.ssafy.io/api/book/recent",
         {
           bookNo: this.props.bookNo,
           userNo: this.props.userno,

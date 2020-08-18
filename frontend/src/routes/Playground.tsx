@@ -40,7 +40,7 @@ class Playground extends React.Component<Props, State> {
     if (pageNo === null) {
       pageNo = 0;
     }
-    const URL = `http://i3d204.p.ssafy.io:9999/book/detail/${bookNo}`;
+    const URL = `https://i3d204.p.ssafy.io/api/book/detail/${bookNo}`;
     await axios
       .get(URL)
       .then((res: any) => {
@@ -83,7 +83,7 @@ class Playground extends React.Component<Props, State> {
       },
     };
     axios
-      .get("http://i3d204.p.ssafy.io:9999/user/detail", config)
+      .get("https://i3d204.p.ssafy.io/api/user/detail", config)
       .then(({ data }) => {
         // console.log(data);
         this.setState({
@@ -120,7 +120,7 @@ class Playground extends React.Component<Props, State> {
 
   readBook = async (obj: any) => {
     await axios
-      .put("http://i3d204.p.ssafy.io:9999/book/bookmark", obj, undefined)
+      .put("https://i3d204.p.ssafy.io/api/book/bookmark", obj, undefined)
       .then((res) => {
         this.setState({
           books: [],

@@ -93,7 +93,7 @@ function Signup(props: any) {
     let summonerUrl = "/user/signup";
     await axios
       .post(
-        "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+        "https://i3d204.p.ssafy.io/api" + summonerUrl,
         {
           email: signup.email,
           name: signup.name,
@@ -134,7 +134,7 @@ function Signup(props: any) {
       let summonerUrl = "/find/checkId";
       await axios
         .post(
-          "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+          "https://i3d204.p.ssafy.io/api" + summonerUrl,
           {
             email: signup.email,
           },
@@ -201,7 +201,7 @@ function Signup(props: any) {
 
   const success = async (res: any) => {
     console.log(res);
-    const URL = "http://i3d204.p.ssafy.io:9999/user/signup/kakao";
+    const URL = "https://i3d204.p.ssafy.io/api/user/signup/kakao";
     await axios
       .post(
         URL,
