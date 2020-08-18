@@ -122,6 +122,7 @@ class Playground extends React.Component<Props, State> {
     await axios
       .put("http://i3d204.p.ssafy.io:9999/book/bookmark", obj, undefined)
       .then((res) => {
+        console.log(res);
         this.setState({
           books: [],
         });

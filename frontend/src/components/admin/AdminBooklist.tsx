@@ -1,6 +1,5 @@
 import * as React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { History } from "history";
 
 export interface Props {
@@ -22,6 +21,7 @@ class AdminBooklist extends React.Component<Props, State> {
       books: [{ title: "0" }],
     };
   }
+
   getBook = async () => {
     const URL = "http://i3d204.p.ssafy.io:9999/book/list";
     await axios
@@ -58,7 +58,6 @@ class AdminBooklist extends React.Component<Props, State> {
       <div className="admin-booklist">
         <h1>책 목록</h1>
         {this.state.books.map((element: any) => {
-          const url = `/read/${element.bookNo}`;
           return (
             <div>
               <p>{element.title}</p>
