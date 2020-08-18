@@ -9,3 +9,7 @@
 .searchBar .MuiInput-underline:after {
   border-bottom: 2px solid #f48fb1 !important;
 }
+
+.searchBar .hidden {
+  display: none;
+}

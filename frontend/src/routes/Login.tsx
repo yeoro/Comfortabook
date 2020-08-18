@@ -15,6 +15,7 @@ import "./Login.css";
 //touch keyboard
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
+// import Keyboard from "react-hangul-virtual-keyboard";
 
 const styles = () =>
   createStyles({
@@ -285,7 +286,7 @@ class Login extends React.Component<Props, State> {
         </Grid>
         <div className={`${!this.state.keyboardOpen ? "hidden" : ""}`}>
           <Keyboard
-            keyboardRef={(r) => (this.state.keyboard.current = r)}
+            keyboardRef={(r: any) => (this.state.keyboard.current = r)}
             inputName={this.state.inputName}
             layoutName={this.state.layoutName}
             onChangeAll={this.onChangeAll}
