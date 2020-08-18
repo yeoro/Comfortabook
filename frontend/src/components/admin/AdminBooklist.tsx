@@ -62,9 +62,6 @@ class AdminBooklist extends React.Component<Props, State> {
           return (
             <div>
               <p>{element.title}</p>
-              <button>
-                <Link to={url}>책보기</Link>
-              </button>
               <button onClick={this.onDelete} data-id={element.bookNo}>
                 삭제
               </button>
