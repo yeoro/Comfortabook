@@ -95,7 +95,7 @@ class Mypage extends React.Component<Props, State> {
     };
     await axios
       .put(
-        "http://i3d204.p.ssafy.io:9999/user/update",
+        "https://i3d204.p.ssafy.io/api/user/update",
         {
           name: this.state.user_detail.name,
           password: this.state.user_detail.password,

@@ -63,4 +63,6 @@ Host Name : ubuntu@i3d204.p.ssafy.io
 1. connection - SSH - Auth - insert .ppk file
 2. session - insert host name - open
 
-merge test
+Port 
+https : 8443
+http : 9999
