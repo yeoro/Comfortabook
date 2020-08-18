@@ -5,8 +5,8 @@ import { Grid, Box } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { History } from "history";
 
-import Auth from "../components/Authservice";
-import FindTabs from "../components/FindTabs";
+import Auth from "../components/login/Authservice";
+import FindTabs from "../components/find/FindTabs";
 import "./Login.css";
 
 const styles = () =>

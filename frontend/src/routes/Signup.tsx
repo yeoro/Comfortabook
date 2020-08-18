@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Grid, TextField, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import Loginheader from "../components/Loginheader";
+import Loginheader from "../components/login/Loginheader";
 import "./Signup.css";
 
 const useStyles = makeStyles({

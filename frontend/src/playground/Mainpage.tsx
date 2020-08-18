@@ -5,11 +5,11 @@ import swal from "sweetalert";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Search from "../components/Search";
-import Home from "../components/Home";
-import Mypage from "../components/Mypage";
-import Library from "../components/Library";
-import Auth from "../components/Authservice";
+import Search from "../components/search/Search";
+import Home from "../components/home/Home";
+import Mypage from "../components/mypage/Mypage";
+import Library from "../components/library/Library";
+import Auth from "../components/login/Authservice";
 
 import "./Mainpage.css";
 

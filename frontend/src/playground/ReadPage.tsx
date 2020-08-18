@@ -7,10 +7,10 @@ import {
   Paper,
 } from "@material-ui/core";
 // import thumbnail from "../img/thumbnail.jpg";
-import ReadPageFooter from "../components/ReadPageFooter";
-import ReadPageHeader from "../components/ReadPageHeader";
+import ReadPageFooter from "../components/read/ReadPageFooter";
+import ReadPageHeader from "../components/read/ReadPageHeader";
 // import scrollIntoView from "scroll-into-view-if-needed";
-import ReadCarousel from "../components/ReadCarousel";
+import ReadCarousel from "../components/read/ReadCarousel";
 import axios from "axios";
 import { History } from "history";
 
