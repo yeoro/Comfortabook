@@ -43,7 +43,7 @@ class Mainpage extends React.Component<Props, State> {
   }
 
   goMainpage = () => {
-    this.props.history.push("/mainpage/");
+    this.props.history.push("/playground");
   };
 
   logout = () => {
