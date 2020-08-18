@@ -1,6 +1,6 @@
 import * as React from "react";
-import Mainpage from "../practice/Mainpage";
-import Read from "../practice/ReadPage";
+import Mainpage from "../playground/Mainpage";
+import Read from "../playground/ReadPage";
 import { History } from "history";
 import axios from "axios";
 

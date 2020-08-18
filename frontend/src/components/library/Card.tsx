@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -9,6 +10,7 @@ import axios from "axios";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    padding: "0 auto",
   },
   link: {
     textDecoration: "none",
@@ -49,27 +51,21 @@ export default function SimpleCard(props: Props) {
 
   return (
     <Card className={classes.root}>
-      <Button onClick={read}>
-        <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-          >
-            제목
-          </Typography>
-          <Typography variant="h5" component="h2">
-            {props.book.title}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            작가
-          </Typography>
-          <Typography variant="body2" component="p">
-            {props.book.author}
-            <br />
-          </Typography>
-        </CardContent>
-      </Button>
+      <Grid container justify="flex-start">
+        <Grid item>
+          <Button onClick={read}>
+            <CardContent>
+              <Typography variant="h6" component="h6">
+                {props.book.title}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {props.book.author}
+              </Typography>
+            </CardContent>
+          </Button>
+        </Grid>
+        <br />
+      </Grid>
       <Button onClick={delMybook}>삭제</Button>
     </Card>
   );

@@ -1,9 +1,9 @@
 import React from "react";
 import Carousel from "nuka-carousel";
-import library1 from "../img/library1.jpg";
-import library2 from "../img/library2.jpg";
-import library3 from "../img/library3.jpg";
-import library4 from "../img/library4.jpg";
+import library1 from "./img/library1.jpg";
+import library2 from "./img/library2.jpg";
+import library3 from "./img/library3.jpg";
+import library4 from "./img/library4.jpg";
 import { makeStyles } from "@material-ui/core";
 import "./Homecarousel.css";
 

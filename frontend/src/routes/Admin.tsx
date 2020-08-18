@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
 
-import Admintab from "../components/Admintabs";
+import Admintab from "../components/admin/Admintabs";
 
 import { History } from "history";
 

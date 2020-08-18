@@ -8,8 +8,8 @@ import KakaoLogin from "react-kakao-login";
 import { Grid, TextField, Box, Button } from "@material-ui/core";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 
-import Auth from "../components/Authservice";
-import Loginheader from "../components/Loginheader";
+import Auth from "../components/login/Authservice";
+import Loginheader from "../components/login/Loginheader";
 import "./Login.css";
 
 //touch keyboard
