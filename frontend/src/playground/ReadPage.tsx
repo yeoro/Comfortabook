@@ -11,6 +11,8 @@ import ReadPageFooter from "../components/read/ReadPageFooter";
 import ReadPageHeader from "../components/read/ReadPageHeader";
 // import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/read/ReadCarousel";
+import Loading from "../img/loading.jpg";
+import "./ReadPage.css";
 import axios from "axios";
 import { History } from "history";
 
@@ -50,6 +52,7 @@ interface State {
   book: any;
   page: number;
   p: number;
+  isLoading: boolean;
 }
 
 type StatusTypes = "20" | "30" | "40";
@@ -58,6 +61,7 @@ class Read extends React.Component<sProps, State> {
   constructor(props: any) {
     super(props);
     this.state = {
+      isLoading: true,
       size: "20",
       className: "large",
       book: {
@@ -111,6 +115,7 @@ class Read extends React.Component<sProps, State> {
       .then((res: any) => {
         console.log(res);
         this.setState({
+          isLoading: false,
           book: {
             title: res.data.title,
             bookbody: res.data.bookContents,
@@ -156,27 +161,36 @@ class Read extends React.Component<sProps, State> {
   }
   render() {
     const { classes } = this.props;
+    const { isLoading } = this.state;
     return (
       <div className={classes.root}>
-        <ReadPageHeader
-          gobacklist={this.props.gobacklist}
-          history={this.props.history}
-          changeSize={this.changeSize}
-          value={this.props.sizevalue}
-        />
-        <Paper className={classes.book}>
-          <ReadCarousel
-            page={this.state.page}
-            book={this.state.book}
-            movePage={this.movePage}
-            className={this.state.className}
-          />
-        </Paper>
-        <ReadPageFooter
-          pagenum={this.state.page}
-          movePage={this.movePage}
-          page={this.state.book.bookbody.length}
-        />
+        {isLoading ? (
+          <div className="loader">
+            <span className="loading">LOADING...</span>
+          </div>
+        ) : (
+          <div className="read-page">
+            <ReadPageHeader
+              gobacklist={this.props.gobacklist}
+              history={this.props.history}
+              changeSize={this.changeSize}
+              value={this.props.sizevalue}
+            />
+            <Paper className={classes.book}>
+              <ReadCarousel
+                page={this.state.page}
+                book={this.state.book}
+                movePage={this.movePage}
+                className={this.state.className}
+              />
+            </Paper>
+            <ReadPageFooter
+              pagenum={this.state.page}
+              movePage={this.movePage}
+              page={this.state.book.bookbody.length}
+            />
+          </div>
+        )}
       </div>
     );
   }
