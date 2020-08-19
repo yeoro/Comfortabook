@@ -50,6 +50,7 @@ interface State {
   book: any;
   page: number;
   p: number;
+  isLoading: boolean;
 }
 
 type StatusTypes = "20" | "30" | "40";
