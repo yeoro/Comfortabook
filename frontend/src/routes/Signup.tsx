@@ -198,7 +198,7 @@ function Signup(props: any) {
   useEffect(checkSignup, [signup, pwError, emailCheck]);
 
   // 카카오 로그인
-  const KAKAO_API_KEY = "b4ce80d71e93a45b7b93c728c8193fa1";
+  const KAKAO_API_KEY = `${process.env.REACT_APP_KAKAO_API_KEY}`;
 
   const goMainpage = () => {
     const { history } = props;

@@ -17,6 +17,7 @@ interface State {
   main_mode: StatusTypes;
   page: number;
   recentBook: number;
+  guideOpen: boolean;
 }
 
 type StatusTypes = "Home" | "Search" | "Library" | "Mypage";
@@ -33,8 +34,22 @@ class Playground extends React.Component<Props, State> {
       main_mode: "Home",
       page: 0,
       recentBook: 0,
+      guideOpen: true,
     };
   }
+
+  guideOn = (e: any) => {
+    e.preventDefault();
+    this.setState({
+      guideOpen: true,
+    });
+  };
+
+  guideClose = () => {
+    this.setState({
+      guideOpen: false,
+    });
+  };
 
   getBook = async (bookNo: any, pageNo: any) => {
     if (pageNo === null) {
@@ -138,7 +153,7 @@ class Playground extends React.Component<Props, State> {
           books: [],
         });
         this.loadDetail();
-        console.log(res);
+        this.guideClose();
       })
       .catch((error) => {
         console.log(error.response);
@@ -156,6 +171,9 @@ class Playground extends React.Component<Props, State> {
     if (this.state.mode === "Main") {
       return (
         <Mainpage
+          guideOpen={this.state.guideOpen}
+          guideClose={this.guideClose}
+          guideOn={this.guideOn}
           recentBook={this.state.recentBook}
           books={this.state.books}
           user_detail={this.state.user_detail}

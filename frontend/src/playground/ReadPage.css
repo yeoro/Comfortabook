@@ -9,3 +9,10 @@
   align-items: center;
   height: 1024px;
 }
+
+.mainpage .guide {
+  position: fixed;
+  top: 15px;
+  right: 150px;
+  background-color: white;
+}
