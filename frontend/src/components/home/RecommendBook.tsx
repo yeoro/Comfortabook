@@ -20,7 +20,7 @@ class RecommendBook extends React.Component {
   getBestseller = async () => {
     let summonerUrl = "/book/bestSeller";
     await axios
-      .get("http://i3d204.p.ssafy.io:9999" + summonerUrl, undefined)
+      .get("https://i3d204.p.ssafy.io/api" + summonerUrl, undefined)
       .then((res: AxiosResponse) => {
         this.setState({
           bestSeller: res.data,
@@ -41,7 +41,7 @@ class RecommendBook extends React.Component {
     return (
       <div className="recommend-book">
         <br />
-        <h1>오늘의 추천 책</h1>
+        <h1>오늘의 추천 도서</h1>
         {bestSeller.map((i: any, index: any) => (
           <BookList
             key={index}

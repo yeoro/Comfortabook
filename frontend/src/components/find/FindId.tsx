@@ -72,7 +72,7 @@ class FindId extends React.Component<Props, State> {
     let summonerUrl = "/find/findId";
     await axios
       .post(
-        "http://i3d204.p.ssafy.io:9999" + summonerUrl,
+        "https://i3d204.p.ssafy.io/api" + summonerUrl,
         {
           name: this.state.name,
           phoneNumber: this.state.phoneNumber,
