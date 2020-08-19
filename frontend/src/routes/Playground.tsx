@@ -12,7 +12,6 @@ interface State {
   mode: string;
   user_detail: any;
   books: Array<any>;
-  temp: Array<any>;
   bookNo: string;
   main_mode: StatusTypes;
   page: number;
@@ -29,7 +28,6 @@ class Playground extends React.Component<Props, State> {
       mode: "Main",
       user_detail: null,
       books: [],
-      temp: [1, 2],
       bookNo: "12",
       main_mode: "Home",
       page: 0,
@@ -59,7 +57,7 @@ class Playground extends React.Component<Props, State> {
     await axios
       .get(URL)
       .then((res: any) => {
-        console.log(res);
+        console.log(res.data.title);
         this.setState({
           books: this.state.books.concat({
             bookNo: res.data.bookNo,
@@ -100,7 +98,7 @@ class Playground extends React.Component<Props, State> {
     axios
       .get("https://i3d204.p.ssafy.io/api/user/detail", config)
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         this.setState({
           user_detail: {
             name: data.name,
@@ -111,13 +109,16 @@ class Playground extends React.Component<Props, State> {
             mybooks: data.userBooks,
           },
         });
+        // eslint-disable-next-line array-callback-return
         data.userBooks.map((element: any) => {
           if (element.recentBook !== 0) {
             this.setState({
               recentBook: element.bookNo,
             });
+            this.getBook(element.bookNo, element.pageNo);
+          } else {
+            this.getBook(element.bookNo, element.pageNo);
           }
-          this.getBook(element.bookNo, element.pageNo);
         });
       })
       .catch((e) => {
@@ -148,7 +149,6 @@ class Playground extends React.Component<Props, State> {
     await axios
       .put("https://i3d204.p.ssafy.io/api/book/bookmark", obj, undefined)
       .then((res) => {
-        console.log(res);
         this.setState({
           books: [],
         });
@@ -158,6 +158,7 @@ class Playground extends React.Component<Props, State> {
       .catch((error) => {
         console.log(error.response);
       });
+    this.loadDetail();
   };
 
   componentDidMount() {
