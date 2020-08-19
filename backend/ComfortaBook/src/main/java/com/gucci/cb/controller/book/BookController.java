@@ -104,20 +104,13 @@ public class BookController {
 		return new ResponseEntity<List<BestSeller>>(bookService.findBSAll(), HttpStatus.OK);
 	}
 	
-	// 책갈피 기능
+	// 책갈피 기능 및 최근 본책 저장
 	@ApiOperation(value = "책갈피 기능", response = UserBooks.class)
 	@PutMapping("/bookmark")
     public ResponseEntity<UserBooks> updateBookMark(@RequestBody UserBooks userBooks) {
+		bookService.updateRecentBook(userBooks);
         bookService.updateBookMark(userBooks);
         return new ResponseEntity<UserBooks>(userBooks, HttpStatus.OK);
     }
-	
-	// 최근 본 책 저장
-	@ApiOperation(value = "최근 본 책 저장", response = UserBooks.class)
-	@PutMapping("/recent")
-	public ResponseEntity<UserBooks> updateRecentBook(@RequestBody UserBooks userBooks) {
-		bookService.updateRecentBook(userBooks);
-		return new ResponseEntity<UserBooks>(userBooks, HttpStatus.OK);
-	}
 	
 }
