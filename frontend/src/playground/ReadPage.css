@@ -1,0 +1,11 @@
+.loader {
+  height: 1024px;
+  background-color: #fce4ec;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1024px;
+}

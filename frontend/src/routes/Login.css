@@ -48,3 +48,7 @@
 .Login .hidden {
   display: none;
 }
+
+.Login .hg-theme-default {
+  width: 768px !important;
+}
