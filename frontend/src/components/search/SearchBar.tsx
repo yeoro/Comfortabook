@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,7 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import { pink } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
-import Keyboard from "./Keyboard";
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 import * as Hangul from "hangul-js";
 
 import "./SearchBar.css";
@@ -69,15 +70,49 @@ function SearchBar(props: any) {
   // const inputChange = (event: React.ChangeEvent<{ value: unknown }>) => {
   //   setInput(event.target.value as string);
   // };
-  const onChangeInput = (event: any): void => {
-    const input = Hangul.assemble(event);
-    if (!!input === true) {
-      setInput(event);
+
+  const [layoutName, setLayoutName] = useState("default");
+
+  const onChangeAll = (inputs: any) => {
+    if (!!inputs.default === false) {
+      inputs.default = "";
     } else {
-      setInput("");
+      inputs.default = Hangul.assemble(inputs.default);
     }
-    keyboard.current.setInput(input);
+    setInput(inputs.default);
   };
+
+  const handleShift = () => {
+    if (layoutName === "default" || layoutName === "shift") {
+      let newLayoutName = layoutName === "default" ? "shift" : "default";
+      setLayoutName(newLayoutName);
+    } else {
+      let newLayoutName = layoutName === "kdefault" ? "kshift" : "kdefault";
+      setLayoutName(newLayoutName);
+    }
+  };
+
+  const onKeyPress = (button: any) => {
+    if (button === "{shift}") handleShift();
+    if (button === "{close}") {
+      setKeyboardOpen(false);
+    }
+    if (button === "{language}") {
+      const newLayoutName =
+        layoutName === "kdefault" || layoutName === "kshift"
+          ? "default"
+          : "kdefault";
+      setLayoutName(newLayoutName);
+    }
+  };
+
+  const onChangeInput = (event: any) => {
+    const inputVal = event.target.value;
+    setInput(inputVal);
+
+    keyboard.current.setInput(inputVal);
+  };
+
   const updateInput = () => {
     setSearchText(input);
   };
@@ -119,7 +154,7 @@ function SearchBar(props: any) {
           value={input}
           className={classes.textField}
           placeholder="검색어를 입력하세요."
-          onChange={onChangeInput}
+          onChange={(e: any) => onChangeInput(e)}
           onKeyPress={handleKeyPress}
         />
         <Button className={classes.button} onClick={sendData}>
@@ -128,9 +163,40 @@ function SearchBar(props: any) {
       </form>
       <div className={`${!keyboardOpen ? "hidden" : ""}`}>
         <Keyboard
-          onChange={onChangeInput}
-          keyboardRef={keyboard}
-          setKeyboardOpen={setKeyboardOpen}
+          keyboardRef={(r: any) => (keyboard.current = r)}
+          layoutName={layoutName}
+          onChangeAll={onChangeAll}
+          onKeyPress={onKeyPress}
+          layout={{
+            default: [
+              "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+              "{tab} q w e r t y u i o p [ ] \\",
+              "{language} a s d f g h j k l ; ' {enter}",
+              "{shift} z x c v b n m , . / {shift}",
+              ".com @ {space} {close}",
+            ],
+            shift: [
+              "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+              "{tab} Q W E R T Y U I O P { } |",
+              '{language} A S D F G H J K L : " {enter}',
+              "{shift} Z X C V B N M < > ? {shift}",
+              ".com @ {space} {close}",
+            ],
+            kdefault: [
+              "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+              "{tab} ㅂ ㅈ ㄷ ㄱ ㅅ ㅛ ㅕㅑㅑ ㅐ ㅔ [ ] \\",
+              '{language} ㅁ ㄴ ㅇ ㄹ ㅎ ㅗ ㅓ ㅏ ㅣ : " {enter}',
+              "{shift} ㅋ ㅌ ㅊ ㅍ ㅠ ㅜ ㅡ , . / {shift}",
+              ".com @ {space} {close}",
+            ],
+            kshift: [
+              "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+              "{tab} ㅃ ㅉ ㄸ ㄲ ㅆ ㅛ ㅕㅑㅑ ㅒ ㅖ { } |",
+              '{language} ㅁ ㄴ ㅇ ㄹ ㅎ ㅗ ㅓ ㅏ ㅣ : " {enter}',
+              "{shift} ㅋ ㅌ ㅊ ㅍ ㅠ ㅜ ㅡ < > ? {shift}",
+              ".com @ {space} {close}",
+            ],
+          }}
         />
       </div>
     </div>

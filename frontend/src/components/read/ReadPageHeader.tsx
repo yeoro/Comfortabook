@@ -13,7 +13,7 @@ type StatusTypes = "20" | "30" | "40";
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "768px",
     height: "5%",
     position: "fixed",
     top: "0",
