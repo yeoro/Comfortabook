@@ -11,6 +11,8 @@ import ReadPageFooter from "../components/read/ReadPageFooter";
 import ReadPageHeader from "../components/read/ReadPageHeader";
 // import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/read/ReadCarousel";
+import Loading from "../img/loading.jpg";
+import "./ReadPage.css";
 import axios from "axios";
 import { History } from "history";
 
@@ -164,7 +166,7 @@ class Read extends React.Component<sProps, State> {
       <div className={classes.root}>
         {isLoading ? (
           <div className="loader">
-            <span className="loader__text">Loading...</span>
+            <span className="loading">LOADING...</span>
           </div>
         ) : (
           <div className="read-page">
