@@ -5,6 +5,7 @@ import {
   WithStyles,
   withStyles,
   Paper,
+  Button,
 } from "@material-ui/core";
 // import thumbnail from "../img/thumbnail.jpg";
 import ReadPageFooter from "../components/read/ReadPageFooter";
@@ -12,6 +13,7 @@ import ReadPageHeader from "../components/read/ReadPageHeader";
 // import scrollIntoView from "scroll-into-view-if-needed";
 import ReadCarousel from "../components/read/ReadCarousel";
 import Loading from "../img/loading.jpg";
+import Guide from "./Guide";
 import "./ReadPage.css";
 import axios from "axios";
 import { History } from "history";
@@ -53,6 +55,8 @@ interface State {
   page: number;
   p: number;
   isLoading: boolean;
+  mode: string;
+  guideOpen: boolean;
 }
 
 type StatusTypes = "20" | "30" | "40";
@@ -70,6 +74,8 @@ class Read extends React.Component<sProps, State> {
       },
       page: 0,
       p: 1,
+      mode: "Read",
+      guideOpen: true,
     };
   }
   changeSize = (value: StatusTypes) => {
@@ -128,11 +134,29 @@ class Read extends React.Component<sProps, State> {
   };
 
   componentDidMount() {
+    if (this.state.page !== 0) {
+      this.setState({
+        guideOpen: false,
+      });
+    }
     this.getRead();
     this.setState({
       page: this.props.page,
     });
   }
+
+  guideClose = () => {
+    this.setState({
+      guideOpen: false,
+    });
+  };
+
+  guideOn = (e: any) => {
+    e.preventDefault();
+    this.setState({
+      guideOpen: true,
+    });
+  };
 
   componentWillUnmount() {
     this.props.readbook({
@@ -166,10 +190,18 @@ class Read extends React.Component<sProps, State> {
                 className={this.state.className}
               />
             </Paper>
+            <Button variant="outlined" className="guide" onClick={this.guideOn}>
+              가이드
+            </Button>
             <ReadPageFooter
               pagenum={this.state.page}
               movePage={this.movePage}
               page={this.state.book.bookbody.length}
+            />
+            <Guide
+              mode={this.state.mode}
+              guideOpen={this.state.guideOpen}
+              guideClose={this.guideClose}
             />
           </div>
         )}
