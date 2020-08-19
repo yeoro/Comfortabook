@@ -92,7 +92,7 @@ class Read extends React.Component<sProps, State> {
   };
   movePage = (value: number) => {
     if (value === 0) {
-      let node = document.getElementsByTagName("h1")[0];
+      let node = document.getElementsByTagName("img")[0];
       node.scrollIntoView({
         behavior: "smooth",
         block: "end",
@@ -119,6 +119,7 @@ class Read extends React.Component<sProps, State> {
           book: {
             title: res.data.title,
             bookbody: res.data.bookContents,
+            cover: res.data.cover,
           },
         });
       })
@@ -127,23 +128,6 @@ class Read extends React.Component<sProps, State> {
       });
   };
 
-  getRecentBook = async () => {
-    await axios
-      .put(
-        "https://i3d204.p.ssafy.io/api/book/recent",
-        {
-          bookNo: this.props.bookNo,
-          userNo: this.props.userno,
-        },
-        undefined
-      )
-      .then(() => {
-        console.log("최근 성공");
-      })
-      .catch((err: any) => {
-        console.log(err.response);
-      });
-  };
   componentDidMount() {
     this.getRead();
     this.setState({
@@ -157,7 +141,6 @@ class Read extends React.Component<sProps, State> {
       pageNo: this.state.page,
       userNo: this.props.userno,
     });
-    this.getRecentBook();
   }
   render() {
     const { classes } = this.props;

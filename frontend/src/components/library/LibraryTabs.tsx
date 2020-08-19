@@ -78,7 +78,7 @@ export default function SimpleTabs(props: bProps) {
             aria-label="simple tabs example"
           >
             <Tab className={classes.tabs} label="MY BOOKS" {...a11yProps(0)} />
-            <Tab className={classes.tabs} label="RESCENT" {...a11yProps(1)} />
+            <Tab className={classes.tabs} label="RECENT" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>

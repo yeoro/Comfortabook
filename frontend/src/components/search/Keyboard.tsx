@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, MutableRefObject } from "react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import * as Hangul from "hangul-js";
+// import * as Hangul from "hangul-js";
 
 interface IProps {
   onChange: (input: string) => void;
@@ -40,20 +40,19 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
     }
   };
 
-  const onChangeAll = (inputs: any) => {
-    if (!!inputs.default === false) {
-      inputs.default = "";
-    } else {
-      inputs.default = Hangul.assemble(inputs.default);
-    }
-    onChange(inputs.default);
-  };
+  // const onChangeAll = (inputs: any) => {
+  //   if (!!inputs.default === false) {
+  //     inputs.default = "";
+  //   } else {
+  //     inputs.default = Hangul.assemble(inputs.default);
+  //   }
+  // };
 
   return (
     <Keyboard
       keyboardRef={(r: any) => (keyboardRef.current = r)}
       layoutName={layoutName}
-      onChangeAll={onChangeAll}
+      onChange={onChange}
       onKeyPress={onKeyPress}
       layout={{
         default: [
