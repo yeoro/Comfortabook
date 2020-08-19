@@ -66,3 +66,7 @@
 .Signup .hidden {
   display: none;
 }
+
+.Signup .hg-theme-default {
+  width: 768px !important;
+}
