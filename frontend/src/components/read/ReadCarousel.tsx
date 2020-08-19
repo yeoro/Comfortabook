@@ -31,9 +31,9 @@ function Readcarousel(props: Props) {
         renderBottomCenterControls={null}
         heightMode="max"
       >
-        <div>
-          <h1 id="book">{props.book.title}</h1>
-          {/* <img src={thumbnail} alt="thumbnail"></img> */}
+        <div className="image-container">
+          {/* <h1 id="book">{props.book.title}</h1> */}
+          <img className="cover" src={props.book.cover} alt="thumbnail"></img>
         </div>
         {props.book.bookbody.map((body: any, i: number) => {
           return (

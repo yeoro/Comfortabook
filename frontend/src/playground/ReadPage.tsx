@@ -92,7 +92,7 @@ class Read extends React.Component<sProps, State> {
   };
   movePage = (value: number) => {
     if (value === 0) {
-      let node = document.getElementsByTagName("h1")[0];
+      let node = document.getElementsByTagName("img")[0];
       node.scrollIntoView({
         behavior: "smooth",
         block: "end",
@@ -119,6 +119,7 @@ class Read extends React.Component<sProps, State> {
           book: {
             title: res.data.title,
             bookbody: res.data.bookContents,
+            cover: res.data.cover,
           },
         });
       })
