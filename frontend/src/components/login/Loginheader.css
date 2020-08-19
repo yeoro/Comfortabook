@@ -1,6 +1,7 @@
 .login-header {
   top: 3px;
-  left: 364px;
+  left: 50%;
+  transform: translateX(-40%);
   position: absolute;
   width: 40px;
   margin-top: 3px;

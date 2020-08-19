@@ -1,7 +1,7 @@
 import React from "react";
 import axios, { AxiosResponse } from "axios";
 
-import BookList from "./BookList";
+import BookList from "../search/BookList";
 import "./RecommendBook.css";
 
 export interface Props {

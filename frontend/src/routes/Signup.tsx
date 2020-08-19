@@ -13,6 +13,7 @@ import "react-simple-keyboard/build/css/index.css";
 
 import Loginheader from "../components/login/Loginheader";
 import "./Signup.css";
+import * as Hangul from "hangul-js";
 
 const useStyles = makeStyles({
   root: {
@@ -72,7 +73,6 @@ function Signup(props: any) {
 
   const onChangeInput = (event: any) => {
     const inputVal = event.target.value;
-
     setSignup({
       ...signup,
       [inputName]: inputVal,
@@ -239,10 +239,12 @@ function Signup(props: any) {
   const [keyboardOpen, setKeyboardOpen] = useState(false);
 
   const onChangeAll = (inputs: any) => {
-    /**
-     * Here we spread the inputs into a new object
-     * If we modify the same object, react will not trigger a re-render
-     */
+    if (!!inputs.name === false) {
+      inputs.name = "";
+    } else {
+      inputs.name = Hangul.assemble(inputs.name);
+    }
+
     setSignup({ ...inputs });
   };
   const handleShift = () => {
