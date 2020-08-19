@@ -34,7 +34,7 @@ export default function SimpleCard(props: Props) {
   const delMybook = async () => {
     await axios
       .delete(
-        `http://i3d204.p.ssafy.io:9999/book/deleteMyBook/u=${props.no}&b=${props.book.bookNo}`
+        `https://i3d204.p.ssafy.io/api/book/deleteMyBook/u=${props.no}&b=${props.book.bookNo}`
       )
       .then(() => {
         console.log("삭제 완료");

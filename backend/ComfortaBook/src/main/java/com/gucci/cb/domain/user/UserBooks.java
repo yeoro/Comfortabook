@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.gucci.cb.domain.book.Book;
 
 import lombok.AllArgsConstructor;
@@ -29,10 +31,30 @@ public class UserBooks {
 	@Column(name = "book_no", nullable = false)
 	private Long bookNo;
 	
+	@Column(name = "page_no")
+	@ColumnDefault("0")
+	private Long pageNo;
+	
+	@Column(name = "recent_book")
+	@ColumnDefault("0")
+	private int recentBook;
+	
 	@Builder
 	public UserBooks(User user, Book book) {
 		this.userNo = user.getUserNo();
 		this.bookNo = book.getBookNo();
+	}
+	
+	public void updateBookMark(Long pageNo) {
+		this.pageNo = pageNo;
+	}
+	
+	public void updateRecentBook() {
+		this.recentBook = 1;
+	}
+	
+	public void initRecentBook() {
+		this.recentBook = 0;
 	}
 	
 }

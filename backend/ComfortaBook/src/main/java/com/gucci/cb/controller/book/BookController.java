@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
+import com.gucci.cb.domain.user.User;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.service.book.BookService;
@@ -44,11 +47,13 @@ public class BookController {
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
 	@GetMapping("/list")
-	public ResponseEntity<Page<Book>> retrieveBook(final Pageable pageable) {
+	public ResponseEntity<Page<Book>> retrieveBook(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "keyword",  required = false) String keyword, final Pageable pageable) {
 //		Page<Book> books = bookRepository.findAll(pageable);
 //		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
-		
-		return new ResponseEntity<Page<Book>>(bookService.findAll(pageable), HttpStatus.OK);
+		if(type == null || keyword == null) {
+			return new ResponseEntity<Page<Book>>(bookService.findAll("all", "all", pageable), HttpStatus.OK);
+		}
+		return new ResponseEntity<Page<Book>>(bookService.findAll(type, keyword, pageable), HttpStatus.OK);
 		
 //		List<Book> books = bookService.findAll();
 //		return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
@@ -73,7 +78,7 @@ public class BookController {
 	@ApiOperation(value = "도서 삭제")
 	@DeleteMapping("/delete/{bookNo}")
 	public ResponseEntity<Void> deleteBook(@PathVariable("bookNo") Long bookNo){
-		bookService.deleteByNo(bookNo);
+		bookService.delete(bookNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -83,4 +88,29 @@ public class BookController {
 	public ResponseEntity<UserBooks> insertMyBook(@RequestBody UserBooks userBooks) {
 		return new ResponseEntity<UserBooks>(bookService.insertByNo(userBooks), HttpStatus.OK);
 	}
+	
+	// 내 도서 삭제
+	@ApiOperation(value = "내 도서 삭제")
+	@DeleteMapping("/deleteMyBook/u={userNo}&b={bookNo}")
+	public ResponseEntity<Void> deleteMyBook(@PathVariable("userNo") Long userNo, @PathVariable("bookNo") Long bookNo){
+		bookService.deleteByNo(userNo, bookNo);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	// 알라딘 베스트 셀러
+	@ApiOperation(value = "알라딘 베스트 셀러")
+	@GetMapping("/bestSeller")
+	public ResponseEntity<List<BestSeller>> retrieveBS(){
+		return new ResponseEntity<List<BestSeller>>(bookService.findBSAll(), HttpStatus.OK);
+	}
+	
+	// 책갈피 기능 및 최근 본책 저장
+	@ApiOperation(value = "책갈피 기능", response = UserBooks.class)
+	@PutMapping("/bookmark")
+    public ResponseEntity<UserBooks> updateBookMark(@RequestBody UserBooks userBooks) {
+		bookService.updateRecentBook(userBooks);
+        bookService.updateBookMark(userBooks);
+        return new ResponseEntity<UserBooks>(userBooks, HttpStatus.OK);
+    }
+	
 }

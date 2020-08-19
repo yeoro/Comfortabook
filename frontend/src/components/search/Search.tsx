@@ -19,7 +19,7 @@ function Search(props: Props) {
     let summonerUrl = "/book/list";
     axios
       .get(
-        "http://i3d204.p.ssafy.io:9999" +
+        "https://i3d204.p.ssafy.io/api" +
           summonerUrl +
           `?type=${selectData}&keyword=${valueData}`,
         undefined

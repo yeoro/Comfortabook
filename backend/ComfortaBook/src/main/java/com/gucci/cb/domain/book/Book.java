@@ -1,9 +1,7 @@
 package com.gucci.cb.domain.book;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 import com.gucci.cb.domain.user.UserBooks;
 
@@ -57,7 +53,7 @@ public class Book {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book_no"))
-	private List<BookContents> bookContents;
+	private Collection<BookContents> bookContents;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_no", foreignKey = @ForeignKey(name = "FK_book"))

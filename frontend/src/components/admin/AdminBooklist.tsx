@@ -23,7 +23,7 @@ class AdminBooklist extends React.Component<Props, State> {
   }
 
   getBook = async () => {
-    const URL = "http://i3d204.p.ssafy.io:9999/book/list";
+    const URL = "https://i3d204.p.ssafy.io/api/book/list";
     await axios
       .get(URL)
       .then((res: any) => {
@@ -38,7 +38,7 @@ class AdminBooklist extends React.Component<Props, State> {
   };
 
   onDelete = async (event: any) => {
-    const URL = `http://i3d204.p.ssafy.io:9999/book/delete/${event.target.dataset.id}`;
+    const URL = `https://i3d204.p.ssafy.io/api/book/delete/${event.target.dataset.id}`;
     await axios
       .delete(URL)
       .then((res: any) => {

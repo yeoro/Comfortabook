@@ -20,7 +20,7 @@ class RecommendBook extends React.Component {
   getBestseller = async () => {
     let summonerUrl = "/book/bestSeller";
     await axios
-      .get("http://i3d204.p.ssafy.io:9999" + summonerUrl, undefined)
+      .get("https://i3d204.p.ssafy.io/api" + summonerUrl, undefined)
       .then((res: AxiosResponse) => {
         this.setState({
           bestSeller: res.data,
