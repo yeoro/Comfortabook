@@ -27,3 +27,16 @@
 .read-carousel button {
   background: rgba(0, 0, 0, 0.2) !important;
 }
+
+.read-carousel .cover {
+  width: 90%;
+  height: auto;
+}
+.read-carousel .image-container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 900px;
+}
