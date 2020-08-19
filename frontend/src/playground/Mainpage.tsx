@@ -3,6 +3,8 @@ import { History } from "history";
 // import axios from "axios";
 import swal from "sweetalert";
 
+import { Button } from "@material-ui/core";
+
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Search from "../components/search/Search";
@@ -12,6 +14,7 @@ import Library from "../components/library/Library";
 import Auth from "../components/login/Authservice";
 
 import "./Mainpage.css";
+import Guide from "./Guide";
 
 interface Props {
   modevalue: StatusTypes;
@@ -21,6 +24,9 @@ interface Props {
   user_detail: any;
   books: Array<any>;
   recentBook: number;
+  guideOpen: boolean;
+  guideClose: () => void;
+  guideOn: (e: any) => void;
 }
 interface State {
   mode: StatusTypes;
@@ -104,7 +110,19 @@ class Mainpage extends React.Component<Props, State> {
       <div className="mainpage">
         <Header />
         {this.getPage()}
+        <Button
+          variant="outlined"
+          className="guide"
+          onClick={this.props.guideOn}
+        >
+          가이드
+        </Button>
         <Footer changePage={this.changePage} />
+        <Guide
+          mode={this.state.mode}
+          guideOpen={this.props.guideOpen}
+          guideClose={this.props.guideClose}
+        />
       </div>
     );
   }
