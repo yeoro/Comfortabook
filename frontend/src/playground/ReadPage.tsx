@@ -122,23 +122,6 @@ class Read extends React.Component<sProps, State> {
       });
   };
 
-  getRecentBook = async () => {
-    await axios
-      .put(
-        "http://i3d204.p.ssafy.io:9999/book/recent",
-        {
-          bookNo: this.props.bookNo,
-          userNo: this.props.userno,
-        },
-        undefined
-      )
-      .then(() => {
-        console.log("최근 성공");
-      })
-      .catch((err: any) => {
-        console.log(err.response);
-      });
-  };
   componentDidMount() {
     this.getRead();
     this.setState({
@@ -152,7 +135,6 @@ class Read extends React.Component<sProps, State> {
       pageNo: this.state.page,
       userNo: this.props.userno,
     });
-    this.getRecentBook();
   }
   render() {
     const { classes } = this.props;
