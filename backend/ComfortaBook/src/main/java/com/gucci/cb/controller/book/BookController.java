@@ -47,7 +47,7 @@ public class BookController {
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
 	@GetMapping("/list")
-	public ResponseEntity<Page<Book>> retrieveBook(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "keyword",  required = false) String keyword, @PageableDefault(size = 5) final Pageable pageable) {
+	public ResponseEntity<Page<Book>> retrieveBook(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "keyword",  required = false) String keyword, @PageableDefault(size = 10) final Pageable pageable) {
 //		Page<Book> books = bookRepository.findAll(pageable);
 //		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
 		if(type == null || keyword == null) {
