@@ -36,10 +36,11 @@ class Favorites extends React.Component<Props> {
       <Grid container className={classes.root}>
         <Grid container item className={classes.list}>
           <Grid container item spacing={2} justify="space-between">
-            {this.props.mybooks.map((element: any) => {
+            {this.props.mybooks.map((element: any, i: number) => {
               return (
                 <Grid item xs={5}>
                   <Bookcard
+                    number={i + 1}
                     book={element}
                     no={this.props.no}
                     gotoread={this.props.gotoread}

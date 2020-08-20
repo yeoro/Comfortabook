@@ -1,6 +1,10 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import PersonIcon from "@material-ui/icons/Person";
+import HomeIcon from "@material-ui/icons/Home";
+import SearchIcon from "@material-ui/icons/Search";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 
 function getModalStyle() {
   return {
@@ -45,14 +49,19 @@ export default function SimpleModal(props: Props) {
         <h2>기본적인 하단메뉴에 대한 설명과 이용방법</h2>
         <ol>
           <li>
-            <h3>홈</h3>
+            <h3>
+              홈<HomeIcon />
+            </h3>
             <p>
               현재 들어와 있는 페이지로써 도서 추천과 명언으로 이루어진 독서애
               대한 욕망을 불러 일으킬 수 있는 페이지 입니다.
             </p>
           </li>
           <li>
-            <h3>검색</h3>
+            <h3>
+              검색
+              <SearchIcon />
+            </h3>
             <p>
               저희 사이트에 포함되어 있는 책들을 검색 할 수 있는 페이지입니다.
               유저 본인 보다는 보호자를 위한 페이지입니다. 페이지 속 추가
@@ -60,7 +69,10 @@ export default function SimpleModal(props: Props) {
             </p>
           </li>
           <li>
-            <h3>도서</h3>
+            <h3>
+              도서
+              <LibraryBooksIcon />
+            </h3>
             <p>
               책을 보기 위해 이용해야하는 페이지 입니다. 유저가 고른 책들과 가장
               최근에 읽은 책을 저장 한 페이지도 포함하여 지속적인 독서에 많은
@@ -68,7 +80,10 @@ export default function SimpleModal(props: Props) {
             </p>
           </li>
           <li>
-            <h3>관리</h3>
+            <h3>
+              관리
+              <PersonIcon />
+            </h3>
             <p>
               유저의 로그아웃 그리고 유저 정보 수정의 도움을 주는 페이지입니다.
               이 페이지에도 음성으로 제어가능한 기능이 없습니다.
@@ -92,7 +107,8 @@ export default function SimpleModal(props: Props) {
         <h1>독서목록 페이지 이용방법</h1>
         <ol>
           <li>
-            <h2>나의 도서 목록 이용방법</h2>
+            <h2>보유도서 이용방법</h2>
+            <h3>"목록"이라고 입력하시면 보유도서 페이지로 이동가능 합니다.</h3>
             <h3>
               각 도서의 번호를 말씀하시면 각 도서를 읽는 페이지로 이동합니다.
             </h3>
@@ -101,7 +117,10 @@ export default function SimpleModal(props: Props) {
             </h3>
           </li>
           <li>
-            <h2>최근 읽은 도서 이용방법</h2>
+            <h2>최근 본 도서 이용방법</h2>
+            <h3>
+              "최근"이라고 입력하시면 최근 본 도서 페이지로 이동가능 합니다.
+            </h3>
             <h3>본 페이지는 가장 최근 읽은 도서만 보여지는 페이지입니다.</h3>
             <h3>"실행"이라고 말씀하시면 본 도서 읽기 페이지로 이동합니다.</h3>
           </li>
