@@ -76,6 +76,8 @@ Library
 - JWT
 - JPA
 - Spring Boot
+- Kakao API
+- Aladin API
 - Tenserflow Lite
 
 ETC
