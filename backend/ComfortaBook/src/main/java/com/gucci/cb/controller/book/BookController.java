@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gucci.cb.domain.book.BestSeller;
 import com.gucci.cb.domain.book.Book;
-import com.gucci.cb.domain.user.User;
 import com.gucci.cb.domain.user.UserBooks;
 import com.gucci.cb.dto.book.BookDTO;
 import com.gucci.cb.service.book.BookService;
@@ -47,7 +47,7 @@ public class BookController {
 	// 전체 도서 조회
 	@ApiOperation(value = "전체 도서 조회", response = List.class)
 	@GetMapping("/list")
-	public ResponseEntity<Page<Book>> retrieveBook(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "keyword",  required = false) String keyword, final Pageable pageable) {
+	public ResponseEntity<Page<Book>> retrieveBook(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "keyword",  required = false) String keyword, @PageableDefault(size = 5) final Pageable pageable) {
 //		Page<Book> books = bookRepository.findAll(pageable);
 //		return new ResponseEntity<Page<Book>>(books, HttpStatus.OK);
 		if(type == null || keyword == null) {
