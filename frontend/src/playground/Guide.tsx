@@ -40,7 +40,7 @@ export default function SimpleModal(props: Props) {
 
   let body = (
     <div style={modalStyle} className={classes.paper}>
-      <h1>현재 페이지는 가이드가 존재하지 않는 페이지입니다.</h1>
+      <h1>현재 페이지는 도움말이 존재하지 않는 페이지입니다.</h1>
     </div>
   );
   if (props.mode === "Home") {
@@ -48,7 +48,7 @@ export default function SimpleModal(props: Props) {
       <div style={modalStyle} className={classes.paper}>
         <h1>반갑습니다.</h1>
         <h3>
-          -저희 서비스를 원활하게 이용하시는데에 도움이 될 수 있는 가이드입니다-
+          -저희 서비스를 원활하게 이용하시는데에 도움이 될 수 있는 도움말입니다-
         </h3>
         <h2>기본적인 하단메뉴에 대한 설명과 이용방법</h2>
         <ol>
@@ -102,7 +102,7 @@ export default function SimpleModal(props: Props) {
           모든 페이지에는 각 페이지의 기능에 대한 설명을 포함하는 가이드가
           있습니다
         </p>
-        <h2>가이드는 "가이드"라고 말씀하시면 켜고 끄실 수 있습니다</h2>
+        <h2>도움말은 "도움"이라고 말씀하시면 켜고 끄실 수 있습니다</h2>
       </div>
     );
   } else if (props.mode === "Library") {
@@ -129,7 +129,7 @@ export default function SimpleModal(props: Props) {
             <h3>"실행"이라고 말씀하시면 본 도서 읽기 페이지로 이동합니다.</h3>
           </li>
         </ol>
-        <h2>가이드는 "가이드"라고 말씀하시면 켜고 끄실 수 있습니다</h2>
+        <h2>도움말은 "도움"이라고 말씀하시면 켜고 끄실 수 있습니다</h2>
       </div>
     );
   } else if (props.mode === "Read") {
@@ -163,7 +163,7 @@ export default function SimpleModal(props: Props) {
             </h3>
           </li>
         </ol>
-        <h2>가이드는 "가이드"라고 말씀하시면 켜고 끄실 수 있습니다</h2>
+        <h2>도움말은 "도움"이라고 말씀하시면 켜고 끄실 수 있습니다</h2>
       </div>
     );
   }
