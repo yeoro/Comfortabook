@@ -27,6 +27,7 @@ interface Props {
   book: any;
   no: any;
   gotoread: (bookNo: string, page: number) => void;
+  number: number;
 }
 
 export default function SimpleCard(props: Props) {
@@ -51,10 +52,13 @@ export default function SimpleCard(props: Props) {
 
   return (
     <Card className={classes.root}>
-      <Grid container justify="flex-start">
+      <Grid container justify="center">
         <Grid item>
           <Button onClick={read}>
             <CardContent>
+              <Typography variant="h4" component="h4">
+                {props.number}
+              </Typography>
               <Typography variant="h6" component="h6">
                 {props.book.title}
               </Typography>
