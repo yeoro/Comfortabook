@@ -158,7 +158,6 @@ class Playground extends React.Component<Props, State> {
       .catch((error) => {
         console.log(error.response);
       });
-    this.loadDetail();
   };
 
   componentDidMount() {

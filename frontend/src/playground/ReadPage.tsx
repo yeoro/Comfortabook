@@ -135,7 +135,7 @@ class Read extends React.Component<sProps, State> {
   };
 
   componentDidMount() {
-    if (this.state.page !== 0) {
+    if (this.props.page !== 0) {
       this.setState({
         guideOpen: false,
       });
