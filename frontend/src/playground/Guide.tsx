@@ -38,7 +38,11 @@ export default function SimpleModal(props: Props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
-  let body = <h1>현재 페이지는 가이드가 존재하지 않는 페이지입니다.</h1>;
+  let body = (
+    <div style={modalStyle} className={classes.paper}>
+      <h1>현재 페이지는 가이드가 존재하지 않는 페이지입니다.</h1>
+    </div>
+  );
   if (props.mode === "Home") {
     body = (
       <div style={modalStyle} className={classes.paper}>
