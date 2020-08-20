@@ -115,7 +115,7 @@ class Mainpage extends React.Component<Props, State> {
           className="guide"
           onClick={this.props.guideOn}
         >
-          가이드
+          도움말
         </Button>
         <Footer changePage={this.changePage} />
         <Guide

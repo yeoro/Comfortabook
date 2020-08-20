@@ -192,7 +192,7 @@ class Read extends React.Component<sProps, State> {
               />
             </Paper>
             <Button variant="outlined" className="guide" onClick={this.guideOn}>
-              가이드
+              도움말
             </Button>
             <ReadPageFooter
               pagenum={this.state.page}
