@@ -1,4 +1,5 @@
 # :books: Comfortabook
+<br><br>
 
 ## :closed_book: 프로젝트 소개
 
@@ -9,18 +10,21 @@ comfortabook은 중증 장애인을 위한 독서보조기기 입니다.
 저희는 많은 고객분들이 독서하는데 보호자의 도움 없이 책을 보기 힘든 중증 장애인들을 위하여 보호자의 도움을 최소화하 스스로 독서할 수 있는 환경을 제공해 주는 것이 저희의 목표입니다.
 
 저희 제품은 음성제어를 통해서 고객분들이 책을 찾아가고 펴고 넘기고 접는 등의  동작을 제어합니다.
+<br><br>
 
 ## :orange_book: 프로젝트 산출물
 
 - [프로젝트 계획서](https://lab.ssafy.com/s03-webmobile3-sub3/s03p13d204/blob/develop/output/%EA%B3%84%ED%9A%8D%EC%84%9C.docx)
 - [와이어 프레임](https://lab.ssafy.com/s03-webmobile3-sub3/s03p13d204/blob/develop/output/WIreframe.PNG)
 - [ERD](https://lab.ssafy.com/s03-webmobile3-sub3/s03p13d204/blob/develop/output/ERD.PNG)
+<br><br>
 
 ## :ledger: Built With
 사용한 프레임워크
 
 - [React](https://ko.reactjs.org/)
 - [Spring Boot](https://spring.io/projects/spring-boot)
+<br><br>
 
 ## :green_book: Getting Started
 
@@ -50,6 +54,7 @@ REACT_APP_KAKAO_API_KEY=example
 ```bash
 npm run start
 ```
+<br><br>
 
 ## :blue_book: 기술 스택
 
@@ -86,12 +91,14 @@ Library
 ETC
 
 - RestfulApi
+<br><br>
 
 ## :book: 배포사이트
 
 <a href="https://i3d204.p.ssafy.io"><strong>Comfortabook</strong></a>
 
 > 라즈베리 파이 디스플레이에 최적화 되어있음으로 768 * 1024 해상도로 보는 걸 추천합니다.
+<br><br>
 
 ## :man: :woman: Who We Are
 
