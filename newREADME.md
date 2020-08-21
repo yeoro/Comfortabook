@@ -1,5 +1,5 @@
 # :books: Comfortabook
-<br><br>
+<br>
 
 ## :closed_book: 프로젝트 소개
 
@@ -98,6 +98,7 @@ ETC
 <a href="https://i3d204.p.ssafy.io"><strong>Comfortabook</strong></a>
 
 > 라즈베리 파이 디스플레이에 최적화 되어있음으로 768 * 1024 해상도로 보는 걸 추천합니다.
+
 <br><br>
 
 ## :man: :woman: Who We Are
