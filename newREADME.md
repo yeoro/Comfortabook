@@ -1,6 +1,6 @@
 # Comfortabook ![npm](https://img.shields.io/npm/v/npm)
 
-### 프로젝트 소개
+:closed_book: ### 프로젝트 소개
 
 > comfortabook은 중증 장애인을 위한 독서보조기기 입니다.
 >
