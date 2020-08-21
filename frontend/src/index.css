@@ -1,13 +1,36 @@
+@font-face {
+  font-family: "RIDIBatang";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "RIDIBatang", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.MuiButton-label {
+  font-family: "RIDIBatang" !important;
+}
+
+.MuiInputBase-root {
+  font-family: "RIDIBatang" !important;
+}
+
+.MuiFormLabel-root {
+  font-family: "RIDIBatang" !important;
+}
+
+.MuiBottomNavigationAction-label {
+  font-family: "RIDIBatang" !important;
+}
+
+.MuiFormHelperText-root {
+  font-family: "RIDIBatang" !important;
 }

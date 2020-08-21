@@ -1,0 +1,33 @@
+.book {
+  width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.book h5 {
+  font-family: "RIDIBatang" !important;
+  padding-top: 5px;
+  padding-bottom: 8px;
+}
+
+.book h6 {
+  font-family: "RIDIBatang" !important;
+  padding-bottom: 5px;
+}
+
+.add-button {
+  position: absolute;
+  top: 5px;
+  right: -15px;
+  color: rgb(240, 98, 146);
+}
+
+.add-button:hover {
+  color: #f8bbd0;
+  cursor: pointer;
+}
+
+.add-button:active {
+  color: #f8bbd0;
+  cursor: pointer;
+}

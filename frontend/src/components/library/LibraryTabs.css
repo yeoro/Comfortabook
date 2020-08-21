@@ -1,0 +1,24 @@
+.library-tabs .MuiTab-root {
+  max-width: 384px !important;
+}
+
+.library-tabs .MuiTab-textColorInherit {
+  color: #f48fb1 !important;
+}
+
+.library-tabs .Mui-selected {
+  color: #ec407a !important;
+}
+
+.library-tabs .MuiAppBar-colorPrimary {
+  background-color: #fce4ec !important;
+  box-shadow: none;
+}
+
+.library-tabs .MuiTab-wrapper {
+  font-family: "RIDIBatang";
+}
+
+.library-tabs .MuiBox-root {
+  background-color: #fce4ec;
+}

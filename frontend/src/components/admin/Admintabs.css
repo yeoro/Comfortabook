@@ -1,0 +1,24 @@
+.admin .MuiTab-wrapper {
+
+  color: black;
+}
+  
+.admin .MuiButtonBase-root {
+  border: black;
+}
+
+.MuiTab-root {
+  max-width: 384px !important;
+}
+
+.MuiAppBar-colorPrimary {
+  background-color: #e0e0e0 !important;
+}
+
+.admin .MuiTab-wrapper {
+  font-family: "RIDIBatang";
+}
+
+.admin .MuiTabs-indicator {
+  background-color: grey;
+}

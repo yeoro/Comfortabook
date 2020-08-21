@@ -1,0 +1,35 @@
+.book-i-like {
+  width: 600px;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+
+.book-i-like .MuiCardMedia-root {
+  width: "100%";
+  background-size: contain !important;
+  background-position: center !important;
+}
+
+.book-i-like img {
+  width: "500px";
+  margin: "0 auto";
+}
+
+.book-i-like .media {
+  margin-top: 10px;
+  height: 400px;
+}
+
+.book-i-like h1 {
+  font-family: "RIDIBatang" !important;
+  text-align: center;
+}
+
+.book-i-like h3 {
+  font-family: "RIDIBatang" !important;
+  text-align: center;
+}
+
+.book-i-like p {
+  font-family: "RIDIBatang" !important;
+}
