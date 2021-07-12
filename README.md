@@ -1,4 +1,4 @@
-# :books: Comfortabook
+# :books: Comfortabook ![Generic badge](https://img.shields.io/badge/SSAFY-3기-blue.svg)  ![Generic badge](https://img.shields.io/badge/IT포트폴리오-1.0-blue.svg)
 <br>
 
 ## :closed_book: 프로젝트 소개
@@ -56,42 +56,13 @@ npm run start
 ```
 <br><br>
 
-## :blue_book: 기술 스택
+## Display
+![KakaoTalk_20200820_195015102](https://user-images.githubusercontent.com/60080224/95673856-4224f000-0be7-11eb-9cdd-ff9a8237b801.png)
+![KakaoTalk_20200820_194957513](https://user-images.githubusercontent.com/60080224/95673866-510ba280-0be7-11eb-99ea-bb6fd91502d5.png)
+![KakaoTalk_20200820_195059902](https://user-images.githubusercontent.com/60080224/95673878-62ed4580-0be7-11eb-9a26-118f587281b0.png)
+![KakaoTalk_20200820_195157836](https://user-images.githubusercontent.com/60080224/95673884-6ed90780-0be7-11eb-9837-abdae8536762.png)
+![캡처](https://user-images.githubusercontent.com/60080224/95673960-0179a680-0be8-11eb-860a-c52638f81d1b.PNG)
 
-협업 Tool
-
-* [Jira](https://www.atlassian.com/software/jira/)
-* [Mattermost](https://mattermost.com/)
-* [GitLab](https://about.gitlab.com/)
-* [Swagger](https://swagger.io/)
-
-사용 언어
-
-Languege
-* [TypeScript](https://www.typescriptlang.org/)
-* [Java](https://java.com/ko/download/)
-* [Python](https://www.python.org/)
-
-DB
-* [MySQL](https://www.mysql.com/)
-* [MariaDB](https://mariadb.org/)
-
-Library
-
-* [React](https://ko.reactjs.org/)
-* [JWT](https://jwt.io/)
-* [WebSocket](https://en.wikipedia.org/wiki/WebSocket/)
-* [Spring boot](https://spring.io/projects/spring-boot/)
-* [Spring security](https://spring.io/projects/spring-security/)
-* [JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#preface)
-* [Kakao Login API](https://developers.kakao.com/docs/latest/ko/kakaologin/common)
-* [Aladin Open API](https://blog.aladin.co.kr/openapi/5353290)
-* [Tenserflow Lite](https://www.tensorflow.org/lite)
-
-ETC
-
-- RestfulApi
-<br><br>
 
 ## :book: 배포사이트
 
